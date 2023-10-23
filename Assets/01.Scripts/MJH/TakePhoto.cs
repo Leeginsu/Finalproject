@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class TakePhoto : MonoBehaviour
 {
-    // Start is called before the first frame update
     public RawImage photoDisplay;
 
     private void Start()
@@ -22,8 +21,24 @@ public class TakePhoto : MonoBehaviour
     private IEnumerator TakeScreenshot()
     {
         yield return new WaitForEndOfFrame();
-        Texture2D screenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-        screenshot.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+
+        // Capture the RawImage content
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture renderTexture = RenderTexture.GetTemporary(
+            photoDisplay.mainTexture.width,
+            photoDisplay.mainTexture.height
+        );
+        RenderTexture.active = renderTexture;
+
+        // Copy the RawImage texture to the RenderTexture
+        Graphics.Blit(photoDisplay.mainTexture, renderTexture);
+
+        // Create a new Texture2D and read the RenderTexture
+        Texture2D screenshot = new Texture2D(
+            photoDisplay.mainTexture.width,
+            photoDisplay.mainTexture.height
+        );
+        screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         screenshot.Apply();
 
         // Display the screenshot on a UI RawImage
@@ -32,5 +47,9 @@ public class TakePhoto : MonoBehaviour
         // Save the screenshot to the device's photo gallery
         byte[] bytes = screenshot.EncodeToPNG();
         System.IO.File.WriteAllBytes(Application.persistentDataPath + "/screenshot.png", bytes);
+
+        // Clean up RenderTexture
+        RenderTexture.active = currentRT;
+        RenderTexture.ReleaseTemporary(renderTexture);
     }
 }
