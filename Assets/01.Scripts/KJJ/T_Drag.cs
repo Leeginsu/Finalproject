@@ -14,7 +14,7 @@ public class T_Drag : MonoBehaviour
         pos_awal = this.transform.position;
         scale_awal = transform.localScale;
     }
-    
+
     // 마우스 드래그
     private void OnMouseDrag()
     {
@@ -62,6 +62,6 @@ public class T_Drag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
