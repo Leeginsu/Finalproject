@@ -12,7 +12,7 @@ public class LogoSceneManager : MonoBehaviour
         if (Input.anyKey && canLoadScene)
         {
             // 여기에 다음 씬의 이름을 입력합니다.
-            string nextSceneName = "LobbyScene";
+            string nextSceneName = "02. LobbyScene";
             SceneManager.LoadScene(nextSceneName);
         }
         else
