@@ -2,57 +2,125 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using ZXing;
-//using ZXing.QrCode;
+using ZXing;
+using ZXing.QrCode;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.Android;
+using UnityEngine.SceneManagement;
 
 public class CameraAct : MonoBehaviour
 {
-    public RawImage photoDisplay;
+    public RawImage cameraViewImage;
+    public Text resultText;
 
-    private void Start()
+    private WebCamTexture camTexture;
+    private Rect screenRect;
+    private bool isScanning = false;
+    private bool isConnected = false;
+
+    void Start()
     {
-        photoDisplay.texture = null;
+        screenRect = new Rect(0, 0, Screen.width, Screen.height);
     }
 
-    public void CapturePhoto()
+    void Update()
     {
-        StartCoroutine(TakeScreenshot());
+        if (isScanning == true)
+        {
+            print("스캐닝 중");
+            IBarcodeReader barcodeReader = new BarcodeReader();
+
+            Result result = barcodeReader.Decode(camTexture.GetPixels32(), camTexture.width, camTexture.height);
+
+            if (result != null)
+            {
+                Debug.Log("QR Code Scanned: " + result.Text);
+                resultText.text = "QR Code Scanned: " + result.Text;
+                isScanning = false;
+
+
+                if(result.Text == "02. LobbyScene")
+                {
+                    SceneManager.LoadScene("02. LobbyScene");
+                } 
+                //if (!isConnected)
+                //{
+                //    ConnectToPhotonServer(result.Text);
+                //    isConnected = true;
+                //}
+            }
+        }
     }
 
-    private IEnumerator TakeScreenshot()
+    public void StartScanning()
     {
-        yield return new WaitForEndOfFrame();
+        print("22");
+        isScanning = true;
+    }
 
-        // Capture the RawImage content
-        RenderTexture currentRT = RenderTexture.active;
-        RenderTexture renderTexture = RenderTexture.GetTemporary(
-            photoDisplay.mainTexture.width,
-            photoDisplay.mainTexture.height
-        );
-        RenderTexture.active = renderTexture;
+    void ConnectToPhotonServer(string serverAddress)
+    {
+        // Photon 서버 연결 로직 작성
+        PhotonNetwork.ConnectUsingSettings();
+    }
 
-        // Copy the RawImage texture to the RenderTexture
-        Graphics.Blit(photoDisplay.mainTexture, renderTexture);
+    public void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
 
-        // Create a new Texture2D and read the RenderTexture
-        Texture2D screenshot = new Texture2D(
-            photoDisplay.mainTexture.width,
-            photoDisplay.mainTexture.height
-        );
-        screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-        screenshot.Apply();
+    public void OnJoinedLobby()
+    {
+        // Photon 로비에 참가한 후 게임 룸에 입장할 수 있음.
+    }
 
-        // Display the screenshot on a UI RawImage
-        photoDisplay.texture = screenshot;
+    public void CameraOn()
+    {
+        // 카메라 권환 확인
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            Permission.RequestUserPermission(Permission.Camera);
+        }
 
-        // Save the screenshot to the device's photo gallery
-        byte[] bytes = screenshot.EncodeToPNG();
-        System.IO.File.WriteAllBytes(Application.persistentDataPath + "/screenshot.png", bytes);
+        if (WebCamTexture.devices.Length == 0)
+        {
+            Debug.Log("No Camera!");
+            return;
+        }
 
-        // Clean up RenderTexture
-        RenderTexture.active = currentRT;
-        RenderTexture.ReleaseTemporary(renderTexture);
+        WebCamDevice[] devices = WebCamTexture.devices;
+        int selectedCameraIndex = -1;
+
+        for (int i = 0; i < devices.Length; i++)
+        {
+            if (!devices[i].isFrontFacing)
+            {
+                selectedCameraIndex = i;
+                break;
+            }
+        }
+
+        if (selectedCameraIndex >= 0)
+        {
+            camTexture = new WebCamTexture(devices[selectedCameraIndex].name);
+            camTexture.requestedFPS = 30;
+
+            cameraViewImage.texture = camTexture;
+            camTexture.Play();
+            StartScanning();
+        }
+
+        
+    }
+
+    public void CameraOff()
+    {
+        if (camTexture != null)
+        {
+            camTexture.Stop();
+            WebCamTexture.Destroy(camTexture);
+            camTexture = null;
+        }
     }
 }
