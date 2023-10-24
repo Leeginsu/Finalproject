@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class T_Drop : MonoBehaviour
 {
-    public static T_Drop instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
     public GameObject detector;
     Vector3 pos_awal, scale_awal;
     bool on_pos = false;

@@ -30,13 +30,13 @@ public class PlayerMove : MonoBehaviour
             {
                 puzzleCount[0].transform.parent = transform;
                 puzzleCount.RemoveAt(0);
-                T_Drop.instance.space = false;
+                transform.GetComponentInChildren<T_Drop>().space = false;
             }
             else if (transform.childCount > 0)
             {
+                transform.GetComponentInChildren<T_Drop>().space = true;
                 transform.GetChild(0).transform.parent = puzzle.transform;
                 check = false;
-                T_Drop.instance.space = true;
             }
         }
 
