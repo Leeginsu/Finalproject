@@ -30,7 +30,6 @@ public class CameraAct : MonoBehaviour
         {
             print("½ºÄ³´× Áß");
             IBarcodeReader barcodeReader = new BarcodeReader();
-
             Result result = barcodeReader.Decode(camTexture.GetPixels32(), camTexture.width, camTexture.height);
 
             if (result != null)
