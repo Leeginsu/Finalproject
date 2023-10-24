@@ -35,7 +35,7 @@ public class T_Drop : MonoBehaviour
             transform.position = detector.transform.position;
             transform.localScale = new Vector3(0.5f, 0.5f, 0.1f);
         }
-        else if(!on_pos && space)
+        else if (!on_pos && space)
         {
             // 틀렸다면 원위치
             transform.position = pos_awal;

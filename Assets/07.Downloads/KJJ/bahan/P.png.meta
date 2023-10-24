@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gambar_0
+      name: P_0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_1
+      name: P_1
       rect:
         serializedVersion: 2
         x: 660
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_2
+      name: P_2
       rect:
         serializedVersion: 2
         x: 0
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_3
+      name: P_3
       rect:
         serializedVersion: 2
         x: 660
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_5
+      name: P_5
       rect:
         serializedVersion: 2
         x: 2486
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_6
+      name: P_6
       rect:
         serializedVersion: 2
         x: 1826
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_7
+      name: P_7
       rect:
         serializedVersion: 2
         x: 2486
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_8
+      name: P_8
       rect:
         serializedVersion: 2
         x: 898
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_9
+      name: P_9
       rect:
         serializedVersion: 2
         x: 1558
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_4
+      name: P_4
       rect:
         serializedVersion: 2
         x: 1826
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_10
+      name: P_10
       rect:
         serializedVersion: 2
         x: 898
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gambar_11
+      name: P_11
       rect:
         serializedVersion: 2
         x: 1558
@@ -391,18 +391,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      gambar_0: 1340930903
-      gambar_1: -292534306
-      gambar_10: -1033579838
-      gambar_11: 676350791
-      gambar_2: 15377811
-      gambar_3: 1432008429
-      gambar_4: 1390719293
-      gambar_5: 1598924372
-      gambar_6: 275919610
-      gambar_7: 2065264863
-      gambar_8: -1916269147
-      gambar_9: -1693865240
+      P_0: 1340930903
+      P_1: -292534306
+      P_10: -1033579838
+      P_11: 676350791
+      P_2: 15377811
+      P_3: 1432008429
+      P_4: 1390719293
+      P_5: 1598924372
+      P_6: 275919610
+      P_7: 2065264863
+      P_8: -1916269147
+      P_9: -1693865240
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

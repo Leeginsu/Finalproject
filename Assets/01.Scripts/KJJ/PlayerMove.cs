@@ -59,24 +59,11 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        
-        //if(this.transform.childCount <= 0 && Input.GetKeyDown(KeyCode.Space))
-        //{
-        //        other.gameObject.transform.SetParent(this.transform);
-        //}
-        //else
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Space))
-        //    {
-        //        this.transform.GetChild(0).SetParent(puzzle.transform);
-        //    }
-        //}
     }
     private void OnTriggerExit(Collider other)
     {
         puzzleCount.Clear();
         check = false;
-        //puzzleCount.Clear();
     }
 
 }
