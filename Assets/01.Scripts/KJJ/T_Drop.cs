@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class T_Drop : MonoBehaviour
 {
+    public static T_Drop instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public GameObject detector;
     Vector3 pos_awal, scale_awal;
     bool on_pos = false;
+    public bool space = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +34,15 @@ public class T_Drop : MonoBehaviour
     }
 
     //마우스를 떼면(한번 맞추면 위치고정)
-    private void OnMouseUp()
+    private void OnSpaceUp()
     {
-        if (on_pos)
+        if (on_pos && space)
         {
             // 맞는 위치면 detecror의 위치에 고정
             transform.position = detector.transform.position;
             transform.localScale = new Vector3(0.5f, 0.5f, 0.1f);
         }
-        else
+        else if(!on_pos && space)
         {
             // 틀렸다면 원위치
             transform.position = pos_awal;
@@ -60,10 +68,10 @@ public class T_Drop : MonoBehaviour
             on_pos = false;
         }
     }
-    
+
     // Update is called once per frame
     void Update()
     {
-        
+        OnSpaceUp();
     }
 }
