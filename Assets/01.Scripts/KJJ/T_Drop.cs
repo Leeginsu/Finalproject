@@ -8,6 +8,8 @@ public class T_Drop : MonoBehaviour
     Vector3 pos_awal, scale_awal;
     bool on_pos = false;
     public bool space = false;
+    bool clearCount = true;
+    public GameObject answerFactory;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,15 @@ public class T_Drop : MonoBehaviour
             // 맞는 위치면 detecror의 위치에 고정
             transform.position = detector.transform.position;
             transform.localScale = new Vector3(0.5f, 0.5f, 0.1f);
+            transform.GetComponent<BoxCollider>().enabled = false;
+            if (clearCount)
+            {
+                GameManager.instance.clearCount++;
+                GameObject answer = Instantiate(answerFactory);
+                answer.transform.position = transform.position;
+                Destroy(answer, 2);
+                clearCount = false;
+            }
         }
         else if (!on_pos && space)
         {
@@ -43,20 +54,15 @@ public class T_Drop : MonoBehaviour
         }
     }
 
-    // 퍼즐 위치가 맞다면
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        // 위치 고정
+        // 퍼즐 위치가 맞다면
         if (collision.gameObject == detector)
         {
             on_pos = true;
         }
-    }
-
-    // 퍼즐 위치가 틀렸다면
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject == detector)
+        // 퍼즐 위치가 틀렸다면
+        else
         {
             on_pos = false;
         }
