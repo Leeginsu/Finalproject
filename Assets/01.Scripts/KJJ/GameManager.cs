@@ -25,10 +25,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> difficultyHard = new List<GameObject>();
     public int clearCount = 0;
     public GameObject clearUI;
-    public GameObject answerPosTutorial;
-    public GameObject answerPosEasy;
-    public GameObject answerPosNormal;
-    public GameObject answerPosHard;
     public List<GameObject> answerPos = new List<GameObject>();
     public GameObject puzzleTutorial;
     public GameObject puzzleEasy;
@@ -69,7 +65,7 @@ public class GameManager : MonoBehaviour
             puzzleScale = 2f;
             level = 4;
             puzzleDifficulty = 0;
-            answerPosTutorial.SetActive(true);
+            answerPos[puzzleDifficulty].SetActive(true);
             puzzleTutorial.SetActive(true);
         }
         if (easy)
@@ -77,7 +73,7 @@ public class GameManager : MonoBehaviour
             puzzleScale = 2.5f;
             level = 9;
             puzzleDifficulty = 1;
-            answerPosEasy.SetActive(true);
+            answerPos[puzzleDifficulty].SetActive(true);
             puzzleEasy.SetActive(true);
         }
         if (normal)
@@ -85,7 +81,7 @@ public class GameManager : MonoBehaviour
             puzzleScale = 3f;
             level = 12;
             puzzleDifficulty = 2;
-            answerPosNormal.SetActive(true);
+            answerPos[puzzleDifficulty].SetActive(true);
             puzzleNormal.SetActive(true);
         }
         if (hard)
@@ -93,7 +89,7 @@ public class GameManager : MonoBehaviour
             puzzleScale = 3f;
             level = 16;
             puzzleDifficulty = 3;
-            answerPosHard.SetActive(true);
+            answerPos[puzzleDifficulty].SetActive(true);
             puzzleHard.SetActive(true);
         }
     }
@@ -103,6 +99,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < difficultyTutorial.Count; i++)
         {
             difficultyTutorial[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+            answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
 
@@ -111,6 +108,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < difficultyEasy.Count; i++)
         {
             difficultyEasy[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+            answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
 
@@ -119,6 +117,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < difficultyNormal.Count; i++)
         {
             difficultyNormal[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+            answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
 
@@ -127,6 +126,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < difficultyHard.Count; i++)
         {
             difficultyHard[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+            answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
 
