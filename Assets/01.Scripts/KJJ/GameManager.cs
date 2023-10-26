@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TestWeb;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ZipManager.UnZipFiles(@"D:\ZipTest\zipFile\Video.zip", @"D:\ZipTest\unzipFolder\", "", false);
         for (int i = 0; i < level; i++)
         {
             difficultyTutorial[i].transform.position = puzzlePos[i].transform.position;
