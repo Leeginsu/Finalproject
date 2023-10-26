@@ -9,15 +9,17 @@ using UnityEngine.Networking;
 
 public class TakePhoto : MonoBehaviour
 {
+    public GameObject upLoadManger;
 
     public RawImage photoDisplay;
     private Texture2D screenshot; // Texture2D를 저장할 변수
     private string fileName = "screenshot.png";
 
-    private string uploadURL = "http://127.0.0.1:5001/main/upload-image";
+    private string uploadURL = "http://192.168.0.45:5001/main/upload-image";
 
     private void Start()
     {
+
         photoDisplay.texture = null;
         if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageWrite))
         {
@@ -61,7 +63,9 @@ public class TakePhoto : MonoBehaviour
         RenderTexture.active = currentRT;
         RenderTexture.ReleaseTemporary(renderTexture);
 
-        UploadAndDownloadFBX(screenshot);
+        //UpLoadManager.uploadManager.UploadAndDownloadFBX(screenshot);
+        upLoadManger.GetComponent<UpLoadManager>().UploadAndDownloadFBX(screenshot);
+        print(screenshot);
         //SaveCapturedPhoto();
     }
 
@@ -82,38 +86,40 @@ public class TakePhoto : MonoBehaviour
     //    }
     //}
 
-    private void UploadAndDownloadFBX(Texture2D userImage)
-    {
-        StartCoroutine(UploadDownloadCoroutine(userImage));
-    }
+    //private void UploadAndDownloadFBX(Texture2D userImage)
+    //{
+    //    StartCoroutine(UploadDownloadCoroutine(userImage));
+    //}
 
-    private IEnumerator UploadDownloadCoroutine(Texture2D userImage)
-    {
-        byte[] imageBytes = userImage.EncodeToPNG();
+    //private IEnumerator UploadDownloadCoroutine(Texture2D userImage)
+    //{
+    //    byte[] imageBytes = userImage.EncodeToPNG();
 
-        using (UnityWebRequest www = UnityWebRequest.Post(uploadURL, "POST"))
-        {
-            www.uploadHandler = new UploadHandlerRaw(imageBytes);
-            www.uploadHandler.contentType = "image/png";
-            www.downloadHandler = new DownloadHandlerBuffer();
+    //    using (UnityWebRequest www = UnityWebRequest.Post(uploadURL, "POST"))
+    //    {
+    //        www.uploadHandler = new UploadHandlerRaw(imageBytes);
+    //        www.uploadHandler.contentType = "image/png";
+    //        www.downloadHandler = new DownloadHandlerBuffer();
 
-            yield return www.SendWebRequest();
+    //        yield return www.SendWebRequest();
 
-            if (www.result == UnityWebRequest.Result.ConnectionError)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                Debug.Log("Image uploaded! Downloading FBX...");
+    //        if (www.result == UnityWebRequest.Result.ConnectionError)
+    //        {
+    //            Debug.Log(www.error);
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Image uploaded! Downloading FBX...");
 
-                string fbxPath = Path.Combine(Application.persistentDataPath, "downloadedModel.fbx");
-                File.WriteAllBytes(fbxPath, www.downloadHandler.data);
-                Debug.Log($"FBX saved at: {fbxPath}");
+    //            string fbxPath = Path.Combine(uploadURL, fileName);
 
-                // 여기서 FBX 파일을 로드 및 활용
-            }
-        }
-    }
+    //            //string fbxPath = uploadURL + fileName;
+    //            File.WriteAllBytes(fbxPath, www.downloadHandler.data);
+    //            Debug.Log($"FBX saved at: {fbxPath}");
+
+    //            // 여기서 FBX 파일을 로드 및 활용
+    //        }
+    //    }
+    //}
 
 }
