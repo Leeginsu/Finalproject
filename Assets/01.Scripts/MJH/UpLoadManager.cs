@@ -24,7 +24,7 @@ public class UpLoadManager : MonoBehaviour
 
     private IEnumerator UploadDownloadCoroutine(Texture2D userImage)
     {
-        byte[] imageBytes = File.ReadAllBytes(Application.dataPath + "/ani.png"); //userImage.EncodeToPNG();
+        byte[] imageBytes = /*File.ReadAllBytes(Application.dataPath + "/ani.png");*/ userImage.EncodeToPNG();
 
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", imageBytes);        
