@@ -19,20 +19,24 @@ public class GameManager : MonoBehaviour
     public List<Sprite> puzzleSprite = new List<Sprite>();
     int level;
     public int puzzleDifficulty;
-    public List<GameObject> difficulty = new List<GameObject>();
+    public List<GameObject> difficultyTutorial = new List<GameObject>();
+    public List<GameObject> difficultyEasy = new List<GameObject>();
+    public List<GameObject> difficultyNormal = new List<GameObject>();
+    public List<GameObject> difficultyHard = new List<GameObject>();
     public int clearCount = 0;
     public GameObject clearUI;
     public GameObject answerPosTutorial;
-    public GameObject puzzleTutorial;
     public GameObject answerPosEasy;
-    public GameObject puzzleEasy;
     public GameObject answerPosNormal;
-    public GameObject puzzleNormal;
     public GameObject answerPosHard;
+    public List<GameObject> answerPos = new List<GameObject>();
+    public GameObject puzzleTutorial;
+    public GameObject puzzleEasy;
+    public GameObject puzzleNormal;
     public GameObject puzzleHard;
     public GameObject clearPos;
     float speed = 0.01f;
-    
+
     public bool tutorial;
     public bool easy;
     public bool normal, hard;
@@ -42,20 +46,19 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < difficulty.Count; i++)
+        if (puzzleDifficulty == 0) DifficultyTutorial();
+        if (puzzleDifficulty == 1) DifficultyEasy();
+        if (puzzleDifficulty == 2) DifficultyNormal();
+        if (puzzleDifficulty == 3) DifficultyHard();
+        if (clearCount == level)
         {
-            difficulty[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
-        }
-        if(clearCount == level)
-        {
-            clearUI.SetActive(true);
-            answerPosTutorial.transform.localPosition = Vector3.MoveTowards(answerPosTutorial.transform.localPosition, clearPos.transform.localPosition, speed);
+            Clear();
         }
     }
 
@@ -75,6 +78,7 @@ public class GameManager : MonoBehaviour
             level = 9;
             puzzleDifficulty = 1;
             answerPosEasy.SetActive(true);
+            puzzleEasy.SetActive(true);
         }
         if (normal)
         {
@@ -82,6 +86,7 @@ public class GameManager : MonoBehaviour
             level = 12;
             puzzleDifficulty = 2;
             answerPosNormal.SetActive(true);
+            puzzleNormal.SetActive(true);
         }
         if (hard)
         {
@@ -89,6 +94,45 @@ public class GameManager : MonoBehaviour
             level = 16;
             puzzleDifficulty = 3;
             answerPosHard.SetActive(true);
+            puzzleHard.SetActive(true);
         }
+    }
+
+    public void DifficultyTutorial()
+    {
+        for (int i = 0; i < difficultyTutorial.Count; i++)
+        {
+            difficultyTutorial[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+        }
+    }
+
+    public void DifficultyEasy()
+    {
+        for (int i = 0; i < difficultyEasy.Count; i++)
+        {
+            difficultyEasy[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+        }
+    }
+
+    public void DifficultyNormal()
+    {
+        for (int i = 0; i < difficultyNormal.Count; i++)
+        {
+            difficultyNormal[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+        }
+    }
+
+    public void DifficultyHard()
+    {
+        for (int i = 0; i < difficultyHard.Count; i++)
+        {
+            difficultyHard[i].GetComponent<SpriteRenderer>().sprite = puzzleSprite[i];
+        }
+    }
+
+    public void Clear()
+    {
+        clearUI.SetActive(true);
+        answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
     }
 }

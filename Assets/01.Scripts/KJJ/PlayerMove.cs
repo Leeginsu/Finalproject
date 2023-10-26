@@ -5,12 +5,19 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float speed = 8f;
-    public GameObject puzzle;
+    public GameObject puzzleDifTutorial;
+    public GameObject puzzleDifEasy;
+    public GameObject puzzleDifNormal;
+    public GameObject puzzleDifHard;
+    GameObject puzzle;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (GameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
+        else if (GameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
+        else if (GameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
+        else if (GameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
     }
 
     // Update is called once per frame
