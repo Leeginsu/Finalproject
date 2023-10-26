@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject puzzleDifNormal;
     public GameObject puzzleDifHard;
     GameObject puzzle;
+    bool grab = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,15 +39,21 @@ public class PlayerMove : MonoBehaviour
                 puzzleCount[0].transform.parent = transform;
                 puzzleCount.RemoveAt(0);
                 transform.GetComponentInChildren<T_Drop>().space = false;
+                grab = true;
             }
             else if (transform.childCount > 0)
             {
                 transform.GetComponentInChildren<T_Drop>().space = true;
                 transform.GetChild(0).transform.parent = puzzle.transform;
                 check = false;
+                grab = false;
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Backspace) && grab)
+        {
+            transform.GetChild(0).Rotate(0,0,-90);
+        }
     }
 
     public List<GameObject> puzzleCount = new List<GameObject>();
@@ -60,17 +67,10 @@ public class PlayerMove : MonoBehaviour
             puzzleCount.Add(other.gameObject);
             check = true;
         }
-
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
     }
     private void OnTriggerExit(Collider other)
     {
         puzzleCount.Clear();
         check = false;
     }
-
 }

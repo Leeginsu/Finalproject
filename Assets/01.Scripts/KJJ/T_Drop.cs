@@ -34,16 +34,19 @@ public class T_Drop : MonoBehaviour
         if (on_pos && space)
         {
             // 맞는 위치면 detecror의 위치에 고정
-            transform.position = detector.transform.position + new Vector3(0,0,-0.1f);
-            transform.localScale = detector.transform.localScale/GameManager.instance.puzzleScale;
-            transform.GetComponent<BoxCollider>().enabled = false;
-            if (clearCount)
+            if (transform.rotation.z == detector.transform.rotation.z)
             {
-                GameManager.instance.clearCount++;
-                GameObject answer = Instantiate(answerFactory);
-                answer.transform.position = transform.position;
-                Destroy(answer, 2);
-                clearCount = false;
+                transform.position = detector.transform.position + new Vector3(0, 0, -0.1f);
+                transform.localScale = detector.transform.localScale / GameManager.instance.puzzleScale;
+                transform.GetComponent<BoxCollider>().enabled = false;
+                if (clearCount)
+                {
+                    GameManager.instance.clearCount++;
+                    GameObject answer = Instantiate(answerFactory);
+                    answer.transform.position = transform.position;
+                    Destroy(answer, 2);
+                    clearCount = false;
+                }
             }
         }
         else if (!on_pos && space)
