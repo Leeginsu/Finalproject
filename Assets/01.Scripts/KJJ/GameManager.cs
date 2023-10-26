@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     int level;
     public int puzzleDifficulty;
     public List<GameObject> difficultyTutorial = new List<GameObject>();
+    public List<GameObject> puzzlePos = new List<GameObject>();
     public List<GameObject> difficultyEasy = new List<GameObject>();
     public List<GameObject> difficultyNormal = new List<GameObject>();
     public List<GameObject> difficultyHard = new List<GameObject>();
@@ -42,7 +43,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        for (int i = 0; i < level; i++)
+        {
+            difficultyTutorial[i].transform.position = puzzlePos[i].transform.position;
+        }
     }
 
     // Update is called once per frame
