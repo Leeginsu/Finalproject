@@ -43,10 +43,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < level; i++)
-        {
-            difficultyTutorial[i].transform.position = puzzlePos[i].transform.position;
-        }
+        //for (int i = 0; i < level; i++)
+        //{
+        //    difficultyTutorial[i].transform.position = puzzlePos[i].transform.position;
+        //}
     }
 
     // Update is called once per frame
