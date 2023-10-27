@@ -19,11 +19,20 @@ public class GameManager : MonoBehaviour
     public List<Sprite> puzzleSprite = new List<Sprite>();
     int level;
     public int puzzleDifficulty;
+
+    public List<GameObject> difficultyAnswer = new List<GameObject>();
     public List<GameObject> difficultyTutorial = new List<GameObject>();
-    public List<GameObject> puzzlePos = new List<GameObject>();
     public List<GameObject> difficultyEasy = new List<GameObject>();
     public List<GameObject> difficultyNormal = new List<GameObject>();
     public List<GameObject> difficultyHard = new List<GameObject>();
+
+
+    public List<GameObject> puzzlePos = new List<GameObject>();
+    public List<GameObject> puzzleTutuorialPos = new List<GameObject>();
+    public List<GameObject> puzzleEasyPos = new List<GameObject>();
+    public List<GameObject> puzzleNormalPos = new List<GameObject>();
+    public List<GameObject> puzzleHardPos = new List<GameObject>();
+
     public int clearCount = 0;
     public GameObject clearUI;
     public List<GameObject> answerPos = new List<GameObject>();
@@ -43,10 +52,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //for (int i = 0; i < level; i++)
-        //{
-        //    difficultyTutorial[i].transform.position = puzzlePos[i].transform.position;
-        //}
+        for (int i = 0; i < level; i++)
+        {
+            int random = Random.Range(0, puzzlePos.Count);
+            difficultyAnswer[i].transform.position = puzzlePos[random].transform.position;
+            puzzlePos.RemoveAt(random);
+        }
     }
 
     // Update is called once per frame
@@ -71,6 +82,8 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 0;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleTutorial.SetActive(true);
+            puzzlePos.AddRange(puzzleTutuorialPos);
+            difficultyAnswer.AddRange(difficultyTutorial);
         }
         if (easy)
         {
@@ -79,6 +92,8 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 1;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleEasy.SetActive(true);
+            puzzlePos.AddRange(puzzleEasyPos);
+            difficultyAnswer.AddRange(difficultyEasy);
         }
         if (normal)
         {
@@ -87,6 +102,8 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 2;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleNormal.SetActive(true);
+            puzzlePos.AddRange(puzzleNormalPos);
+            difficultyAnswer.AddRange(difficultyNormal);
         }
         if (hard)
         {
@@ -95,6 +112,8 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 3;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleHard.SetActive(true);
+            puzzlePos.AddRange(puzzleHardPos);
+            difficultyAnswer.AddRange(difficultyHard);
         }
     }
 
