@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TestWeb;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -21,18 +20,10 @@ public class GameManager : MonoBehaviour
     int level;
     public int puzzleDifficulty;
     public List<GameObject> difficultyTutorial = new List<GameObject>();
+    public List<GameObject> puzzlePos = new List<GameObject>();
     public List<GameObject> difficultyEasy = new List<GameObject>();
     public List<GameObject> difficultyNormal = new List<GameObject>();
     public List<GameObject> difficultyHard = new List<GameObject>();
-
-    public List<GameObject> puzzleTutorialPos = new List<GameObject>();
-    public List<GameObject> puzzleEasyPos = new List<GameObject>();
-    public List<GameObject> puzzleNormalPos = new List<GameObject>();
-    public List<GameObject> puzzleHardPos = new List<GameObject>();
-
-    public List<GameObject> puzzleAnswerPos = new List<GameObject>();
-    public List<GameObject> puzzlePos = new List<GameObject>();
-
     public int clearCount = 0;
     public GameObject clearUI;
     public List<GameObject> answerPos = new List<GameObject>();
@@ -52,17 +43,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ZipManager.UnZipFiles(@"Application.dataPath\screenshot.zip", @"Application.dataPath", "", false);
-        for (int i = 0; i < level; i++)
-        {
-            if (puzzleAnswerPos.Count > 0)
-            {
-                int random = Random.Range(0, puzzleAnswerPos.Count);
-                puzzlePos[i].transform.position = puzzleAnswerPos[random].transform.position;
-                puzzleAnswerPos.RemoveAt(random);
-            }
-            else break;
-        }
+        //for (int i = 0; i < level; i++)
+        //{
+        //    difficultyTutorial[i].transform.position = puzzlePos[i].transform.position;
+        //}
     }
 
     // Update is called once per frame
@@ -87,8 +71,6 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 0;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleTutorial.SetActive(true);
-            puzzleAnswerPos.AddRange(puzzleTutorialPos);
-            puzzlePos.AddRange(difficultyTutorial);
         }
         if (easy)
         {
@@ -97,8 +79,6 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 1;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleEasy.SetActive(true);
-            puzzleAnswerPos.AddRange(puzzleEasyPos);
-            puzzlePos.AddRange(difficultyEasy);
         }
         if (normal)
         {
@@ -107,8 +87,6 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 2;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleNormal.SetActive(true);
-            puzzleAnswerPos.AddRange(puzzleNormalPos);
-            puzzlePos.AddRange(difficultyNormal);
         }
         if (hard)
         {
@@ -117,8 +95,6 @@ public class GameManager : MonoBehaviour
             puzzleDifficulty = 3;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzleHard.SetActive(true);
-            puzzleAnswerPos.AddRange(puzzleHardPos);
-            puzzlePos.AddRange(difficultyHard);
         }
     }
 

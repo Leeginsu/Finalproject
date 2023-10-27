@@ -12,7 +12,7 @@ public class UpLoadManager : MonoBehaviour
     //public static UpLoadManager uploadManager;
     private string fileName = "screenshot";
 
-    private string uploadURL = "http://192.168.0.45:5001/main/upload-image";
+    private string uploadURL = "http://192.168.0.96:5001/main/upload-image";
 
     string fbxPath;
 
