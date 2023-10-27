@@ -37,7 +37,7 @@ public class T_Drop : MonoBehaviour
             if (transform.rotation.z == detector.transform.rotation.z)
             {
                 transform.position = detector.transform.position + new Vector3(0, 0, -0.1f);
-                transform.localScale = detector.transform.localScale / GameManager.instance.puzzleScale;
+                transform.localScale = detector.transform.localScale + new Vector3(0.4f, 0.9f, 0);
                 transform.GetComponent<BoxCollider>().enabled = false;
                 if (clearCount)
                 {

@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         //입력받은 키보드값을 누적한다.
-        Vector3 xy = (x * transform.right) + (y * transform.up);
+        Vector3 xy = (x * transform.right) + (y * -transform.up);
         transform.position += xy * speed * Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Space))

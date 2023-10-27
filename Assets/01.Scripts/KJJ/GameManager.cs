@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < level; i++)
         {
-            Sprite sprite = Resources.Load<Sprite>("P_" + i);
+            Sprite sprite = Resources.Load<Sprite>("Piece_" + i);
             puzzleSprite.Add(sprite);
         }
     }
@@ -76,9 +76,9 @@ public class GameManager : MonoBehaviour
 
     public void Difficulty()
     {
-        easy = DifficultyManager.instance.easy;
-        normal = DifficultyManager.instance.normal;
-        hard = DifficultyManager.instance.hard;
+        //easy = DifficultyManager.instance.easy;
+        //normal = DifficultyManager.instance.normal;
+        //hard = DifficultyManager.instance.hard;
         if (tutorial)
         {
             puzzleScale = 2f;
