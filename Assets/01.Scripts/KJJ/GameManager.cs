@@ -43,9 +43,10 @@ public class GameManager : MonoBehaviour
     public GameObject clearPos;
     float speed = 0.01f;
 
-    public bool tutorial;
-    public bool easy;
-    public bool normal, hard;
+    public bool tutorial = false;
+    public bool easy = false;
+    public bool normal = false;
+    public bool hard= false;
     public float puzzleScale;
 
 
@@ -75,6 +76,9 @@ public class GameManager : MonoBehaviour
 
     public void Difficulty()
     {
+        easy = DifficultyManager.instance.easy;
+        normal = DifficultyManager.instance.normal;
+        hard = DifficultyManager.instance.hard;
         if (tutorial)
         {
             puzzleScale = 2f;
