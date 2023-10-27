@@ -13,7 +13,8 @@ public class LobbyManager : MonoBehaviour
     public GameObject roomImg;
     public Sprite[] temaSprite;
     public GameObject[] keywordsTema;
-    
+    public Dropdown numberDropdown;
+    public Toggle[] levelToggle;
     
     public InputField titleField;
     public InputField commentField;
@@ -22,11 +23,17 @@ public class LobbyManager : MonoBehaviour
     public GameObject commentText;
     public GameObject numberText;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         listRoom.SetActive(false);
         selectView.SetActive(false);
+
+        levelToggle[0].isOn = false;
+        levelToggle[1].isOn = false;
+        levelToggle[2].isOn = false;
     }
 
     // Update is called once per frame
@@ -37,6 +44,23 @@ public class LobbyManager : MonoBehaviour
             qrOn = false;
             SceneManager.LoadScene("MainScene");
             qr.SetActive(false);
+        }
+
+
+        if (levelToggle[0].isOn == true)
+        {
+            levelToggle[1].isOn = false;
+            levelToggle[2].isOn = false;
+        }
+        else if (levelToggle[1].isOn == true)
+        {
+            levelToggle[0].isOn = false;
+            levelToggle[2].isOn = false;
+        }
+        else if (levelToggle[2].isOn == true)
+        {
+            levelToggle[0].isOn = false;
+            levelToggle[1].isOn = false;
         }
     }
 
@@ -65,6 +89,51 @@ public class LobbyManager : MonoBehaviour
         titleText.GetComponent<Text>().text = titleField.text;
         //commentText.GetComponent<Text>().text = inputComment;
         commentText.GetComponent<Text>().text = commentField.text;
+
+        if (levelToggle[0].isOn == true)
+        {
+            //초급
+            GameManager.instance.easy = true;
+            GameManager.instance.normal = false;
+            GameManager.instance.normal = false;
+        }
+        if (levelToggle[1].isOn == true)
+        {
+            //중급
+            GameManager.instance.easy = false;
+            GameManager.instance.normal = true;
+            GameManager.instance.hard = false;
+        }
+        if (levelToggle[2].isOn == true)
+        {
+            //고급
+            GameManager.instance.easy = false;
+            GameManager.instance.normal = false;
+            GameManager.instance.hard = true;
+        }
+
+
+        if (numberDropdown.value == 0)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 02 ";
+        }
+        if (numberDropdown.value == 1)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 03 ";
+        }
+        if (numberDropdown.value == 2)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 04 ";
+        }
+        if (numberDropdown.value == 3)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 05 ";
+        }
+        if (numberDropdown.value == 4)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 06 ";
+        }
+
     }
 
     bool qrOn = false;
