@@ -90,6 +90,28 @@ public class LobbyManager : MonoBehaviour
         //commentText.GetComponent<Text>().text = inputComment;
         commentText.GetComponent<Text>().text = commentField.text;
 
+        if (numberDropdown.value == 0)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 02 ";
+        }
+        if (numberDropdown.value == 1)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 03 ";
+        }
+        if (numberDropdown.value == 2)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 04 ";
+        }
+        if (numberDropdown.value == 3)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 05 ";
+        }
+        if (numberDropdown.value == 4)
+        {
+            numberText.GetComponent<Text>().text = " 00 " + "/" + " 06 ";
+        }
+
+
         if (levelToggle[0].isOn == true)
         {
             //УЪБо
@@ -110,28 +132,6 @@ public class LobbyManager : MonoBehaviour
             GameManager.instance.easy = false;
             GameManager.instance.normal = false;
             GameManager.instance.hard = true;
-        }
-
-
-        if (numberDropdown.value == 0)
-        {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 02 ";
-        }
-        if (numberDropdown.value == 1)
-        {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 03 ";
-        }
-        if (numberDropdown.value == 2)
-        {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 04 ";
-        }
-        if (numberDropdown.value == 3)
-        {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 05 ";
-        }
-        if (numberDropdown.value == 4)
-        {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 06 ";
         }
 
     }
