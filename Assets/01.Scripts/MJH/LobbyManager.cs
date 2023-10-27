@@ -90,6 +90,15 @@ public class LobbyManager : MonoBehaviour
         //commentText.GetComponent<Text>().text = inputComment;
         commentText.GetComponent<Text>().text = commentField.text;
 
+
+        NumberSelect();
+        LevelSelect();
+
+        
+
+    }
+    void NumberSelect()
+    {
         if (numberDropdown.value == 0)
         {
             numberText.GetComponent<Text>().text = " 00 " + "/" + " 02 ";
@@ -110,30 +119,31 @@ public class LobbyManager : MonoBehaviour
         {
             numberText.GetComponent<Text>().text = " 00 " + "/" + " 06 ";
         }
+    }
 
-
+    void LevelSelect()
+    {
         if (levelToggle[0].isOn == true)
         {
             //초급
-            GameManager.instance.easy = true;
-            GameManager.instance.normal = false;
-            GameManager.instance.normal = false;
+            DifficultyManager.instance.easy = true;
+            DifficultyManager.instance.normal = false;
+            DifficultyManager.instance.normal = false;
         }
         if (levelToggle[1].isOn == true)
         {
             //중급
-            GameManager.instance.easy = false;
-            GameManager.instance.normal = true;
-            GameManager.instance.hard = false;
+            DifficultyManager.instance.easy = false;
+            DifficultyManager.instance.normal = true;
+            DifficultyManager.instance.hard = false;
         }
         if (levelToggle[2].isOn == true)
         {
             //고급
-            GameManager.instance.easy = false;
-            GameManager.instance.normal = false;
-            GameManager.instance.hard = true;
+            DifficultyManager.instance.easy = false;
+            DifficultyManager.instance.normal = false;
+            DifficultyManager.instance.hard = true;
         }
-
     }
 
     bool qrOn = false;
