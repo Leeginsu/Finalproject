@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,10 +10,12 @@ public class GameManager : MonoBehaviour
     {
         Difficulty();
         instance = this;
-
+        
         for (int i = 0; i < level; i++)
         {
-            Sprite sprite = Resources.Load<Sprite>("Piece_" + i);
+            //Sprite sprite = Resources.Load<Sprite>("Piece_" + i);
+            Texture2D tex = Resources.Load("Piece_" + i) as Texture2D;
+            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
             puzzleSprite.Add(sprite);
         }
     }
