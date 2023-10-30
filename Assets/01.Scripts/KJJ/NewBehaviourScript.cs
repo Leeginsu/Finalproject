@@ -9,6 +9,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Start()
     {
         Texture2D tex = Resources.Load("Piece_0") as Texture2D;
+        tex.SetPixel(160, 120, Color.white);
         Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         sr.sprite = sprite;
     }

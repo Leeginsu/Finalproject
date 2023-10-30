@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < level; i++)
         {
-            //Sprite sprite = Resources.Load<Sprite>("Piece_" + i);
+            //Sprite sprite = Resources.Load<Sprite>("Piece_" + i); 160 * 120
             Texture2D tex = Resources.Load("Piece_" + i) as Texture2D;
             Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
             puzzleSprite.Add(sprite);
