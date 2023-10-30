@@ -15,7 +15,7 @@ public class TakePhoto : MonoBehaviour
     private Texture2D screenshot; // Texture2D를 저장할 변수
     private string fileName = "screenshot.png";
 
-    private string uploadURL = "http://192.168.0.96:5001/main/upload-image";
+    private string uploadURL = "http://192.168.0.35:5001/main/upload-image";
 
     private void Start()
     {
