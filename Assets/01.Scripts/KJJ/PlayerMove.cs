@@ -49,7 +49,7 @@ public class PlayerMove : MonoBehaviour
                 grab = false;
             }
         }
-
+        RayCast();
         if (Input.GetKeyDown(KeyCode.Backspace) && grab)
         {
             transform.GetChild(0).Rotate(0,0,-90);
@@ -58,19 +58,37 @@ public class PlayerMove : MonoBehaviour
 
     public List<GameObject> puzzleCount = new List<GameObject>();
 
-    bool check = false;
+    public bool check = false;
 
-    private void OnTriggerEnter(Collider other)
+    void RayCast()
     {
-        if (puzzleCount.Count == 0 && check == false && other.CompareTag("Puzzle"))
+        Ray ray = new Ray(transform.position, -transform.forward);
+        RaycastHit hit;
+        LayerMask layerMask = 1 << LayerMask.NameToLayer("Puzzle");
+
+        if (puzzleCount.Count != 0) check = true;
+        else check = false;
+
+        if (Physics.Raycast(ray, out hit, layerMask))
         {
-            puzzleCount.Add(other.gameObject);
-            check = true;
+            if (puzzleCount.Count == 0 && check == false && hit.transform.gameObject.CompareTag("Puzzle"))
+            {
+                puzzleCount.Add(hit.transform.gameObject);
+            }
+            else if (puzzleCount.Count == 1 && transform.childCount == 0 && !hit.transform.gameObject.CompareTag("Puzzle")) puzzleCount.RemoveAt(0);
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        puzzleCount.Clear();
-        check = false;
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (puzzleCount.Count == 0 && check == false && other.CompareTag("Puzzle"))
+    //    {
+    //        puzzleCount.Add(other.gameObject);
+    //        check = true;
+    //    }
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    puzzleCount.Clear();
+    //    check = false;
+    //}
 }
