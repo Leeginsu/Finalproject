@@ -5,9 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    static public LobbyManager instance;
+
     public GameObject listRoom;
     public GameObject qr;
     public GameObject scrollView;
@@ -24,10 +27,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject titleText;
     public GameObject commentText;
     public GameObject numberText;
-    int maxPlayers = 0;
+    public int maxPlayers = 0;
     int curPlayers = 0;
 
     Dictionary<string, RoomInfo> dicRoomInfo = new Dictionary<string, RoomInfo>();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +101,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         print("È£Ãâ");
+        UpdateRoomList(roomList);
+    }
+
+    private void UpdateRoomList(List<RoomInfo> roomList)
+    {
+        if(roomList != null)
+        {
+
+        }
     }
 
     #region -- ÆË¾÷Ã¢ UI --
