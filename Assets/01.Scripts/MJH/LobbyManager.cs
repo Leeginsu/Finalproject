@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -23,12 +24,16 @@ public class LobbyManager : MonoBehaviour
     public GameObject titleText;
     public GameObject commentText;
     public GameObject numberText;
+    int maxPlayers = 0;
+    int curPlayers = 0;
 
-
+    Dictionary<string, RoomInfo> dicRoomInfo = new Dictionary<string, RoomInfo>();
 
     // Start is called before the first frame update
     void Start()
     {
+        
+
         listRoom.SetActive(false);
         selectView.SetActive(false);
 
@@ -43,8 +48,24 @@ public class LobbyManager : MonoBehaviour
         if(qrOn && Input.anyKey)
         {
             qrOn = false;
+            curPlayers++;
+            numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
             SceneManager.LoadScene("MainScene");
+            //SceneManager.LoadScene("MainScene");
             qr.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (curPlayers < maxPlayers)
+            {
+                curPlayers++;
+                numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+            }
+            else
+            {
+                roomOptions.IsOpen = false;
+            }
         }
 
 
@@ -79,6 +100,8 @@ public class LobbyManager : MonoBehaviour
         commentField.text = "";
     }
 
+
+    RoomOptions roomOptions;
     public void CompletMakeRoom()
     {
         //makingRoom = false;
@@ -95,30 +118,42 @@ public class LobbyManager : MonoBehaviour
         NumberSelect();
         LevelSelect();
 
-        
+        roomOptions = new RoomOptions
+        {
+            MaxPlayers = maxPlayers,
+            IsVisible = true,
+            IsOpen = true
+        };
 
+        PhotonNetwork.CreateRoom(titleField.text, roomOptions, TypedLobby.Default);
+        print("방 생성 완료");
     }
     void NumberSelect()
     {
         if (numberDropdown.value == 0)
         {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 02 ";
+            maxPlayers = 2;
+            numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 1)
         {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 03 ";
+            maxPlayers = 3;
+            numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 2)
         {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 04 ";
+            maxPlayers = 4;
+            numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 3)
         {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 05 ";
+            maxPlayers = 5;
+            numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 4)
         {
-            numberText.GetComponent<Text>().text = " 00 " + "/" + " 06 ";
+            maxPlayers = 6;
+            numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
     }
 

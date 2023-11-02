@@ -17,7 +17,7 @@ public class CameraAct : MonoBehaviour
     private WebCamTexture camTexture;
     private Rect screenRect;
     private bool isScanning = false;
-    private bool isConnected = false;
+    //private bool isConnected = false;
 
     void Start()
     {
