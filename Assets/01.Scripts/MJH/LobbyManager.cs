@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public GameObject listRoom;
     public GameObject qr;
@@ -85,7 +85,15 @@ public class LobbyManager : MonoBehaviour
             levelToggle[1].isOn = false;
         }
     }
+    public override void OnJoinedRoom()
+    {
 
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        print("È£Ãâ");
+    }
 
     #region -- ÆË¾÷Ã¢ UI --
 
@@ -190,6 +198,8 @@ public class LobbyManager : MonoBehaviour
         qrOn = true;
         //SceneManager.LoadScene("MainScene");
     }
+
+
 
     #endregion
 
