@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public int clearCount = 0;
     public GameObject clearUI;
     public List<GameObject> answerPos = new List<GameObject>();
+    public List<GameObject> answerClearPos = new List<GameObject>();
     public GameObject puzzleTutorial;
     public GameObject puzzleEasy;
     public GameObject puzzleNormal;
@@ -52,6 +54,10 @@ public class GameManager : MonoBehaviour
     public bool hard= false;
     public float puzzleScale;
 
+    float currentTime;
+    public Scrollbar time;
+    float maxTime = 1;
+    public float timeLimit = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +68,8 @@ public class GameManager : MonoBehaviour
             difficultyAnswer[i].transform.position = puzzlePos[random].transform.position;
             puzzlePos.RemoveAt(random);
         }
+        currentTime = timeLimit;
+        time.size = maxTime;
     }
 
     // Update is called once per frame
@@ -71,10 +79,13 @@ public class GameManager : MonoBehaviour
         if (puzzleDifficulty == 1) DifficultyEasy();
         if (puzzleDifficulty == 2) DifficultyNormal();
         if (puzzleDifficulty == 3) DifficultyHard();
+        
+        // 클리어
         if (clearCount == level)
         {
             Clear();
         }
+        TimeLimit();
     }
 
     public void Difficulty()
@@ -160,9 +171,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 클리어
     public void Clear()
     {
         clearUI.SetActive(true);
         answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
+        for(int i = 0; i < level; i++)
+        {
+            answerPos[puzzleDifficulty].transform.GetChild(i).transform.localPosition = 
+                Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.GetChild(i).transform.localPosition, answerClearPos[0].transform.GetChild(i).transform.localPosition, 0.001f);
+        }
+    }
+
+    // 시간제한
+    public void TimeLimit()
+    {
+        if (currentTime >= 0)
+        {
+            currentTime -= Time.deltaTime;
+            time.size = currentTime / timeLimit;
+        }
+        else currentTime = 0;
     }
 }
