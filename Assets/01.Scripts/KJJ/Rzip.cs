@@ -9,6 +9,10 @@ public class Rzip : MonoBehaviour
 
     private void Start()
     {
+        // 알집의 위치 + 이름
+        zipFilePath = Application.dataPath + "/screenshot.zip";
+        // 압출풀 위치 + 폴더이름
+        extractionPath = Application.dataPath + "/Test";
         // 압축 풀기 함수 호출
         Unzip(zipFilePath, extractionPath);
     }
