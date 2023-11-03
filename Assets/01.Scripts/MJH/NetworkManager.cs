@@ -38,7 +38,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("서버에 연결되었습니다.");
         // 여기에서 원하는 로직을 수행할 수 있습니다.
 
-        
     }
 
     public override void OnJoinedLobby()

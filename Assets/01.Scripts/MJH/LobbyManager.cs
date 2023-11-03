@@ -58,7 +58,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             qrOn = false;
             curPlayers++;
             numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-            SceneManager.LoadScene("MainScene");
+            //SceneManager.LoadScene("MainScene");
             //SceneManager.LoadScene("MainScene");
             qr.SetActive(false);
         }
@@ -93,10 +93,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             levelToggle[1].isOn = false;
         }
     }
-    public override void OnJoinedRoom()
-    {
 
-    }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -153,6 +150,35 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(titleField.text, roomOptions, TypedLobby.Default);
         print("방 생성 완료");
     }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        print("방 생성 실패 : " + message);
+    }
+
+    public void GameScene()
+    {
+
+        qr.SetActive(true);
+        qrOn = true;
+        //SceneManager.LoadScene("MainScene");
+
+        PhotonNetwork.JoinRoom(titleField.text);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        print("방 입장 완료");
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        print("방 입장 실패 : " + message);
+    }
+
     void NumberSelect()
     {
         if (numberDropdown.value == 0)
@@ -208,13 +234,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     bool qrOn = false;
-    public void GameScene()
-    {
-
-        qr.SetActive(true);
-        qrOn = true;
-        //SceneManager.LoadScene("MainScene");
-    }
+    
 
 
 
