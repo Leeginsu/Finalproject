@@ -1,3 +1,4 @@
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,5 +34,10 @@ public class RoomItem : MonoBehaviour
         numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
 
 
+    }
+
+    public void SetInfo(Sprite roomTema, RoomInfo info)
+    {
+        
     }
 }

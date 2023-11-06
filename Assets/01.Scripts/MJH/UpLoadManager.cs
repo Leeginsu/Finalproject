@@ -46,7 +46,7 @@ public class UpLoadManager : MonoBehaviour
                 Debug.Log("Image uploaded! Downloading FBX...");
 
                 
-                fbxPath = Application.dataPath + "/" + fileName + ".zip";
+                fbxPath = Application.persistentDataPath + "/" + fileName + ".zip";
 
                 ////string fbxPath = uploadURL + fileName;
                 File.WriteAllBytes(fbxPath, www.downloadHandler.data);

@@ -62,7 +62,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //curPlayers++;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
             //SceneManager.LoadScene("MainScene");
-            //SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("MainScene");
             qr.SetActive(false);
         }
 
@@ -111,7 +111,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
             RoomItem roomItem = goRoomItem.GetComponent<RoomItem>();
 
-            roomItem.SetInfo(temaSprite[temaNumber], roomList[i].Name, commentField.text, roomList[i].PlayerCount, roomList[i].MaxPlayers);
+            //roomItem.SetInfo(roomList[i]);
+
+            int tema = (int)(roomList[i].CustomProperties["tema"]);
+            string comment = roomList[i].CustomProperties["comment"].ToString();
+            roomItem.SetInfo(temaSprite[tema], roomList[i].Name, comment, roomList[i].PlayerCount, roomList[i].MaxPlayers);
         }
 
     }
@@ -160,10 +164,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             MaxPlayers = maxPlayers,
             IsVisible = true,
             IsOpen = true
+            
         };
+
+        ExitGames.Client.Photon.Hashtable customOption = new ExitGames.Client.Photon.Hashtable();
+        customOption["tema"] = temaNumber;
+        customOption["comment"] = commentField.text;
+        roomOptions.CustomRoomProperties = customOption;
+
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "tema", "comment" };
 
         PhotonNetwork.CreateRoom(titleField.text, roomOptions);
         print("방 생성 완료");
+        GameScene();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
