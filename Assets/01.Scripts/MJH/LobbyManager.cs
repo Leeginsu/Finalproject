@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public GameObject listRoom;
     public GameObject qr;
+    public GameObject lobbyView;
     public GameObject scrollView;
     public GameObject selectView;
     //public GameObject roomImg;
@@ -63,6 +64,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
             //SceneManager.LoadScene("MainScene");
             //SceneManager.LoadScene("MainScene");
+            //PhotonNetwork.LoadLevel("MainScene");
             qr.SetActive(false);
         }
 
@@ -111,7 +113,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
             RoomItem roomItem = goRoomItem.GetComponent<RoomItem>();
 
-            roomItem.SetInfo(temaSprite[temaNumber], roomList[i].Name, commentField.text, roomList[i].PlayerCount, roomList[i].MaxPlayers);
+            //roomItem.SetInfo(roomList[i]);
+
+            int tema = (int)(roomList[i].CustomProperties["tema"]);
+            string comment = roomList[i].CustomProperties["comment"].ToString();
+            roomItem.SetInfo(temaSprite[tema], roomList[i].Name, comment, roomList[i].PlayerCount, roomList[i].MaxPlayers);
         }
 
     }
@@ -131,6 +137,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         //makingRoom = true;
         //SceneManager.LoadScene("03. SelectScene");
+        lobbyView.SetActive(false);
         scrollView.SetActive(false);
         selectView.SetActive(true);
         titleField.text = "";
@@ -144,7 +151,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //makingRoom = false;
         scrollView.SetActive(true);
         selectView.SetActive(false);
-        listRoom.SetActive(true);
+        lobbyView.SetActive(false);
+        //listRoom.SetActive(true);
 
         //titleText.GetComponent<Text>().text = inputTitle;
         //titleText.GetComponent<Text>().text = titleField.text;
@@ -160,10 +168,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             MaxPlayers = maxPlayers,
             IsVisible = true,
             IsOpen = true
+            
         };
+
+        ExitGames.Client.Photon.Hashtable customOption = new ExitGames.Client.Photon.Hashtable();
+        customOption["tema"] = temaNumber;
+        customOption["comment"] = commentField.text;
+        roomOptions.CustomRoomProperties = customOption;
+
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "tema", "comment" };
 
         PhotonNetwork.CreateRoom(titleField.text, roomOptions);
         print("방 생성 완료");
+        GameScene();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -301,5 +318,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
+    public void BtnMainLobby()
+    {
+        lobbyView.SetActive(true);
+        scrollView.SetActive(false);
+        selectView.SetActive(false);
+    }
+
+    public void BtnRoomList()
+    {
+        lobbyView.SetActive(false);
+        scrollView.SetActive(true);
+        selectView.SetActive(false);
+    }
 
 }

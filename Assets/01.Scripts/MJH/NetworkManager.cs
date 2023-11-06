@@ -45,7 +45,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
 
 
-        PhotonNetwork.LoadLevel("02. LobbyScene");
+        PhotonNetwork.LoadLevel("Lobby");
         Debug.Log("로비 접속 완료");
     }
 }
