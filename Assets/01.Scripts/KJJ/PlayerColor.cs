@@ -4,54 +4,89 @@ using UnityEngine;
 
 public class PlayerColor : MonoBehaviour
 {
-    public SkinnedMeshRenderer color;
+    public GameObject normal;
+    public GameObject red;
+    public GameObject black;
+    public GameObject blue;
+    public GameObject brown;
+    public GameObject green;
+    public GameObject orange;
+    public GameObject pink;
+    public GameObject purple;
+    public GameObject teal;
+    public GameObject white;
+    public GameObject yellow;
 
-    public Material red;
-    public Material blue;
-    public Material green;
-    public Material pink;
-    public Material yellow;
-    public Material white;
+    private Queue<GameObject> queue = new Queue<GameObject>();
+    public GameObject a;
 
     // Start is called before the first frame update
     void Start()
     {
-        color = GetComponent<SkinnedMeshRenderer>();
+        queue.Enqueue(normal);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Red();
-        Blue();
-        Green();
-        Pink();
-        Yellow();
-        White();
+
     }
 
+    public void Normal()
+    {
+        Queue(normal);
+    }
     public void Red()
     {
-        color.material = red;
+        Queue(red);
+    }
+    public void Black()
+    {
+        Queue(black);
     }
     public void Blue()
     {
-        color.material = blue;
+        Queue(blue);
+    }
+    public void Brown()
+    {
+        Queue(brown);
     }
     public void Green()
     {
-        color.material = green;
+        Queue(green);
+    }
+    public void Orange()
+    {
+        Queue(orange);
     }
     public void Pink()
     {
-        color.material = pink;
+        Queue(pink);
     }
-    public void Yellow()
+    public void Purple()
     {
-        color.material = yellow;
+        Queue(purple);
+    }
+    public void Teal()
+    {
+        Queue(teal);
     }
     public void White()
     {
-        color.material = white;
+        Queue(white);
+    }
+    public void Yellow()
+    {
+        Queue(yellow);
+    }
+
+    public void Queue(GameObject player)
+    {
+        a = queue.Peek();
+        a.SetActive(false);
+        queue.Dequeue();
+        queue.Enqueue(player);
+        player.SetActive(true);
     }
 }
