@@ -10,11 +10,13 @@ using ICSharpCode.SharpZipLib.Zip;
 public class UpLoadManager : MonoBehaviour
 {
     //public static UpLoadManager uploadManager;
-    private string fileName = "screenshot";
+    private string fileName = "screenshot" + System.DateTime.Now.ToString("yyyyMMddHHmmss");
 
     private string uploadURL = "http://192.168.0.35:5001/main/upload-image";
 
     string fbxPath;
+
+    int maxCount = LobbyManager.instance.maxPlayers;
 
     // Start is called before the first frame update
     public void UploadAndDownloadFBX(Texture2D userImage)
@@ -43,6 +45,7 @@ public class UpLoadManager : MonoBehaviour
             {
                 Debug.Log("Image uploaded! Downloading FBX...");
 
+                
                 fbxPath = Application.dataPath + "/" + fileName + ".zip";
 
                 ////string fbxPath = uploadURL + fileName;
