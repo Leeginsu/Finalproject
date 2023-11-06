@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public GameObject listRoom;
     public GameObject qr;
+    public GameObject lobbyView;
     public GameObject scrollView;
     public GameObject selectView;
     //public GameObject roomImg;
@@ -62,7 +63,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //curPlayers++;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
             //SceneManager.LoadScene("MainScene");
-            SceneManager.LoadScene("MainScene");
+            //SceneManager.LoadScene("MainScene");
+            //PhotonNetwork.LoadLevel("MainScene");
             qr.SetActive(false);
         }
 
@@ -135,6 +137,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         //makingRoom = true;
         //SceneManager.LoadScene("03. SelectScene");
+        lobbyView.SetActive(false);
         scrollView.SetActive(false);
         selectView.SetActive(true);
         titleField.text = "";
@@ -148,7 +151,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //makingRoom = false;
         scrollView.SetActive(true);
         selectView.SetActive(false);
-        listRoom.SetActive(true);
+        lobbyView.SetActive(false);
+        //listRoom.SetActive(true);
 
         //titleText.GetComponent<Text>().text = inputTitle;
         //titleText.GetComponent<Text>().text = titleField.text;
@@ -314,5 +318,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
+    public void BtnMainLobby()
+    {
+        lobbyView.SetActive(true);
+        scrollView.SetActive(false);
+        selectView.SetActive(false);
+    }
+
+    public void BtnRoomList()
+    {
+        lobbyView.SetActive(false);
+        scrollView.SetActive(true);
+        selectView.SetActive(false);
+    }
 
 }
