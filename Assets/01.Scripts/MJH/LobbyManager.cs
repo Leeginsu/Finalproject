@@ -62,20 +62,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if(Input.anyKey)
-        {
-            if(qrOn == true)
-            {
-                qrOn = false;
-                //curPlayers++;
-                //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-                //SceneManager.LoadScene("MainScene");
-                //SceneManager.LoadScene("MainScene");
-                PhotonNetwork.LoadLevel("MainScene");
-                qr.SetActive(false);
-            }
+        //if(Input.anyKey)
+        //{
+        //    if(qrOn == true)
+        //    {
+        //        qrOn = false;
+        //        //curPlayers++;
+        //        //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        //        //SceneManager.LoadScene("MainScene");
+        //        //SceneManager.LoadScene("MainScene");
+        //        PhotonNetwork.LoadLevel("MainScene");
+        //        qr.SetActive(false);
+        //    }
             
-        }
+        //}
 
         //if (Input.GetKeyDown(KeyCode.Alpha1))
         //{
@@ -110,9 +110,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         if (isOpen == true)
         {
-            print(numberDropdown.value);
-            print(PhotonNetwork.CurrentRoom.PlayerCount);
-            if (numberDropdown.value == PhotonNetwork.CurrentRoom.PlayerCount)
+            print("방 인원 숫자 : " + numberDropdown.value);
+            print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
+            if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 PhotonNetwork.LoadLevel("MainScene");
                 isOpen = false;
@@ -238,6 +238,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //int idx = 1;
 
         PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
+        
+        if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            PhotonNetwork.LoadLevel("MainScene");
+            isOpen = false;
+        }
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
