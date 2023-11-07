@@ -8,9 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public static NetworkManager instance;
     private void Awake()
     {
+        instance = this;
         //PhotonNetwork.JoinLobby();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
@@ -20,13 +23,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ConnectToPhotonMasterServer();
     }
 
+    bool start = true;
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKey && start == true)
         {
             PhotonNetwork.NickName = "플레이어";
+
             PhotonNetwork.JoinLobby();
+            start = false;
         }
     }
 

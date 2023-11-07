@@ -32,6 +32,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public int maxPlayers = 0;
     //int curPlayers = 0;
 
+    public Transform[] readyPlayer;
+
    
 
     //Dictionary<string, RoomInfo> dicRoomInfo = new Dictionary<string, RoomInfo>();
@@ -52,8 +54,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         levelToggle[0].isOn = false;
         levelToggle[1].isOn = false;
         levelToggle[2].isOn = false;
+
+        
     }
 
+    bool isOpen = false;
     // Update is called once per frame
     void Update()
     {
@@ -101,6 +106,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             levelToggle[0].isOn = false;
             levelToggle[1].isOn = false;
         }
+
+
+        if (isOpen == true)
+        {
+            print(numberDropdown.value);
+            print(PhotonNetwork.CurrentRoom.PlayerCount);
+            if (numberDropdown.value == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                PhotonNetwork.LoadLevel("MainScene");
+                isOpen = false;
+            }
+        }
+        
     }
 
 
@@ -164,7 +182,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //commentText.GetComponent<Text>().text = commentField.text;
 
 
-        //NumberSelect();
+        NumberSelect();
         LevelSelect();
 
         roomOptions = new RoomOptions
@@ -184,7 +202,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CreateRoom(titleField.text, roomOptions);
         print("방 생성 완료");
-        GameScene();
+        isOpen = true;
+        //GameScene();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -193,20 +212,32 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         print("방 생성 실패 : " + message);
     }
 
-    public void GameScene()
+    public void GameScene(string titleText)
     {
 
-        qr.SetActive(true);
-        qrOn = true;
+        
         //SceneManager.LoadScene("MainScene");
+        //PhotonNetwork.JoinRoom(titleField.text);
+        PhotonNetwork.JoinRoom(titleText);
 
-        PhotonNetwork.JoinRoom(titleField.text);
+        
     }
+
+    
 
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        
         print("방 입장 완료");
+        
+        qr.SetActive(true);
+        qrOn = true;
+
+        int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        //int idx = 1;
+
+        PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -215,34 +246,34 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         print("방 입장 실패 : " + message);
     }
 
-    //void NumberSelect()
-    //{
-    //    if (numberDropdown.value == 0)
-    //    {
-    //        maxPlayers = 2;
-    //        numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-    //    }
-    //    if (numberDropdown.value == 1)
-    //    {
-    //        maxPlayers = 3;
-    //        numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-    //    }
-    //    if (numberDropdown.value == 2)
-    //    {
-    //        maxPlayers = 4;
-    //        numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-    //    }
-    //    if (numberDropdown.value == 3)
-    //    {
-    //        maxPlayers = 5;
-    //        numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-    //    }
-    //    if (numberDropdown.value == 4)
-    //    {
-    //        maxPlayers = 6;
-    //        numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-    //    }
-    //}
+    void NumberSelect()
+    {
+        if (numberDropdown.value == 0)
+        {
+            maxPlayers = 2;
+            //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        }
+        if (numberDropdown.value == 1)
+        {
+            maxPlayers = 3;
+            //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        }
+        if (numberDropdown.value == 2)
+        {
+            maxPlayers = 4;
+            //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        }
+        if (numberDropdown.value == 3)
+        {
+            maxPlayers = 5;
+            //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        }
+        if (numberDropdown.value == 4)
+        {
+            maxPlayers = 6;
+            //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        }
+    }
 
     void LevelSelect()
     {
