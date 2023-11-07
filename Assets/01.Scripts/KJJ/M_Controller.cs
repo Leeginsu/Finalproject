@@ -46,4 +46,8 @@ public class M_Controller : MonoBehaviour
     {
         playerScript.inputDown = false;
     }
+    public void Click()
+    {
+        playerScript.inputClick = true;
+    }
 }
