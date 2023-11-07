@@ -2,28 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public static NetworkManager instance;
     private void Awake()
     {
-        PhotonNetwork.JoinLobby();
+        instance = this;
+        //PhotonNetwork.JoinLobby();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         ConnectToPhotonMasterServer();
     }
 
+    bool start = true;
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKey && start == true)
         {
+            PhotonNetwork.NickName = "플레이어";
+
             PhotonNetwork.JoinLobby();
+            start = false;
         }
     }
 
@@ -43,9 +52,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
+        print(nameof(OnJoinedLobby));
 
-
-        PhotonNetwork.LoadLevel("Lobby");
         Debug.Log("로비 접속 완료");
+        PhotonNetwork.LoadLevel("Lobby");
     }
+
+    
 }
