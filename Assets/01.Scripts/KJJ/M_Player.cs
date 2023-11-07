@@ -76,25 +76,29 @@ public class M_Player : MonoBehaviour
         if(inputLeft)
         {
             moveVelocity = new Vector3(-1f, 0, 0);
-            transform.rotation = Quaternion.Euler(0, -90, 90);
+            if(!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 90);
             Move();
         }
-        if(inputRight)
+        if(inputLeft && inputUp) transform.rotation = Quaternion.Euler(-45, -90, 90);
+        if(inputLeft && inputDown) transform.rotation = Quaternion.Euler(-315, -90, 90);
+        if (inputRight)
         {
             moveVelocity = new Vector3(1f, 0, 0);
-            transform.rotation = Quaternion.Euler(0, 90, -90);
+            if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, -90);
             Move();
         }
-        if(inputUp)
+        if(inputRight && inputUp) transform.rotation = Quaternion.Euler(-45, 90, -90);
+        if(inputRight && inputDown) transform.rotation = Quaternion.Euler(-225, -90, 90);
+        if (inputUp)
         {
             moveVelocity = new Vector3(0, 1f, 0);
-            transform.rotation = Quaternion.Euler(-90, 0, 0);
+            if(!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-90, 0, 0);
             Move();
         }
         if(inputDown)
         {
             moveVelocity = new Vector3(0, -1f, 0);
-            transform.rotation = Quaternion.Euler(-270, -90, 90);
+            if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-270, -90, 90);
             Move();
         }
         if (!inputLeft && !inputRight && !inputUp && !inputDown)
