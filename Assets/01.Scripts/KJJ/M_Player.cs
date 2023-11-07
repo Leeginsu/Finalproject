@@ -5,24 +5,20 @@ using UnityEngine;
 public class M_Player : MonoBehaviour
 {
     public float speed = 8f;
-    public GameObject player;
-
-    Rigidbody rigid;
-
-    Vector3 movement;
 
     public Animator anim;
-    float h;
-    float v;
 
-    public bool inputLR = false;
-    public bool inputUD = false;
+    Vector3 moveVelocity = Vector3.zero;
+
+    public bool inputLeft = false;
+    public bool inputRight = false;
+    public bool inputUp = false;
+    public bool inputDown = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        rigid = gameObject.GetComponent<Rigidbody>();
         anim = gameObject.GetComponentInChildren<Animator>();
 
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
@@ -37,24 +33,40 @@ public class M_Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-        //anim.SetFloat("Horizontal", h);
-        //anim.SetFloat("Vertical", v);
-        if(inputLR) anim.SetFloat("Horizontal", h);
-        else if(inputUD) anim.SetFloat("Vertical", v);
+        if(inputLeft)
+        {
+            moveVelocity = new Vector3(-1f, 0, 0);
+            transform.rotation = Quaternion.Euler(0, -90, 90);// transform.Rotate(new Vector3(-180, 90, -90));
+            Move();
+        }
+        if(inputRight)
+        {
+            moveVelocity = new Vector3(1f, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 90, -90);
+            Move();
+        }
+        if(inputUp)
+        {
+            moveVelocity = new Vector3(0, 1f, 0);
+            transform.rotation = Quaternion.Euler(-90, 0, 0);
+            Move();
+        }
+        if(inputDown)
+        {
+            moveVelocity = new Vector3(0, -1f, 0);
+            transform.rotation = Quaternion.Euler(-270, -90, 90);
+            Move();
+        }
+        if (!inputLeft && !inputRight && !inputUp && !inputDown)
+        {
+            anim.SetBool("IsMoving", false);
+            //transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
     }
 
     void Move()
     {
-        Vector3 moveVelocity = Vector3.zero;
-
-        h = Input.GetAxisRaw("Horizontal");
-        v = Input.GetAxisRaw("Vertical");
-        if (h < 0) moveVelocity = Vector3.left;
-        else if (h > 0) moveVelocity = Vector3.right;
-        else if (v < 0) moveVelocity = Vector3.down;
-        else if (v > 0) moveVelocity = Vector3.up;
-
+        anim.SetBool("IsMoving", true);
         transform.position += moveVelocity * speed * Time.deltaTime;
     }
 }

@@ -13,20 +13,37 @@ public class M_Controller : MonoBehaviour
         playerScript = player.GetComponent<M_Player>();
     }
 
-    public void LRDown()
+    public void LeftDown()
     {
-        playerScript.inputLR = true;
+        playerScript.inputLeft = true;
     }
-    public void LRUp()
+    public void LeftUp()
     {
-        playerScript.inputLR = false;
+        playerScript.inputLeft = false;
     }
-    public void UDDown()
+
+    public void RightDown()
     {
-        playerScript.inputUD = true;
+        playerScript.inputRight = true;
     }
-    public void UDUP()
+    public void RightUp()
     {
-        playerScript.inputUD = false;
+        playerScript.inputRight = false;
+    }
+    public void UpDown()
+    {
+        playerScript.inputUp = true;
+    }
+    public void UpUP()
+    {
+        playerScript.inputUp = false;
+    }
+    public void DownDown()
+    {
+        playerScript.inputDown = true;
+    }
+    public void DownUP()
+    {
+        playerScript.inputDown = false;
     }
 }
