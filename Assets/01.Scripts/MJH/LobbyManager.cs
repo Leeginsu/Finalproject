@@ -58,7 +58,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         
     }
 
-    bool isOpen = false;
+    public bool isOpen = false;
     // Update is called once per frame
     void Update()
     {
@@ -110,7 +110,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         if (isOpen == true)
         {
-            print("방 인원 숫자 : " + numberDropdown.value);
+            print("방 인원 숫자 : " + maxPlayers);
             print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
             if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
@@ -239,11 +239,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
         
-        if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        {
-            PhotonNetwork.LoadLevel("MainScene");
-            isOpen = false;
-        }
+        
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
