@@ -32,10 +32,10 @@ public class BtnJoinRoom : MonoBehaviour
         //GameObject.Find("LobbyManager").GetComponent<LobbyManager>().GameScene();
         lobby.GetComponent<LobbyManager>().GameScene(curRoomName);
         //lobby.GetComponent<LobbyManager>().titleField.text = this.transform.GetComponent<Button>().onClick.AddListener(()=> {PhotonNetwork.JoinRoom})
-        if (lobby.GetComponent<LobbyManager>().maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        {
-            PhotonNetwork.LoadLevel("MainScene");
-            lobby.GetComponent<LobbyManager>().isOpen = false;
-        }
+        //if (lobby.GetComponent<LobbyManager>().maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+        //{
+        //    PhotonNetwork.LoadLevel("MainScene");
+        //    lobby.GetComponent<LobbyManager>().isOpen = false;
+        //}
     }
 }
