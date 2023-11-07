@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 
@@ -9,12 +10,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     private void Awake()
     {
-        PhotonNetwork.JoinLobby();
+        //PhotonNetwork.JoinLobby();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         ConnectToPhotonMasterServer();
     }
 
@@ -23,6 +25,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (Input.anyKey)
         {
+            PhotonNetwork.NickName = "플레이어";
             PhotonNetwork.JoinLobby();
         }
     }
@@ -43,9 +46,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
+        print(nameof(OnJoinedLobby));
 
-
-        PhotonNetwork.LoadLevel("Lobby");
         Debug.Log("로비 접속 완료");
+        PhotonNetwork.LoadLevel("Lobby");
     }
+
+    
 }
