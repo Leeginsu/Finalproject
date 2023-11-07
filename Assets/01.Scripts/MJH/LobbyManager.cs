@@ -109,18 +109,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             levelToggle[1].isOn = false;
         }
 
+        if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            PhotonNetwork.LoadLevel("MainScene");
 
-        //if (isOpen == true)
-        //{
-        //    print("방 인원 숫자 : " + maxPlayers);
-        //    print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
-        //    if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        //    {
-        //        PhotonNetwork.LoadLevel("MainScene");
-        //        isOpen = false;
-        //    }
-        //}
-        
+        }
+
+
     }
 
 
@@ -230,21 +225,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         
         print("방 입장 완료");
-        
+        NumberSelect();
         qr.SetActive(true);
         qrOn = true;
+
+
 
         int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
         //int idx = 1;
 
         PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
 
-        if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        {
-            qrOn = false;
-            PhotonNetwork.LoadLevel("MainScene");
-            
-        }
+        
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
