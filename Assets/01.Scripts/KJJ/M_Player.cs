@@ -40,6 +40,7 @@ public class M_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
         RayCast();
         if(inputClick)
         {

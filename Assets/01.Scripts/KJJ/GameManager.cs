@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public int clearCount = 0;
     public GameObject clearUI;
+    public GameObject failUI;
     public List<GameObject> answerPos = new List<GameObject>();
     public List<GameObject> answerClearPos = new List<GameObject>();
     public GameObject puzzleTutorial;
@@ -51,10 +52,10 @@ public class GameManager : MonoBehaviour
     public bool tutorial = false;
     public bool easy = false;
     public bool normal = false;
-    public bool hard= false;
+    public bool hard = false;
     public float puzzleScale;
 
-    float currentTime;
+    public float currentTime;
     public Scrollbar time;
     float maxTime = 1;
     public float timeLimit = 60;
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour
         }
         currentTime = timeLimit;
         time.size = maxTime;
+        //clearUI = GameObject.FindGameObjectWithTag("ClearUI");
+        //failUI = GameObject.FindGameObjectWithTag("FailUI");
     }
 
     // Update is called once per frame
@@ -191,6 +194,9 @@ public class GameManager : MonoBehaviour
             currentTime -= Time.deltaTime;
             time.size = currentTime / timeLimit;
         }
-        else currentTime = 0;
+        else if (currentTime <= 0)
+        {
+            failUI.SetActive(true);
+        }
     }
 }
