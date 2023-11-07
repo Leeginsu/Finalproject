@@ -21,7 +21,7 @@ public class M_Player : MonoBehaviour
     public GameObject puzzleDifNormal;
     public GameObject puzzleDifHard;
     GameObject puzzle;
-    //bool grab = false;
+    bool grab = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,16 +49,21 @@ public class M_Player : MonoBehaviour
                 puzzleCount[0].transform.parent = transform;
                 puzzleCount.RemoveAt(0);
                 transform.GetComponentInChildren<T_Drop>().space = false;
-                //grab = true;
+                grab = true;
             }
             else if (transform.childCount > 4)
             {
                 transform.GetComponentInChildren<T_Drop>().space = true;
                 transform.GetChild(4).transform.parent = puzzle.transform;
                 check = false;
-                //grab = false;
+                grab = false;
             }
             inputClick = false;
+        }
+        if(grab && transform.childCount == 5)
+        {
+            transform.GetChild(4).transform.localPosition = new Vector3(0,0,0);
+            transform.GetChild(4).transform.rotation = Quaternion.Euler(0,0,0);
         }
     }
 
@@ -71,25 +76,25 @@ public class M_Player : MonoBehaviour
         if(inputLeft)
         {
             moveVelocity = new Vector3(-1f, 0, 0);
-            //transform.rotation = Quaternion.Euler(0, -90, 90);
+            transform.rotation = Quaternion.Euler(0, -90, 90);
             Move();
         }
         if(inputRight)
         {
             moveVelocity = new Vector3(1f, 0, 0);
-            //transform.rotation = Quaternion.Euler(0, 90, -90);
+            transform.rotation = Quaternion.Euler(0, 90, -90);
             Move();
         }
         if(inputUp)
         {
             moveVelocity = new Vector3(0, 1f, 0);
-            //transform.rotation = Quaternion.Euler(-90, 0, 0);
+            transform.rotation = Quaternion.Euler(-90, 0, 0);
             Move();
         }
         if(inputDown)
         {
             moveVelocity = new Vector3(0, -1f, 0);
-            //transform.rotation = Quaternion.Euler(-270, -90, 90);
+            transform.rotation = Quaternion.Euler(-270, -90, 90);
             Move();
         }
         if (!inputLeft && !inputRight && !inputUp && !inputDown)
@@ -101,7 +106,7 @@ public class M_Player : MonoBehaviour
     void Move()
     {
         anim.SetBool("IsMoving", true);
-        transform.position += moveVelocity * speed * Time.deltaTime;
+        transform.position += (moveVelocity * speed).normalized * Time.deltaTime;
     }
     void RayCast()
     {
@@ -114,11 +119,10 @@ public class M_Player : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, layerMask))
         {
-            if (puzzleCount.Count == 0 && check == false && hit.transform.gameObject.CompareTag("Puzzle"))
+            if (puzzleCount.Count == 0 && transform.childCount == 4 && check == false && hit.transform.gameObject.CompareTag("Puzzle"))
             {
                 puzzleCount.Add(hit.transform.gameObject);
             }
-            else if (puzzleCount.Count == 1 && transform.childCount == 0 && !hit.transform.gameObject.CompareTag("Puzzle")) puzzleCount.RemoveAt(0);
         }
     }
 }
