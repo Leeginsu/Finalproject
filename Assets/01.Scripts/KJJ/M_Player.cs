@@ -15,11 +15,18 @@ public class M_Player : MonoBehaviour
     float h;
     float v;
 
+    public bool inputLR = false;
+    public bool inputUD = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
+        anim = gameObject.GetComponentInChildren<Animator>();
+
+        M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
+        m_c.Init();
     }
 
     // Update is called once per frame
@@ -31,8 +38,10 @@ public class M_Player : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        anim.SetFloat("Horizontal", h);
-        anim.SetFloat("Vertical", v);
+        //anim.SetFloat("Horizontal", h);
+        //anim.SetFloat("Vertical", v);
+        if(inputLR) anim.SetFloat("Horizontal", h);
+        else if(inputUD) anim.SetFloat("Vertical", v);
     }
 
     void Move()
@@ -47,25 +56,5 @@ public class M_Player : MonoBehaviour
         else if (v > 0) moveVelocity = Vector3.up;
 
         transform.position += moveVelocity * speed * Time.deltaTime;
-    }
-
-    public void Right()
-    {
-        player.transform.position += Vector3.right;
-    }
-
-    public void Left()
-    {
-        player.transform.position += Vector3.left;
-    }
-
-    public void Up()
-    {
-        player.transform.position += Vector3.up;
-    }
-
-    public void Down()
-    {
-        player.transform.position += Vector3.down;
     }
 }
