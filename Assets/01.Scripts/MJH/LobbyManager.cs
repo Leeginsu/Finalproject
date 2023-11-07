@@ -57,15 +57,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if(qrOn && Input.anyKey)
+        if(Input.anyKey)
         {
-            qrOn = false;
-            //curPlayers++;
-            //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
-            //SceneManager.LoadScene("MainScene");
-            //SceneManager.LoadScene("MainScene");
-            //PhotonNetwork.LoadLevel("MainScene");
-            qr.SetActive(false);
+            if(qrOn == true)
+            {
+                qrOn = false;
+                //curPlayers++;
+                //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+                //SceneManager.LoadScene("MainScene");
+                //SceneManager.LoadScene("MainScene");
+                PhotonNetwork.LoadLevel("MainScene");
+                qr.SetActive(false);
+            }
+            
         }
 
         //if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -149,7 +153,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void CompletMakeRoom()
     {
         //makingRoom = false;
-        scrollView.SetActive(true);
+        scrollView.SetActive(false);
         selectView.SetActive(false);
         lobbyView.SetActive(false);
         //listRoom.SetActive(true);
