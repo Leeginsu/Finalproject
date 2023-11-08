@@ -44,6 +44,8 @@ public class CameraAct : MonoBehaviour
                 controllerGroup.SetActive(true);
                 cameraGroup.SetActive(false);
                 //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
+                //LobbyManager.instance.GameScene(titleText);
+                PhotonNetwork.LoadLevel("TemaScene");
 
                 if (result.Text == "02. LobbyScene")
                 {
@@ -65,21 +67,21 @@ public class CameraAct : MonoBehaviour
         isScanning = true;
     }
 
-    void ConnectToPhotonServer(string serverAddress)
-    {
-        // Photon 서버 연결 로직 작성
-        PhotonNetwork.ConnectUsingSettings();
-    }
+    //void ConnectToPhotonServer(string serverAddress)
+    //{
+    //    // Photon 서버 연결 로직 작성
+    //    PhotonNetwork.ConnectUsingSettings();
+    //}
 
-    public void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby();
-    }
+    //public void OnConnectedToMaster()
+    //{
+    //    PhotonNetwork.JoinLobby();
+    //}
 
-    public void OnJoinedLobby()
-    {
-        // Photon 로비에 참가한 후 게임 룸에 입장할 수 있음.
-    }
+    //public void OnJoinedLobby()
+    //{
+    //    // Photon 로비에 참가한 후 게임 룸에 입장할 수 있음.
+    //}
 
     public void CameraOn()
     {

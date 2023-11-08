@@ -37,6 +37,7 @@ public class QRJoin : MonoBehaviour
                 isConnected = true;
             }
         }
+        
     }
 
     public Texture2D GenerateQRCode(string data)
