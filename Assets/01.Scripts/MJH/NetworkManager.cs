@@ -55,7 +55,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         print(nameof(OnJoinedLobby));
 
         Debug.Log("로비 접속 완료");
-        PhotonNetwork.LoadLevel("Lobby");
+
+        if (Application.isMobilePlatform)
+        {
+            PhotonNetwork.LoadLevel("04. ControllerScene_Mobile");
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel("Lobby");
+        }
+        
     }
 
     
