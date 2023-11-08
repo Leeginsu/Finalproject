@@ -11,6 +11,9 @@ using UnityEngine.SceneManagement;
 
 public class CameraAct : MonoBehaviour
 {
+    public GameObject cameraGroup;
+    public GameObject controllerGroup;
+
     public RawImage cameraViewImage;
     public Text resultText;
 
@@ -38,8 +41,11 @@ public class CameraAct : MonoBehaviour
                 resultText.text = "QR Code Scanned: " + result.Text;
                 isScanning = false;
 
+                controllerGroup.SetActive(true);
+                cameraGroup.SetActive(false);
+                //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
 
-                if(result.Text == "02. LobbyScene")
+                if (result.Text == "02. LobbyScene")
                 {
                     //SceneManager.LoadScene("02. LobbyScene");
                     PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
@@ -77,6 +83,9 @@ public class CameraAct : MonoBehaviour
 
     public void CameraOn()
     {
+        controllerGroup.SetActive(false);
+        cameraGroup.SetActive(true);
+
         // 카메라 권환 확인
         if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
         {
@@ -116,6 +125,9 @@ public class CameraAct : MonoBehaviour
 
     public void CameraOff()
     {
+        cameraGroup.SetActive(false);
+        controllerGroup.SetActive(true);
+
         if (camTexture != null)
         {
             camTexture.Stop();
