@@ -218,8 +218,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
    
     }
 
-    
 
+    public int idx;
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
@@ -231,12 +231,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 
 
-        int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
         //int idx = 1;
 
-        PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
+        //PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
 
         if(Application.isMobilePlatform)
+        {
+            PhotonNetwork.LoadLevel("TemaScene");
+        }
+        else
         {
             PhotonNetwork.LoadLevel("TemaScene");
         }

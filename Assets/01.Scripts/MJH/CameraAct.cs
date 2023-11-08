@@ -41,7 +41,8 @@ public class CameraAct : MonoBehaviour
 
                 if(result.Text == "02. LobbyScene")
                 {
-                    SceneManager.LoadScene("02. LobbyScene");
+                    //SceneManager.LoadScene("02. LobbyScene");
+                    PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
                 } 
                 //if (!isConnected)
                 //{
