@@ -58,6 +58,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         
     }
 
+
+    public bool startGame = false;
     //public bool isOpen = false;
     // Update is called once per frame
     void Update()
@@ -111,7 +113,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         if (maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
-            PhotonNetwork.LoadLevel("MainScene");
+            if(startGame == true)
+            {
+                PhotonNetwork.LoadLevel("MainScene");
+            }
 
         }
 
