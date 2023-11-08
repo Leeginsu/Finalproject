@@ -31,10 +31,10 @@ public class M_Player : MonoBehaviour
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
 
-        if (GameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
-        else if (GameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
-        else if (GameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
-        else if (GameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+        //if (GameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
+        //else if (GameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
+        //else if (GameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
+        //else if (GameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
     }
 
     // Update is called once per frame

@@ -12,55 +12,55 @@ public class PreGameManager : MonoBehaviour
         instance = this;
     }
 
-    // ÆÛÁñ Á¶°¢¿¡ ÀÌ¹ÌÁö¸¦ ³ÖÀ» º¯¼ö
+    // í¼ì¦ ì¡°ê°ì— ì´ë¯¸ì§€ë¥¼ ë„£ì„ ë³€ìˆ˜
     public List<Sprite> puzzleSprite = new List<Sprite>();
 
-    // ÆÛÁñÁ¶°¢ °¹¼ö
+    // í¼ì¦ì¡°ê° ê°¯ìˆ˜
     int level;
 
     public int puzzleDifficulty;
 
-    // ÆÛÁñ Á¶°¢ÀÇ À§Ä¡¸¦ ÆíÇÏ°Ô ºÎ¸£±âÀ§ÇÑ º¯¼ö
+    // í¼ì¦ ì¡°ê°ì˜ ìœ„ì¹˜ë¥¼ í¸í•˜ê²Œ ë¶€ë¥´ê¸°ìœ„í•œ ë³€ìˆ˜
     public List<GameObject> difficultyAnswer = new List<GameObject>();
 
-    // ÆÛÁñ Á¶°¢ÀÇ À§Ä¡
+    // í¼ì¦ ì¡°ê°ì˜ ìœ„ì¹˜
     public List<GameObject> difficultyTutorial = new List<GameObject>();
     public List<GameObject> difficultyEasy = new List<GameObject>();
     public List<GameObject> difficultyNormal = new List<GameObject>();
     public List<GameObject> difficultyHard = new List<GameObject>();
 
-    // ÆÛÁñÁ¶°¢À» ÆíÇÏ°Ô ¼¯±â À§ÇÑ º¯¼ö
+    // í¼ì¦ì¡°ê°ì„ í¸í•˜ê²Œ ì„ê¸° ìœ„í•œ ë³€ìˆ˜
     public List<GameObject> puzzlePos = new List<GameObject>();
 
-    // ÆÛÁñÁ¶°¢À» ¼¯±â À§ÇÑ ÆÛÁñÁ¶°¢ÀÇ À§Ä¡
+    // í¼ì¦ì¡°ê°ì„ ì„ê¸° ìœ„í•œ í¼ì¦ì¡°ê°ì˜ ìœ„ì¹˜
     public List<GameObject> puzzleTutuorialPos = new List<GameObject>();
     public List<GameObject> puzzleEasyPos = new List<GameObject>();
     public List<GameObject> puzzleNormalPos = new List<GameObject>();
     public List<GameObject> puzzleHardPos = new List<GameObject>();
 
-    // Å¬¸®¾î ÆÇº° Ä«¿îÆ®
+    // í´ë¦¬ì–´ íŒë³„ ì¹´ìš´íŠ¸
     public int clearCount = 0;
 
-    // Å¬¸®¾î, ½ÇÆĞ UI
+    // í´ë¦¬ì–´, ì‹¤íŒ¨ UI
     public GameObject clearUI;
     public GameObject failUI;
 
-    // ÆÛÁñÆÇÀÇ À§Ä¡
+    // í¼ì¦íŒì˜ ìœ„ì¹˜
     public List<GameObject> answerPos = new List<GameObject>();
 
-    // Å¬¸®¾î½Ã ÆÛÁñÆÇÀÌ ÇÕÃÄÁö±âÀ§ÇÑ À§Ä¡
+    // í´ë¦¬ì–´ì‹œ í¼ì¦íŒì´ í•©ì³ì§€ê¸°ìœ„í•œ ìœ„ì¹˜
     public List<GameObject> answerClearPos = new List<GameObject>();
 
     public GameObject clearPos;
     float speed = 0.01f;
 
-    // Å×½ºÆ®¿ë
+    // í…ŒìŠ¤íŠ¸ìš©
     public bool tutorial = false;
     public bool easy = false;
     public bool normal = false;
     public bool hard = false;
 
-    // Å¸ÀÌ¸Ó
+    // íƒ€ì´ë¨¸
     public float currentTime;
     public Scrollbar time;
     public float timeLimit = 60;
@@ -84,7 +84,7 @@ public class PreGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Å¬¸®¾î
+        // í´ë¦¬ì–´
         if (clearCount == level)
         {
             Clear();
@@ -92,10 +92,10 @@ public class PreGameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.F1))
         {
-            // ÆÛÁñ ÀÌ¹ÌÁö ·Îµå
+            // í¼ì¦ ì´ë¯¸ì§€ ë¡œë“œ
             ImageLoad();
 
-            // ÆÛÁñ¼¯±â
+            // í¼ì¦ì„ê¸°
             PuzzleRandom();
             //Clear();
         }
@@ -142,7 +142,7 @@ public class PreGameManager : MonoBehaviour
         }
     }
 
-    // ÆÛÁñÁ¶°¢, ÆÛÁñÆÇ¿¡ ÀÌ¹ÌÁö »ğÀÔ
+    // í¼ì¦ì¡°ê°, í¼ì¦íŒì— ì´ë¯¸ì§€ ì‚½ì…
     public void DifficultyTutorial()
     {
         for (int i = 0; i < difficultyTutorial.Count; i++)
@@ -151,7 +151,7 @@ public class PreGameManager : MonoBehaviour
             answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
-    // ÆÛÁñÁ¶°¢, ÆÛÁñÆÇ¿¡ ÀÌ¹ÌÁö »ğÀÔ
+    // í¼ì¦ì¡°ê°, í¼ì¦íŒì— ì´ë¯¸ì§€ ì‚½ì…
     public void DifficultyEasy()
     {
         for (int i = 0; i < difficultyEasy.Count; i++)
@@ -160,7 +160,7 @@ public class PreGameManager : MonoBehaviour
             answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
-    // ÆÛÁñÁ¶°¢, ÆÛÁñÆÇ¿¡ ÀÌ¹ÌÁö »ğÀÔ
+    // í¼ì¦ì¡°ê°, í¼ì¦íŒì— ì´ë¯¸ì§€ ì‚½ì…
     public void DifficultyNormal()
     {
         for (int i = 0; i < difficultyNormal.Count; i++)
@@ -169,7 +169,7 @@ public class PreGameManager : MonoBehaviour
             answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
-    // ÆÛÁñÁ¶°¢, ÆÛÁñÆÇ¿¡ ÀÌ¹ÌÁö »ğÀÔ
+    // í¼ì¦ì¡°ê°, í¼ì¦íŒì— ì´ë¯¸ì§€ ì‚½ì…
     public void DifficultyHard()
     {
         for (int i = 0; i < difficultyHard.Count; i++)
@@ -179,7 +179,7 @@ public class PreGameManager : MonoBehaviour
         }
     }
 
-    // Å¬¸®¾î
+    // í´ë¦¬ì–´
     public void Clear()
     {
         //clearUI.SetActive(true);
@@ -191,7 +191,7 @@ public class PreGameManager : MonoBehaviour
         //}
     }
 
-    // ½Ã°£Á¦ÇÑ
+    // ì‹œê°„ì œí•œ
     public void TimeLimit()
     {
         if (currentTime >= 0)
@@ -205,23 +205,23 @@ public class PreGameManager : MonoBehaviour
         }
     }
 
-    // ÆÛÁñ ÀÌ¹ÌÁö ·Îµå
+    // í¼ì¦ ì´ë¯¸ì§€ ë¡œë“œ
     public void ImageLoad()
     {
-        // º¯¼öÃÊ±âÈ­
+        // ë³€ìˆ˜ì´ˆê¸°í™”
         puzzleSprite.Clear();
         for (int i = 0; i < level; i++)
         {
-            // ÀÌ¹ÌÁö ºÒ·¯¿À±â
+            // ì´ë¯¸ì§€ ë¶ˆëŸ¬ì˜¤ê¸°
             Texture2D tex = Resources.Load("Piece_" + i) as Texture2D;
-            // ÀÌ¹ÌÁö »ı¼º
+            // ì´ë¯¸ì§€ ìƒì„±
             Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
-            // »ı¼ºµÈ ÀÌ¹ÌÁö »ğÀÔ
+            // ìƒì„±ëœ ì´ë¯¸ì§€ ì‚½ì…
             puzzleSprite.Add(sprite);
         }
     }
 
-    // ÆÛÁñÁ¶°¢ ¼¯±â
+    // í¼ì¦ì¡°ê° ì„ê¸°
     public void PuzzleRandom()
     {
         GameObject[] puzzleSave = puzzlePos.ToArray();
