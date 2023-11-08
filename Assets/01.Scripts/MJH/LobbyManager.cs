@@ -236,7 +236,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
 
-        
+        if(Application.isMobilePlatform)
+        {
+            PhotonNetwork.LoadLevel("TemaScene");
+        }
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

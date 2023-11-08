@@ -28,7 +28,7 @@ public class BtnJoinRoom : MonoBehaviour
     
     void GetLobbyManager()
     {
-        
+
         //GameObject.Find("LobbyManager").GetComponent<LobbyManager>().GameScene();
         lobby.GetComponent<LobbyManager>().GameScene(curRoomName);
         //lobby.GetComponent<LobbyManager>().titleField.text = this.transform.GetComponent<Button>().onClick.AddListener(()=> {PhotonNetwork.JoinRoom})

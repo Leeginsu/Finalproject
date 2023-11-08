@@ -9,6 +9,8 @@ public class SpawnManager : MonoBehaviour
 
     static public SpawnManager instance;
 
+    public Transform[] trSpawnPosGroup;
+
     private void Awake()
     {
         instance = this;
@@ -17,8 +19,10 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.Instantiate("Player_Photon", Vector3.zero, Quaternion.identity);
-        SetSpawnPos();
+        int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        //int idx = 1;
+
+        PhotonNetwork.Instantiate("Player_Photon", trSpawnPosGroup[idx].position, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -27,9 +31,4 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    public Transform[] trSpawnPosGroup;
-    void SetSpawnPos()
-    {
-        
-    }
 }
