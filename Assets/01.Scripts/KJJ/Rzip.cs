@@ -9,12 +9,36 @@ public class Rzip : MonoBehaviour
 
     private void Start()
     {
+        
+        
+    }
+    private void Update()
+    {
+        // 파일 이름을 전부 담고
+        string[] fileName = Directory.GetFiles(Application.dataPath);
+
+        // 파일 찾기
+        for (int i = 0; i < fileName.Length; i++)
+        {
+            // 만약 .zip의 이름을 가진 파일이 있다면
+            if (fileName[i].Contains(".zip"))
+            {
+                print(fileName[i]);
+                // 실행핸다.
+                //RUnZip(fileName[i]);
+            }
+        }
+    }
+
+    void RUnZip(string zip)
+    {
         // 알집의 위치 + 이름
-        zipFilePath = Application.dataPath + "/screenshot.zip";
+        zipFilePath = Application.persistentDataPath + "/" + zip;
         // 압출풀 위치 + 폴더이름
         extractionPath = Application.dataPath + "/Resources";
         // 압축 풀기 함수 호출
         Unzip(zipFilePath, extractionPath);
+        File.Delete(zipFilePath);
     }
 
     void Unzip(string zipPath, string extractionPath)

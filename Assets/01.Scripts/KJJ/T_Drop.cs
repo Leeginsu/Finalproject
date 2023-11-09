@@ -41,7 +41,7 @@ public class T_Drop : MonoBehaviour
                 transform.GetComponent<BoxCollider>().enabled = false;
                 if (clearCount)
                 {
-                    GameManager.instance.clearCount++;
+                    PreGameManager.instance.clearCount++;
                     GameObject answer = Instantiate(answerFactory);
                     answer.transform.position = transform.position;
                     Destroy(answer, 2);

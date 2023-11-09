@@ -31,17 +31,19 @@ public class M_Player : MonoBehaviour
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
 
-        if (GameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
-        else if (GameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
-        else if (GameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
-        else if (GameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+        if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
+        else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
+        else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
+        else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
+        
         RayCast();
+        
         if(inputClick)
         {
             if (puzzleCount.Count == 1 && check == true)
@@ -110,7 +112,7 @@ public class M_Player : MonoBehaviour
     void Move()
     {
         anim.SetBool("IsMoving", true);
-        transform.position += (moveVelocity * speed).normalized * Time.deltaTime;
+        transform.position += moveVelocity.normalized * speed * Time.deltaTime;
     }
     void RayCast()
     {
@@ -127,6 +129,7 @@ public class M_Player : MonoBehaviour
             {
                 puzzleCount.Add(hit.transform.gameObject);
             }
+            else if (!hit.transform.gameObject.CompareTag("Puzzle")) puzzleCount.Clear();
         }
     }
 }
