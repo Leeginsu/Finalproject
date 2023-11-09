@@ -78,18 +78,26 @@ public class M_Player : MonoBehaviour
 
     public int TTT()
     {
-        //-0.4115905, -3.233241
+        // 가로
+        int w = PreGameManager.instance.width;
+        // 세로
+        int l = PreGameManager.instance.length;
+
+        //-0.4115905, -3.233241 (플레이어 위치를 0,0으로 만들기위한 값)
+        // 플레이어 위치
         Vector3 pos = transform.position;
+        // 플레이어 위치를 0,0으로 만들기위해 값을 추가
         pos.x += 0.4115905f;
         pos.y += 3.233241f;
 
+        // 좌표 구하기 공식
+        // (x좌표/1칸의 가로길이) + ((y좌표/1칸의 세로길이) * 세로칸수)
         int x = (int)(pos.x / 2.8f);
         int y = (int)(pos.y / 2.8f);
+        int answerIdx = x + (y * l);
 
-        int answerIdx = x + (y * 3);
-
-        answerIdx +=  (6 + (-6 * y));
-
+        answerIdx += ((w * (l - 1)) + (-(w * 2) * y));
+        if (pos.x < 0 || pos.y < 0) answerIdx = 100;
         print(pos + " --- " + answerIdx);
         return answerIdx;
     }

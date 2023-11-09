@@ -9,6 +9,7 @@ public class PreGameManager : MonoBehaviour
     private void Awake()
     {
         Difficulty();
+        
         instance = this;
     }
 
@@ -21,6 +22,11 @@ public class PreGameManager : MonoBehaviour
     // 퍼즐의 가로, 세로
     public int width = 0;
     public int length = 0;
+
+    // 플레이어 기본 위치값을 0,0 으로 만들기위한 값
+    public List<GameObject> initial = new List<GameObject>();
+    public Vector3 initialxy;
+
 
     public int puzzleDifficulty;
 
@@ -78,8 +84,8 @@ public class PreGameManager : MonoBehaviour
         PuzzleRandom();
 
         ImageIn();
-        
-
+        initialxy = initial[puzzleDifficulty].transform.position;
+        print(initialxy);
         //clearUI = GameObject.FindGameObjectWithTag("ClearUI");
         //failUI = GameObject.FindGameObjectWithTag("FailUI");
     }
