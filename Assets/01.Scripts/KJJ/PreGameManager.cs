@@ -18,6 +18,10 @@ public class PreGameManager : MonoBehaviour
     // 퍼즐조각 갯수
     int level;
 
+    // 퍼즐의 가로, 세로
+    public int width = 0;
+    public int length = 0;
+
     public int puzzleDifficulty;
 
     // 퍼즐 조각의 위치를 편하게 부르기위한 변수
@@ -73,10 +77,8 @@ public class PreGameManager : MonoBehaviour
         ImageLoad();
         PuzzleRandom();
 
-        if (puzzleDifficulty == 0) DifficultyTutorial();
-        if (puzzleDifficulty == 1) DifficultyEasy();
-        if (puzzleDifficulty == 2) DifficultyNormal();
-        if (puzzleDifficulty == 3) DifficultyHard();
+        ImageIn();
+        
 
         //clearUI = GameObject.FindGameObjectWithTag("ClearUI");
         //failUI = GameObject.FindGameObjectWithTag("FailUI");
@@ -108,16 +110,27 @@ public class PreGameManager : MonoBehaviour
     {
         if (tutorial)
         {
-            level = 4;
+            width = 2;
+            length = 2;
+            level = width * length;
             puzzleDifficulty = 0;
             answerPos[puzzleDifficulty].SetActive(true);
             difficultyAnswer.AddRange(difficultyTutorial);
             puzzlePos.AddRange(puzzleTutuorialPos);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
         }
+        //else if(!tutorial)
+        //{
+        //    answerPos[puzzleDifficulty].SetActive(false);
+        //    difficultyAnswer[0].transform.parent.gameObject.SetActive(false);
+        //    difficultyAnswer.Clear();
+        //    puzzlePos.Clear();
+        //}
         if (easy)
         {
-            level = 9;
+            width = 3;
+            length = 3;
+            level = width * length;
             puzzleDifficulty = 1;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzlePos.AddRange(puzzleEasyPos);
@@ -126,7 +139,9 @@ public class PreGameManager : MonoBehaviour
         }
         if (normal)
         {
-            level = 12;
+            width = 4;
+            length = 3;
+            level = width * length;
             puzzleDifficulty = 2;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzlePos.AddRange(puzzleNormalPos);
@@ -135,7 +150,9 @@ public class PreGameManager : MonoBehaviour
         }
         if (hard)
         {
-            level = 16;
+            width = 4;
+            length = 4;
+            level = width * length;
             puzzleDifficulty = 3;
             answerPos[puzzleDifficulty].SetActive(true);
             puzzlePos.AddRange(puzzleHardPos);
@@ -182,7 +199,13 @@ public class PreGameManager : MonoBehaviour
     public void Clear()
     {
         clearCount = 0;
-
+        print("클리어");
+        tutorial = false;
+        easy = true;
+        Difficulty();
+        ImageLoad();
+        PuzzleRandom();
+        ImageIn();
         //clearUI.SetActive(true);
         //answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
         //for (int i = 0; i < level; i++)
@@ -237,5 +260,13 @@ public class PreGameManager : MonoBehaviour
         {
             puzzlePos.Add(puzzleSave[i]);
         }
+    }
+
+    void ImageIn()
+    {
+        if (puzzleDifficulty == 0) DifficultyTutorial();
+        if (puzzleDifficulty == 1) DifficultyEasy();
+        if (puzzleDifficulty == 2) DifficultyNormal();
+        if (puzzleDifficulty == 3) DifficultyHard();
     }
 }

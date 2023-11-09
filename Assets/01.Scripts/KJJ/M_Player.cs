@@ -40,6 +40,10 @@ public class M_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+       
+
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
         
         RayCast();
@@ -48,6 +52,7 @@ public class M_Player : MonoBehaviour
         {
             if (puzzleCount.Count == 1 && check == true)
             {
+
                 puzzleCount[0].transform.parent = transform;
                 puzzleCount.RemoveAt(0);
                 transform.GetComponentInChildren<T_Drop>().space = false;
@@ -55,6 +60,8 @@ public class M_Player : MonoBehaviour
             }
             else if (transform.childCount > 4)
             {
+                int n = TTT();
+                transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
                 transform.GetComponentInChildren<T_Drop>().space = true;
                 transform.GetChild(4).transform.parent = puzzle.transform;
                 check = false;
@@ -67,6 +74,24 @@ public class M_Player : MonoBehaviour
             transform.GetChild(4).transform.localPosition = new Vector3(0,0,0);
             transform.GetChild(4).transform.rotation = Quaternion.Euler(0,0,0);
         }
+    }
+
+    public int TTT()
+    {
+        //-0.4115905, -3.233241
+        Vector3 pos = transform.position;
+        pos.x += 0.4115905f;
+        pos.y += 3.233241f;
+
+        int x = (int)(pos.x / 2.8f);
+        int y = (int)(pos.y / 2.8f);
+
+        int answerIdx = x + (y * 3);
+
+        answerIdx +=  (6 + (-6 * y));
+
+        print(pos + " --- " + answerIdx);
+        return answerIdx;
     }
 
     public List<GameObject> puzzleCount = new List<GameObject>();
