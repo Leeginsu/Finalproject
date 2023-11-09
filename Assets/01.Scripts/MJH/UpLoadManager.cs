@@ -12,11 +12,16 @@ public class UpLoadManager : MonoBehaviour
     //public static UpLoadManager uploadManager;
     private string fileName = "screenshot" + System.DateTime.Now.ToString("yyyyMMddHHmmss");
 
-    private string uploadURL = "http://192.168.0.35:5001/main/upload-image";
+    private string uploadURL = "http://192.168.0.44:5001/main/upload-image";
 
     string fbxPath;
 
-    int maxCount = LobbyManager.instance.maxPlayers;
+    int maxCount;
+
+    private void Start()
+    {
+        maxCount = LobbyManager.instance.maxPlayers;
+    }
 
     // Start is called before the first frame update
     public void UploadAndDownloadFBX(Texture2D userImage)
@@ -47,6 +52,7 @@ public class UpLoadManager : MonoBehaviour
 
                 
                 fbxPath = Application.persistentDataPath + "/" + fileName + ".zip";
+                print(fbxPath);
 
                 ////string fbxPath = uploadURL + fileName;
                 File.WriteAllBytes(fbxPath, www.downloadHandler.data);
