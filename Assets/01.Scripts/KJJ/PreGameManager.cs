@@ -68,6 +68,8 @@ public class PreGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentTime = timeLimit;
+        time.size = 1;
         ImageLoad();
         PuzzleRandom();
 
@@ -76,7 +78,6 @@ public class PreGameManager : MonoBehaviour
         if (puzzleDifficulty == 2) DifficultyNormal();
         if (puzzleDifficulty == 3) DifficultyHard();
 
-        currentTime = timeLimit;
         //clearUI = GameObject.FindGameObjectWithTag("ClearUI");
         //failUI = GameObject.FindGameObjectWithTag("FailUI");
     }
@@ -102,6 +103,7 @@ public class PreGameManager : MonoBehaviour
         TimeLimit();
     }
 
+    // 퍼즐 난이도 정보
     public void Difficulty()
     {
         if (tutorial)
@@ -151,7 +153,6 @@ public class PreGameManager : MonoBehaviour
             answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
-    // 퍼즐조각, 퍼즐판에 이미지 삽입
     public void DifficultyEasy()
     {
         for (int i = 0; i < difficultyEasy.Count; i++)
@@ -160,7 +161,6 @@ public class PreGameManager : MonoBehaviour
             answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
-    // 퍼즐조각, 퍼즐판에 이미지 삽입
     public void DifficultyNormal()
     {
         for (int i = 0; i < difficultyNormal.Count; i++)
@@ -169,7 +169,6 @@ public class PreGameManager : MonoBehaviour
             answerPos[puzzleDifficulty].transform.GetChild(i).GetComponentInChildren<SpriteRenderer>().sprite = puzzleSprite[i];
         }
     }
-    // 퍼즐조각, 퍼즐판에 이미지 삽입
     public void DifficultyHard()
     {
         for (int i = 0; i < difficultyHard.Count; i++)
@@ -182,6 +181,8 @@ public class PreGameManager : MonoBehaviour
     // 클리어
     public void Clear()
     {
+        clearCount = 0;
+
         //clearUI.SetActive(true);
         //answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
         //for (int i = 0; i < level; i++)
