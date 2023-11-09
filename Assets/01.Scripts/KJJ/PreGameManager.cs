@@ -234,7 +234,7 @@ public class PreGameManager : MonoBehaviour
         }
         for (int i = 0; i < puzzleSave.Length; i++)
         {
-            puzzlePos.AddRange(puzzleSave);
+            puzzlePos.Add(puzzleSave[i]);
         }
     }
 }
