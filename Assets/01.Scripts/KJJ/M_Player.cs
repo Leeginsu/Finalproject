@@ -31,18 +31,16 @@ public class M_Player : MonoBehaviour
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
 
-        if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
-        else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
-        else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
-        else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-       
-
+        if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
+        else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
+        else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
+        else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
         
@@ -87,13 +85,17 @@ public class M_Player : MonoBehaviour
         // 플레이어 위치
         Vector3 pos = transform.position;
         // 플레이어 위치를 0,0으로 만들기위해 값을 추가
-        pos.x += 0.4115905f;
-        pos.y += 3.233241f;
+        //pos.x += 0.4115905f;
+        pos.x += PreGameManager.instance.posx;
+        //pos.y += 3.233241f;
+        pos.y += PreGameManager.instance.posy;
 
         // 좌표 구하기 공식
         // (x좌표/1칸의 가로길이) + ((y좌표/1칸의 세로길이) * 세로칸수)
-        int x = (int)(pos.x / 2.8f);
-        int y = (int)(pos.y / 2.8f);
+        //int x = (int)(pos.x / 2.8f);
+        int x = (int)(pos.x / PreGameManager.instance.widthx);
+        //int y = (int)(pos.y / 2.8f);
+        int y = (int)(pos.y / PreGameManager.instance.lengthy);
         int answerIdx = x + (y * l);
 
         answerIdx += ((w * (l - 1)) + (-(w * 2) * y));

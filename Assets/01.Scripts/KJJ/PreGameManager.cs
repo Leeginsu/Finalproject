@@ -9,7 +9,7 @@ public class PreGameManager : MonoBehaviour
     private void Awake()
     {
         Difficulty();
-        
+
         instance = this;
     }
 
@@ -18,6 +18,8 @@ public class PreGameManager : MonoBehaviour
 
     // 퍼즐조각 갯수
     int level;
+
+    float speed = 0.01f;
 
     // 퍼즐의 가로, 세로
     public int width = 0;
@@ -62,10 +64,9 @@ public class PreGameManager : MonoBehaviour
     public List<GameObject> answerClearPos = new List<GameObject>();
 
     public GameObject clearPos;
-    float speed = 0.01f;
 
     // 테스트용
-    public bool tutorial = false;
+    bool tutorial = true;
     public bool easy = false;
     public bool normal = false;
     public bool hard = false;
@@ -74,6 +75,12 @@ public class PreGameManager : MonoBehaviour
     public float currentTime;
     public Scrollbar time;
     public float timeLimit = 60;
+
+    // 플레이어 좌표계산을위한 변수
+    public float posx;
+    public float posy;
+    public float widthx;
+    public float lengthy;
 
     // Start is called before the first frame update
     void Start()
@@ -86,27 +93,34 @@ public class PreGameManager : MonoBehaviour
         ImageIn();
         initialxy = initial[puzzleDifficulty].transform.position;
         print(initialxy);
-        //clearUI = GameObject.FindGameObjectWithTag("ClearUI");
-        //failUI = GameObject.FindGameObjectWithTag("FailUI");
     }
 
     // Update is called once per frame
     void Update()
     {
         // 클리어
-        if (clearCount == level)
+        if (clearCount == level && level == 4)
         {
+            clearCount = 0;
+            tutorial = false;
+            easy = true;
             Clear();
         }
-
-        if(Input.GetKeyDown(KeyCode.F1))
+        if (clearCount == level && level == 9)
         {
-            // 퍼즐 이미지 로드
-            ImageLoad();
+            clearCount = 0;
+            easy = false;
+            hard = true;
+            Clear();
+        }
+        if (clearCount == level && level == 16)
+        {
+            ClearMove();
+        }
 
-            // 퍼즐섞기
-            PuzzleRandom();
-            //Clear();
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            clearCount = level;
         }
         TimeLimit();
     }
@@ -121,17 +135,18 @@ public class PreGameManager : MonoBehaviour
             level = width * length;
             puzzleDifficulty = 0;
             answerPos[puzzleDifficulty].SetActive(true);
+            difficultyAnswer.Clear();
             difficultyAnswer.AddRange(difficultyTutorial);
+            puzzlePos.Clear();
             puzzlePos.AddRange(puzzleTutuorialPos);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
+
+            // 무조건 0이 되야하므로 계산 잘해야됨
+            posx = -0.4284096f;
+            posy = 2.433241f;
+            widthx = 3.4f;
+            lengthy = 3.4f;
         }
-        //else if(!tutorial)
-        //{
-        //    answerPos[puzzleDifficulty].SetActive(false);
-        //    difficultyAnswer[0].transform.parent.gameObject.SetActive(false);
-        //    difficultyAnswer.Clear();
-        //    puzzlePos.Clear();
-        //}
         if (easy)
         {
             width = 3;
@@ -139,9 +154,16 @@ public class PreGameManager : MonoBehaviour
             level = width * length;
             puzzleDifficulty = 1;
             answerPos[puzzleDifficulty].SetActive(true);
+            puzzlePos.Clear();
             puzzlePos.AddRange(puzzleEasyPos);
+            difficultyAnswer.Clear();
             difficultyAnswer.AddRange(difficultyEasy);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
+
+            posx = -0.3384099f;
+            posy = 2.483241f;
+            widthx = 2.3f;
+            lengthy = 2.3f;
         }
         if (normal)
         {
@@ -150,7 +172,9 @@ public class PreGameManager : MonoBehaviour
             level = width * length;
             puzzleDifficulty = 2;
             answerPos[puzzleDifficulty].SetActive(true);
+            puzzlePos.Clear();
             puzzlePos.AddRange(puzzleNormalPos);
+            difficultyAnswer.Clear();
             difficultyAnswer.AddRange(difficultyNormal);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
         }
@@ -161,9 +185,16 @@ public class PreGameManager : MonoBehaviour
             level = width * length;
             puzzleDifficulty = 3;
             answerPos[puzzleDifficulty].SetActive(true);
+            puzzlePos.Clear();
             puzzlePos.AddRange(puzzleHardPos);
+            difficultyAnswer.Clear();
             difficultyAnswer.AddRange(difficultyHard);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
+
+            posx = -0.458409f;
+            posy = 2.393241f;
+            widthx = 1.68f;
+            lengthy = 1.68f;
         }
     }
 
@@ -204,21 +235,23 @@ public class PreGameManager : MonoBehaviour
     // 클리어
     public void Clear()
     {
-        clearCount = 0;
-        print("클리어");
-        tutorial = false;
-        easy = true;
+        answerPos[puzzleDifficulty].SetActive(false);
+        difficultyAnswer[0].transform.parent.gameObject.SetActive(false);
         Difficulty();
         ImageLoad();
         PuzzleRandom();
         ImageIn();
-        //clearUI.SetActive(true);
-        //answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
-        //for (int i = 0; i < level; i++)
-        //{
-        //    answerPos[puzzleDifficulty].transform.GetChild(i).transform.localPosition =
-        //        Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.GetChild(i).transform.localPosition, answerClearPos[0].transform.GetChild(i).transform.localPosition, 0.001f);
-        //}
+    }
+
+    public void ClearMove()
+    {
+        clearUI.SetActive(true);
+        answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
+        for (int i = 0; i < level; i++)
+        {
+            answerPos[puzzleDifficulty].transform.GetChild(i).transform.localPosition =
+                Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.GetChild(i).transform.localPosition, answerClearPos[0].transform.GetChild(i).transform.localPosition, 0.001f);
+        }
     }
 
     // 시간제한
@@ -268,6 +301,7 @@ public class PreGameManager : MonoBehaviour
         }
     }
 
+    // 이미지 삽입
     void ImageIn()
     {
         if (puzzleDifficulty == 0) DifficultyTutorial();
