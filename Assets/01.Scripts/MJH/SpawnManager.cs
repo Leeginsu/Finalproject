@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
         if (Application.isMobilePlatform)
         {
             conUI.SetActive(true);
-
+            print("ÄÑÁ®¶ó");
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
 
