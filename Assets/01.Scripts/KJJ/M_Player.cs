@@ -30,8 +30,6 @@ public class M_Player : MonoBehaviour
 
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
-
-        
     }
 
     // Update is called once per frame
