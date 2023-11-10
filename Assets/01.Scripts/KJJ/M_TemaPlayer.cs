@@ -1,8 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class M_TemaPlayer : MonoBehaviour
+
+public class M_TemaPlayer : MonoBehaviourPun
 {
     public float speed = 8f;
 
@@ -28,42 +30,54 @@ public class M_TemaPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
     {
-        if(inputLeft)
+        if (photonView.IsMine)
         {
-            moveVelocity = new Vector3(1f, 0, 0);
-            if(!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, 0);
-            Move();
-        }
-        if(inputLeft && inputUp) transform.rotation = Quaternion.Euler(0, 135, 0);
-        if(inputLeft && inputDown) transform.rotation = Quaternion.Euler(0, 45, 0);
-        if (inputRight)
-        {
-            moveVelocity = new Vector3(-1f, 0, 0);
-            if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 0);
-            Move();
-        }
-        if(inputRight && inputUp) transform.rotation = Quaternion.Euler(0, -135, 0);
-        if(inputRight && inputDown) transform.rotation = Quaternion.Euler(0, -45, 0);
-        if (inputUp)
-        {
-            moveVelocity = new Vector3(0, 0, -1f);
-            if(!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 180, 0);
-            Move();
-        }
-        if(inputDown)
-        {
-            moveVelocity = new Vector3(0, 0, 1f);
-            if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 0, 0);
-            Move();
-        }
-        if (!inputLeft && !inputRight && !inputUp && !inputDown)
-        {
-            anim.SetBool("IsMoving", false);
+
+            if (inputLeft)
+            {
+                moveVelocity = new Vector3(1f, 0, 0);
+                if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, 0);
+                //Move();
+                anim.SetBool("IsMoving", true);
+                transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+            }
+            if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(0, 135, 0);
+            if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(0, 45, 0);
+            if (inputRight)
+            {
+                moveVelocity = new Vector3(-1f, 0, 0);
+                if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 0);
+                //Move();
+                anim.SetBool("IsMoving", true);
+                transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+            }
+            if (inputRight && inputUp) transform.rotation = Quaternion.Euler(0, -135, 0);
+            if (inputRight && inputDown) transform.rotation = Quaternion.Euler(0, -45, 0);
+            if (inputUp)
+            {
+                moveVelocity = new Vector3(0, 0, -1f);
+                if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 180, 0);
+                //Move();
+                anim.SetBool("IsMoving", true);
+                transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+            }
+            if (inputDown)
+            {
+                moveVelocity = new Vector3(0, 0, 1f);
+                if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 0, 0);
+                //Move();
+                anim.SetBool("IsMoving", true);
+                transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+            }
+            if (!inputLeft && !inputRight && !inputUp && !inputDown)
+            {
+                anim.SetBool("IsMoving", false);
+            }
         }
     }
 
@@ -71,5 +85,18 @@ public class M_TemaPlayer : MonoBehaviour
     {
         anim.SetBool("IsMoving", true);
         transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            transform.position = (Vector3)stream.ReceiveNext();
+        }
     }
 }
