@@ -20,14 +20,16 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        PhotonNetwork.Instantiate("Player_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         if (Application.isMobilePlatform)
         {
             conUI.SetActive(true);
-
-            int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+            print("ÄÑÁ®¶ó");
+            //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
 
-            PhotonNetwork.Instantiate("Player_Photon", trSpawnPosGroup[idx].position, Quaternion.identity);
+            PhotonNetwork.Instantiate("Player_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
         }
 
         
