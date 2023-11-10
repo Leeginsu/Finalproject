@@ -31,15 +31,17 @@ public class M_Player : MonoBehaviour
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
 
-        if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
-        else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
-        else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
-        else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
+        else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
+        else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
+        else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
         
         RayCast();
@@ -48,6 +50,7 @@ public class M_Player : MonoBehaviour
         {
             if (puzzleCount.Count == 1 && check == true)
             {
+
                 puzzleCount[0].transform.parent = transform;
                 puzzleCount.RemoveAt(0);
                 transform.GetComponentInChildren<T_Drop>().space = false;
@@ -55,6 +58,8 @@ public class M_Player : MonoBehaviour
             }
             else if (transform.childCount > 4)
             {
+                int n = TTT();
+                transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
                 transform.GetComponentInChildren<T_Drop>().space = true;
                 transform.GetChild(4).transform.parent = puzzle.transform;
                 check = false;
@@ -67,6 +72,36 @@ public class M_Player : MonoBehaviour
             transform.GetChild(4).transform.localPosition = new Vector3(0,0,0);
             transform.GetChild(4).transform.rotation = Quaternion.Euler(0,0,0);
         }
+    }
+
+    public int TTT()
+    {
+        // 가로
+        int w = PreGameManager.instance.width;
+        // 세로
+        int l = PreGameManager.instance.length;
+
+        //-0.4115905, -3.233241 (플레이어 위치를 0,0으로 만들기위한 값)
+        // 플레이어 위치
+        Vector3 pos = transform.position;
+        // 플레이어 위치를 0,0으로 만들기위해 값을 추가
+        //pos.x += 0.4115905f;
+        pos.x += PreGameManager.instance.posx;
+        //pos.y += 3.233241f;
+        pos.y += PreGameManager.instance.posy;
+
+        // 좌표 구하기 공식
+        // (x좌표/1칸의 가로길이) + ((y좌표/1칸의 세로길이) * 세로칸수)
+        //int x = (int)(pos.x / 2.8f);
+        int x = (int)(pos.x / PreGameManager.instance.widthx);
+        //int y = (int)(pos.y / 2.8f);
+        int y = (int)(pos.y / PreGameManager.instance.lengthy);
+        int answerIdx = x + (y * l);
+
+        answerIdx += ((w * (l - 1)) + (-(w * 2) * y));
+        if (pos.x < 0 || pos.y < 0) answerIdx = 100;
+        print(pos + " --- " + answerIdx);
+        return answerIdx;
     }
 
     public List<GameObject> puzzleCount = new List<GameObject>();

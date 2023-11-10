@@ -18,20 +18,10 @@ public class T_Drop : MonoBehaviour
         scale_awal = transform.localScale;
     }
 
-    //마우스 드래그
-    private void OnMouseDrag()
-    {
-        float distance = Camera.main.WorldToScreenPoint(transform.position).z;
 
-        Vector3 pos_mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance));
-        transform.position = new Vector3(pos_mouse.x, pos_mouse.y, pos_mouse.z);
-        //transform.localScale = new Vector2(0.5f, 0.5f);
-    }
-
-    //마우스를 떼면(한번 맞추면 위치고정)
-    private void OnSpaceUp()
+    public void CheckAnswer(int n)
     {
-        if (on_pos && space)
+        if(detector.name.Contains(n.ToString()))
         {
             // 맞는 위치면 detecror의 위치에 고정
             if (transform.rotation.z == detector.transform.rotation.z)
@@ -49,31 +39,11 @@ public class T_Drop : MonoBehaviour
                 }
             }
         }
-        else if (!on_pos && space)
+        else
         {
             // 틀렸다면 원위치
             transform.position = pos_awal;
             transform.localScale = scale_awal;
         }
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        // 퍼즐 위치가 맞다면
-        if (collision.gameObject == detector)
-        {
-            on_pos = true;
-        }
-        // 퍼즐 위치가 틀렸다면
-        else
-        {
-            on_pos = false;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        OnSpaceUp();
     }
 }
