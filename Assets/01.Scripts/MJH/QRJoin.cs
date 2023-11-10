@@ -33,7 +33,7 @@ public class QRJoin : MonoBehaviour
                 Texture2D qrCodeTexture = GenerateQRCode(serverAddress);
                 qrCodeImage.texture = qrCodeTexture;
 
-                connectionStatusText.text = "스캔하여 연결하세요";
+                //connectionStatusText.text = "스캔하여 연결하세요";
                 isConnected = true;
             }
         }
