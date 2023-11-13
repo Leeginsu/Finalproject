@@ -106,20 +106,21 @@ public class PreGameManager : MonoBehaviourPun
             print("ÄÑÁ®¶ó");
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
-            Invoke("PlayerInstance", 1f);
-            //PhotonNetwork.Instantiate("Player_Photon", spotGroup[1].position, Quaternion.Euler(-90, 0, 0));
+            //Invoke("PlayerInstance", 1f);
+            PhotonNetwork.Instantiate("Player_Photon", spotGroup[1].position, Quaternion.Euler(-90, 0, 0));
         }
         else
         {
             conUI.SetActive(false);
-            Invoke("PlayerInstance", 1f);
+            PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
+            //Invoke("PlayerInstance", 1f);
         }
     }
 
-    void PlayerInstance()
-    {
-        PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
-    }
+    //void PlayerInstance()
+    //{
+    //    PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
+    //}
 
     // Update is called once per frame
     void Update()

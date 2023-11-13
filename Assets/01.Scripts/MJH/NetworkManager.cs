@@ -19,7 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        
+
         ConnectToPhotonMasterServer();
     }
 
@@ -37,16 +37,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                PhotonNetwork.AutomaticallySyncScene = true;
-                PhotonNetwork.LoadLevel("MainScene");
-            }
-            
+            PhotonNetwork.LoadLevel("MainScene");
+            //if (PhotonNetwork.IsMasterClient)
+            //{
+            //    PhotonNetwork.AutomaticallySyncScene = true;
+            //}
+
             //if (LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             //{
             //    print("¿‘¿Â");
-                
+
             //    PhotonNetwork.LoadLevel("MainScene");
             //}
         }
@@ -82,8 +82,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("Lobby");
         }
-        
+
     }
 
-    
+
 }

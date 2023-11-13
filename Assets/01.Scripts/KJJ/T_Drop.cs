@@ -8,7 +8,6 @@ public class T_Drop : MonoBehaviourPun
 {
     public GameObject detector;
     Vector3 pos_awal, scale_awal;
-    bool on_pos = false;
     public bool space = false;
     bool clearCount = true;
     public GameObject answerFactory;
@@ -23,7 +22,7 @@ public class T_Drop : MonoBehaviourPun
 
     public void CheckAnswer(int n)
     {
-        if(detector.name.Contains(n.ToString()))
+        if (detector.name.Contains(n.ToString()))
         {
             // 맞는 위치면 detecror의 위치에 고정
             if (transform.rotation.z == detector.transform.rotation.z)
