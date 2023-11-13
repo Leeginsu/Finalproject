@@ -9,7 +9,7 @@ using Photon.Realtime;
 using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 
-public class CameraAct : MonoBehaviour
+public class CameraAct : MonoBehaviourPunCallbacks
 {
     public GameObject cameraGroup;
     public GameObject controllerGroup;
@@ -45,13 +45,14 @@ public class CameraAct : MonoBehaviour
                 cameraGroup.SetActive(false);
                 //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
                 //LobbyManager.instance.GameScene(titleText);
-                PhotonNetwork.LoadLevel("TemaScene");
+                PhotonNetwork.JoinRoom(result.Text);
+                //PhotonNetwork.LoadLevel("TemaScene");
 
-                if (result.Text == "02. LobbyScene")
-                {
-                    //SceneManager.LoadScene("02. LobbyScene");
-                    PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
-                } 
+                //if (result.Text == "02. LobbyScene")
+                //{
+                //    //SceneManager.LoadScene("02. LobbyScene");
+                //    PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
+                //} 
                 //if (!isConnected)
                 //{
                 //    ConnectToPhotonServer(result.Text);
@@ -61,7 +62,14 @@ public class CameraAct : MonoBehaviour
         }
     }
 
-    public void StartScanning()
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+
+        PhotonNetwork.LoadLevel("TemaScene");
+    }
+
+        public void StartScanning()
     {
         print("22");
         isScanning = true;

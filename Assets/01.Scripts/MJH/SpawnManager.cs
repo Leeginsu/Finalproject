@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
-        PhotonNetwork.Instantiate("Player_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
+        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         if (Application.isMobilePlatform)
         {
             conUI.SetActive(true);
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
 
-            PhotonNetwork.Instantiate("Player_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
         }
 
         
@@ -43,6 +43,9 @@ public class SpawnManager : MonoBehaviour
             print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         }
+
+        
+        
     }
 
 }

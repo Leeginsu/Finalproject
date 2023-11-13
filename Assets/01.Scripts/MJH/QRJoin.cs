@@ -13,30 +13,33 @@ public class QRJoin : MonoBehaviour
     public Text connectionStatusText;
 
     private bool isConnected = false;
+    string sendRoom;
 
     private void Start()
     {
+        sendRoom = PhotonNetwork.CurrentRoom.Name;
+
         // Photon 서버 연결 설정
         //PhotonNetwork.ConnectUsingSettings();
-        Texture2D qrCodeTexture = GenerateQRCode("02. LobbyScene");
+        Texture2D qrCodeTexture = GenerateQRCode(sendRoom);
         qrCodeImage.texture = qrCodeTexture;
     }
 
     private void Update()
     {
-        if (!isConnected)
-        {
-            // Photon 서버에 아직 연결되지 않았다면 QR 코드를 생성하고 화면에 표시
-            string serverAddress = PhotonNetwork.ServerAddress;
-            if (!string.IsNullOrEmpty(serverAddress))
-            {
-                Texture2D qrCodeTexture = GenerateQRCode(serverAddress);
-                qrCodeImage.texture = qrCodeTexture;
+        //if (!isConnected)
+        //{
+        //    // Photon 서버에 아직 연결되지 않았다면 QR 코드를 생성하고 화면에 표시
+        //    string serverAddress = PhotonNetwork.ServerAddress;
+        //    if (!string.IsNullOrEmpty(serverAddress))
+        //    {
+        //        Texture2D qrCodeTexture = GenerateQRCode(serverAddress);
+        //        qrCodeImage.texture = qrCodeTexture;
 
-                //connectionStatusText.text = "스캔하여 연결하세요";
-                isConnected = true;
-            }
-        }
+        //        //connectionStatusText.text = "스캔하여 연결하세요";
+        //        isConnected = true;
+        //    }
+        //}
         
     }
 

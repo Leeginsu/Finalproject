@@ -10,6 +10,8 @@ public class BtnJoinRoom : MonoBehaviour
 
     string curRoomName;
     Transform parentF;
+
+    public string sendRoomName;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class BtnJoinRoom : MonoBehaviour
 
         //GameObject.Find("LobbyManager").GetComponent<LobbyManager>().GameScene();
         lobby.GetComponent<LobbyManager>().GameScene(curRoomName);
+        sendRoomName = curRoomName;
         //lobby.GetComponent<LobbyManager>().titleField.text = this.transform.GetComponent<Button>().onClick.AddListener(()=> {PhotonNetwork.JoinRoom})
         //if (lobby.GetComponent<LobbyManager>().maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         //{
