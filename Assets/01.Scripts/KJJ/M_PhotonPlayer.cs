@@ -29,7 +29,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
     {
         anim = gameObject.GetComponentInChildren<Animator>();
 
-        M_TemaController m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_TemaController>();
+        M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
     }
 
@@ -41,7 +41,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
         else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
         else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
 
         RayCast();
 
