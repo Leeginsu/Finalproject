@@ -37,12 +37,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            if(LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                print("입장");
+            PhotonNetwork.LoadLevel("MainScene");
+            //if (LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            //{
+            //    print("입장");
                 
-                PhotonNetwork.LoadLevel("MainScene");
-            }
+            //    PhotonNetwork.LoadLevel("MainScene");
+            //}
         }
     }
 
