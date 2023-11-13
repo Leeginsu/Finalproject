@@ -29,7 +29,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
     {
         anim = gameObject.GetComponentInChildren<Animator>();
 
-        M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
+        M_TemaController m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_TemaController>();
         m_c.Init();
     }
 
