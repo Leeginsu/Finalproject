@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        //int idx = Pho11tonNetwork.CurrentRoom.PlayerCount - 1;
         //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         if (Application.isMobilePlatform)
         {
@@ -30,7 +30,6 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
 
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
         }
         else
         {
@@ -41,6 +40,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         
     }
 
+    bool isOK = false;
     // Update is called once per frame
     void Update()
     {
@@ -49,9 +49,17 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         }
+        
+        
+        if(PhotonNetwork.InRoom == true && isOK == false)
+        {
+            print("소환완료");
+            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+            isOK = true;
+        }
+        
 
-        
-        
+
     }
 
 }
