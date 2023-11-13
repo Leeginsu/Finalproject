@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     public Transform[] trSpawnPosGroup;
     public GameObject conUI;
 
+    bool isOK = false;
+
     private void Awake()
     {
         instance = this;
@@ -40,7 +42,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         
     }
 
-    bool isOK = false;
+    
     // Update is called once per frame
     void Update()
     {

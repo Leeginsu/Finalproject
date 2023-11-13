@@ -40,7 +40,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             if(LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 print("¿‘¿Â");
-                PhotonNetwork.AutomaticallySyncScene = true;
+                
                 PhotonNetwork.LoadLevel("MainScene");
             }
         }
