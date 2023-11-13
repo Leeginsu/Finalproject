@@ -67,7 +67,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
-       // PhotonNetwork.LoadLevel("TemaScene");
+        PhotonNetwork.LoadLevel("TemaScene");
     }
 
         public void StartScanning()
