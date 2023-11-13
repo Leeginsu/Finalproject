@@ -43,6 +43,9 @@ public class SpawnManager : MonoBehaviour
             print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         }
+
+        
+        
     }
 
 }

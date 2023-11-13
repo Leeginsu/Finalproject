@@ -34,6 +34,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinLobby();
             start = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            if(LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                print("¿‘¿Â");
+                PhotonNetwork.LoadLevel("MainScene");
+            }
+        }
     }
 
     private void ConnectToPhotonMasterServer()
