@@ -37,6 +37,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
+            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.LoadLevel("MainScene");
             //if (LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             //{
