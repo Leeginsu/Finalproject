@@ -18,12 +18,14 @@ public class M_TemaPlayer : MonoBehaviourPun
     public bool inputDown = false;
     public bool inputClick = false;
 
+    public M_TemaController m_c;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = gameObject.GetComponentInChildren<Animator>();
 
-        M_TemaController m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_TemaController>();
+        m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_TemaController>();
         m_c.Init();
     }
 
