@@ -261,27 +261,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (numberDropdown.value == 0)
         {
-            maxPlayers = 2;
+            maxPlayers = 3;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 1)
         {
-            maxPlayers = 3;
+            maxPlayers = 4;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 2)
         {
-            maxPlayers = 4;
+            maxPlayers = 5;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 3)
         {
-            maxPlayers = 5;
+            maxPlayers = 6;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
         if (numberDropdown.value == 4)
         {
-            maxPlayers = 6;
+            maxPlayers = 7;
             //numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
         }
     }

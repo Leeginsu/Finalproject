@@ -31,7 +31,7 @@ public class RoomItem : MonoBehaviour
 
         titleText.GetComponent<Text>().text = roomName;
         commentText.GetComponent<Text>().text = roomComment;
-        numberText.GetComponent<Text>().text = curPlayers + " / " + maxPlayers;
+        numberText.GetComponent<Text>().text = (curPlayers-1) + " / " + (maxPlayers-1);
 
 
     }
