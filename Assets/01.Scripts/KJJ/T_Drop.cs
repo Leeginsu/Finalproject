@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class T_Drop : MonoBehaviour
+
+public class T_Drop : MonoBehaviourPun
 {
     public GameObject detector;
     Vector3 pos_awal, scale_awal;

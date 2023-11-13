@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class PreGameManager : MonoBehaviour
+public class PreGameManager : MonoBehaviourPun
 {
     public static PreGameManager instance;
 
@@ -107,12 +107,12 @@ public class PreGameManager : MonoBehaviour
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
 
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", spotGroup[1].position, Quaternion.identity);
+            PhotonNetwork.Instantiate("Player_Photon", spotGroup[1].position, Quaternion.Euler(-90, 0, 0));
         }
         else
         {
             conUI.SetActive(false);
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", spotGroup[0].position, Quaternion.identity);
+            PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90,0,0));
         }
     }
 
