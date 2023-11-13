@@ -51,10 +51,14 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         }
         
         
-        if(PhotonNetwork.InRoom == true && isOK == true)
+        if(isOK == true)
         {
-            print("소환완료");
-            Invoke("SpawnPlayer", 1);
+            if(PhotonNetwork.InRoom == true)
+            {
+                Invoke("SpawnPlayer", 1);
+                isOK = false;
+            }
+
         }
         
 
@@ -63,6 +67,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
+        print("소환완료");
         PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
         isOK = false;
     }
