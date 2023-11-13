@@ -6,6 +6,7 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public bool isMoblie;
