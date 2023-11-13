@@ -20,11 +20,14 @@ public class PhotonPlayerColor : MonoBehaviourPun
 
     private Queue<GameObject> queue = new Queue<GameObject>();
     public GameObject a;
+    public GameObject spawnPos;
 
     // Start is called before the first frame update
     void Start()
     {
         queue.Enqueue(normal);
+        a = Instantiate(normal);
+        a.transform.position = spawnPos.transform.position;
     }
 
     // Update is called once per frame
@@ -84,10 +87,12 @@ public class PhotonPlayerColor : MonoBehaviourPun
 
     public void Queue(GameObject player)
     {
+        Destroy(a);
         a = queue.Peek();
-        a.SetActive(false);
         queue.Dequeue();
         queue.Enqueue(player);
-        player.SetActive(true);
+        a = Instantiate(player);
+        a.transform.position = spawnPos.transform.position;
+        a.SetActive(true);
     }
 }
