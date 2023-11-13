@@ -37,8 +37,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.LoadLevel("MainScene");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.AutomaticallySyncScene = true;
+                PhotonNetwork.LoadLevel("MainScene");
+            }
+            
             //if (LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             //{
             //    print("¿‘¿Â");
