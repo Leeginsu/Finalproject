@@ -40,7 +40,7 @@ public class M_Player : MonoBehaviour
         else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
         else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
         
         RayCast();
         

@@ -45,7 +45,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
 
         RayCast();
 
-        if (inputClick)
+        if (inputClick && photonView.IsMine)
         {
             if (puzzleCount.Count == 1 && check == true)
             {
