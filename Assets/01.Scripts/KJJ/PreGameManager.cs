@@ -101,6 +101,7 @@ public class PreGameManager : MonoBehaviour
         // 클리어
         if (clearCount == level && level == 4)
         {
+            scoreCount--;
             clearCount = 0;
             tutorial = false;
             easy = true;
@@ -108,6 +109,7 @@ public class PreGameManager : MonoBehaviour
         }
         if (clearCount == level && level == 9)
         {
+            scoreCount--;
             clearCount = 0;
             easy = false;
             hard = true;
@@ -115,6 +117,7 @@ public class PreGameManager : MonoBehaviour
         }
         if (clearCount == level && level == 16)
         {
+            scoreCount--;
             ClearMove();
         }
 
@@ -123,6 +126,7 @@ public class PreGameManager : MonoBehaviour
             clearCount = level;
         }
         TimeLimit();
+        ImageCount();
     }
 
     // 퍼즐 난이도 정보
@@ -245,6 +249,7 @@ public class PreGameManager : MonoBehaviour
 
     public void ClearMove()
     {
+        clearCount = 0;
         clearUI.SetActive(true);
         answerPos[puzzleDifficulty].transform.localPosition = Vector3.MoveTowards(answerPos[puzzleDifficulty].transform.localPosition, clearPos.transform.localPosition, speed);
         for (int i = 0; i < level; i++)
@@ -308,5 +313,13 @@ public class PreGameManager : MonoBehaviour
         if (puzzleDifficulty == 1) DifficultyEasy();
         if (puzzleDifficulty == 2) DifficultyNormal();
         if (puzzleDifficulty == 3) DifficultyHard();
+    }
+
+    public Text score;
+    int scoreCount = 3;
+
+    public void ImageCount()
+    {
+        score.GetComponent<Text>().text =scoreCount.ToString();
     }
 }
