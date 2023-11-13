@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : MonoBehaviourPunCallbacks
 {
 
     static public SpawnManager instance;
@@ -21,15 +21,21 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
-        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
+        //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         if (Application.isMobilePlatform)
         {
+            
             conUI.SetActive(true);
             print("ÄÑÁ®¶ó");
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
 
             PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+        }
+        else
+        {
+            conUI.SetActive(false);
+            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         }
 
         
