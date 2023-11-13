@@ -38,7 +38,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
             isOK = true;
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+            //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
             //if (isOK == true)
             //{
             //    if (PhotonNetwork.InRoom == true)
