@@ -84,6 +84,13 @@ public class PhotonPlayerColor : MonoBehaviourPun
     {
         Queue(yellow);
     }
+    public void Choice()
+    {
+        Destroy(a);
+        a = queue.Peek();
+        string b = a.name;
+        a = PhotonNetwork.Instantiate(b,spawnPos.transform.position, Quaternion.identity);
+    }
 
     public void Queue(GameObject player)
     {
