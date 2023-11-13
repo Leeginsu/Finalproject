@@ -84,6 +84,9 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 
     public void BtnSelect()
     {
+        color1.gameObject.SetActive(false);
+        color2.gameObject.SetActive(false);
+
         selectUI.SetActive(false);
         conUI.SetActive(true);
     }
