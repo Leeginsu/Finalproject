@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PreGameManager : MonoBehaviour
 {
     public static PreGameManager instance;
+
+    public Transform[] spotGroup;
+    public GameObject conUI;
+
     private void Awake()
     {
         Difficulty();
@@ -93,6 +98,22 @@ public class PreGameManager : MonoBehaviour
         ImageIn();
         initialxy = initial[puzzleDifficulty].transform.position;
         print(initialxy);
+
+        if (Application.isMobilePlatform)
+        {
+
+            conUI.SetActive(true);
+            print("ÄÑÁ®¶ó");
+            //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+            //int idx = 1;
+
+            PhotonNetwork.Instantiate("TemaPlayer_Photon", spotGroup[1].position, Quaternion.identity);
+        }
+        else
+        {
+            conUI.SetActive(false);
+            PhotonNetwork.Instantiate("TemaPlayer_Photon", spotGroup[0].position, Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
