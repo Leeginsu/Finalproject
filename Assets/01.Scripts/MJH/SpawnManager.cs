@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     public Transform[] trSpawnPosGroup;
     public GameObject conUI;
 
+    bool isOK = false;
+
     private void Awake()
     {
         instance = this;
@@ -30,6 +32,16 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
             isOK = true;
+            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+            //if (isOK == true)
+            //{
+            //    if (PhotonNetwork.InRoom == true)
+            //    {
+            //        Invoke("SpawnPlayer", 1);
+            //        isOK = false;
+            //    }
+
+            //}
         }
         else
         {
@@ -40,7 +52,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         
     }
 
-    bool isOK = false;
+    
     // Update is called once per frame
     void Update()
     {
@@ -51,15 +63,15 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         }
         
         
-        if(isOK == true)
-        {
-            if(PhotonNetwork.InRoom == true)
-            {
-                Invoke("SpawnPlayer", 1);
-                isOK = false;
-            }
+        //if(isOK == true)
+        //{
+        //    if(PhotonNetwork.InRoom == true)
+        //    {
+        //        Invoke("SpawnPlayer", 1);
+        //        isOK = false;
+        //    }
 
-        }
+        //}
         
 
 

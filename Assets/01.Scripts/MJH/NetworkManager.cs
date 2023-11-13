@@ -37,11 +37,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            if(LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                print("입장");
-                PhotonNetwork.LoadLevel("MainScene");
-            }
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.LoadLevel("MainScene");
+            //if (LobbyManager.instance.maxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            //{
+            //    print("입장");
+                
+            //    PhotonNetwork.LoadLevel("MainScene");
+            //}
         }
     }
 
@@ -62,7 +65,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
 
-        PhotonNetwork.AutomaticallySyncScene = true;
+        //PhotonNetwork.AutomaticallySyncScene = true;
         print(nameof(OnJoinedLobby));
 
         Debug.Log("로비 접속 완료");
