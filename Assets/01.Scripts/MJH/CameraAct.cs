@@ -13,6 +13,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
 {
     public GameObject cameraGroup;
     public GameObject controllerGroup;
+    public GameObject qrUI;
     //public GameObject selectGroup;
 
     public RawImage cameraViewImage;
@@ -61,6 +62,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
                 //selectGroup.SetActive(true);
                 controllerGroup.SetActive(false);
                 cameraGroup.SetActive(false);
+                qrUI.SetActive(false);
                 //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
                 //LobbyManager.instance.GameScene(titleText);
                 
