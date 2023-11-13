@@ -30,6 +30,22 @@ public class CameraAct : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        if(NetworkManager.instance.isMoblie)
+        {
+            if(Input.GetKeyDown(KeyCode.F1))
+            {
+                //resultText.text = "QR Code Scanned: " + result.Text;
+                isScanning = false;
+
+                //selectGroup.SetActive(true);
+                controllerGroup.SetActive(false);
+                cameraGroup.SetActive(false);
+                //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
+                //LobbyManager.instance.GameScene(titleText);
+
+                PhotonNetwork.JoinRoom("11");
+            }
+        }
         if (isScanning == true)
         {
             //print("½ºÄ³´× Áß");

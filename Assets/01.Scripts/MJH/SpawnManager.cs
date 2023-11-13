@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     public GameObject selectUI;
     public Camera color1;
     public Camera color2;
+    public GameObject qrUI;
 
     bool isOK = false;
 
@@ -27,7 +28,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     {
         //int idx = Pho11tonNetwork.CurrentRoom.PlayerCount - 1;
         //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
-        if (Application.isMobilePlatform)
+        if (Application.isMobilePlatform || NetworkManager.instance.isMoblie)
         {
             color1.gameObject.SetActive(true);
             color2.gameObject.SetActive(true);
@@ -89,6 +90,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 
         selectUI.SetActive(false);
         conUI.SetActive(true);
+        qrUI.SetActive(false);
     }
     void SpawnPlayer()
     {

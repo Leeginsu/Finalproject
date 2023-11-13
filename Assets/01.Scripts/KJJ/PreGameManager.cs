@@ -99,7 +99,7 @@ public class PreGameManager : MonoBehaviourPun
         initialxy = initial[puzzleDifficulty].transform.position;
         print(initialxy);
 
-        if (Application.isMobilePlatform)
+        if (Application.isMobilePlatform || NetworkManager.instance.isMoblie)
         {
 
             conUI.SetActive(true);

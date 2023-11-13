@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public bool isMoblie;
     public static NetworkManager instance;
     private void Awake()
     {
@@ -69,12 +70,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
 
-        //PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = true;
         print(nameof(OnJoinedLobby));
 
         Debug.Log("로비 접속 완료");
 
-        if (Application.isMobilePlatform)
+        if (Application.isMobilePlatform || NetworkManager.instance.isMoblie)
         {
             PhotonNetwork.LoadLevel("04. ControllerScene_Mobile");
         }

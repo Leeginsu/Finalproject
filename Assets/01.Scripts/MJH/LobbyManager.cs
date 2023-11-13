@@ -241,7 +241,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         //PhotonNetwork.Instantiate("Player_Photon", readyPlayer[idx].position, Quaternion.identity);
 
-        if(Application.isMobilePlatform)
+        if(Application.isMobilePlatform || NetworkManager.instance.isMoblie)
         {
             PhotonNetwork.LoadLevel("TemaScene");
         }
