@@ -45,7 +45,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
                 cameraGroup.SetActive(false);
                 //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
                 //LobbyManager.instance.GameScene(titleText);
-                PhotonNetwork.AutomaticallySyncScene = true;
+                
                 PhotonNetwork.JoinRoom(result.Text);
                 //PhotonNetwork.LoadLevel("TemaScene");
 
@@ -67,7 +67,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
-        PhotonNetwork.LoadLevel("TemaScene");
+       // PhotonNetwork.LoadLevel("TemaScene");
     }
 
         public void StartScanning()
