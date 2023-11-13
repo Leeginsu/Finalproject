@@ -62,7 +62,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
 
-        PhotonNetwork.AutomaticallySyncScene = true;
+        //PhotonNetwork.AutomaticallySyncScene = true;
         print(nameof(OnJoinedLobby));
 
         Debug.Log("로비 접속 완료");
