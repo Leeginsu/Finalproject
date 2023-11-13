@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             print("켜져라");
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
-
+            isOK = true;
         }
         else
         {
@@ -51,15 +51,20 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         }
         
         
-        if(PhotonNetwork.InRoom == true && isOK == false)
+        if(PhotonNetwork.InRoom == true && isOK == true)
         {
             print("소환완료");
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
-            isOK = true;
+            Invoke("SpawnPlayer", 1);
         }
         
 
 
+    }
+
+    void SpawnPlayer()
+    {
+        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+        isOK = false;
     }
 
 }
