@@ -44,32 +44,34 @@ public class M_PhotonPlayer : MonoBehaviourPun
         //if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
 
         RayCast();
-
-        if (inputClick && photonView.IsMine)
+        if (photonView.IsMine)
         {
-            if (puzzleCount.Count == 1 && check == true)
+            if (inputClick)
             {
+                if (puzzleCount.Count == 1 && check == true)
+                {
 
-                puzzleCount[0].transform.parent = transform;
-                puzzleCount.RemoveAt(0);
-                transform.GetComponentInChildren<T_Drop>().space = false;
-                grab = true;
+                    puzzleCount[0].transform.parent = transform;
+                    puzzleCount.RemoveAt(0);
+                    transform.GetComponentInChildren<T_Drop>().space = false;
+                    grab = true;
+                }
+                else if (transform.childCount > 4)
+                {
+                    int n = TTT();
+                    transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
+                    transform.GetComponentInChildren<T_Drop>().space = true;
+                    transform.GetChild(4).transform.parent = puzzle.transform;
+                    check = false;
+                    grab = false;
+                }
+                inputClick = false;
             }
-            else if (transform.childCount > 4)
+            if (grab && transform.childCount == 5)
             {
-                int n = TTT();
-                transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
-                transform.GetComponentInChildren<T_Drop>().space = true;
-                transform.GetChild(4).transform.parent = puzzle.transform;
-                check = false;
-                grab = false;
+                transform.GetChild(4).transform.localPosition = new Vector3(0, 0, 0);
+                transform.GetChild(4).transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            inputClick = false;
-        }
-        if (grab && transform.childCount == 5)
-        {
-            transform.GetChild(4).transform.localPosition = new Vector3(0, 0, 0);
-            transform.GetChild(4).transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -171,7 +173,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if(stream.IsWriting)
+        if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
