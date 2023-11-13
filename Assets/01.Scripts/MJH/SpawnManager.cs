@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 
     public Transform[] trSpawnPosGroup;
     public GameObject conUI;
+    public GameObject selectUI;
 
     bool isOK = false;
 
@@ -26,7 +27,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         if (Application.isMobilePlatform)
         {
-            
+            //selectUI.SetActive(true);
             conUI.SetActive(true);
             print("켜져라");
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
@@ -77,6 +78,11 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 
     }
 
+    public void BtnSelect()
+    {
+        selectUI.SetActive(false);
+        conUI.SetActive(true);
+    }
     void SpawnPlayer()
     {
         print("소환완료");
