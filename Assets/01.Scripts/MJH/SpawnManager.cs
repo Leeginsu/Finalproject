@@ -27,8 +27,8 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         if (Application.isMobilePlatform)
         {
-            //selectUI.SetActive(true);
-            conUI.SetActive(true);
+            selectUI.SetActive(true);
+            //conUI.SetActive(true);
             print("ÄÑÁ®¶ó");
             //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;

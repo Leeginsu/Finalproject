@@ -13,7 +13,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
 {
     public GameObject cameraGroup;
     public GameObject controllerGroup;
-    public GameObject selectGroup;
+    //public GameObject selectGroup;
 
     public RawImage cameraViewImage;
     public Text resultText;
@@ -42,7 +42,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
                 resultText.text = "QR Code Scanned: " + result.Text;
                 isScanning = false;
 
-                selectGroup.SetActive(true);
+                //selectGroup.SetActive(true);
                 controllerGroup.SetActive(false);
                 cameraGroup.SetActive(false);
                 //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
