@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class M_TemaController : MonoBehaviour
+public class M_TemaController : MonoBehaviourPun
 {
-    GameObject player;
-    M_TemaPlayer playerScript;
+    public M_TemaPlayer playerScript;
 
     public void Init()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<M_TemaPlayer>();
+        playerScript = GetComponent<M_TemaPlayer>();
     }
 
     public void LeftDown()

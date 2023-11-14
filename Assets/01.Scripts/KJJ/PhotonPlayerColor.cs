@@ -22,6 +22,9 @@ public class PhotonPlayerColor : MonoBehaviourPun
     public GameObject a;
     public GameObject spawnPos;
 
+    public string b;
+    public bool con = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,7 +93,7 @@ public class PhotonPlayerColor : MonoBehaviourPun
     {
         Destroy(a);
         a = queue.Peek();
-        string b = a.name;
+        b = a.name;
         a = PhotonNetwork.Instantiate(b,selectCharPos[1].position, Quaternion.identity);
     }
 
@@ -102,6 +105,5 @@ public class PhotonPlayerColor : MonoBehaviourPun
         queue.Enqueue(player);
         a = Instantiate(player);
         a.transform.position = spawnPos.transform.position;
-        a.SetActive(true);
     }
 }

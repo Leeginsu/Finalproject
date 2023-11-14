@@ -89,7 +89,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         color2.gameObject.SetActive(false);
 
         selectUI.SetActive(false);
-        conUI.SetActive(true);
+        conUI.SetActive(false);
         qrUI.SetActive(false);
     }
     void SpawnPlayer()

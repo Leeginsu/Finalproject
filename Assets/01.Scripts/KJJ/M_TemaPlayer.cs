@@ -19,27 +19,31 @@ public class M_TemaPlayer : MonoBehaviourPun
     public bool inputClick = false;
 
     public M_TemaController m_c;
+    public GameObject controll;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = gameObject.GetComponentInChildren<Animator>();
 
-        m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_TemaController>();
+        m_c = GetComponent<M_TemaController>();
         m_c.Init();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //if (conUI.con) controll.SetActive(true);
+        if (photonView.IsMine)
+        {
+            controll.SetActive(true);
+        }
     }
 
     private void FixedUpdate()
     {
         if (photonView.IsMine)
         {
-
             if (inputLeft)
             {
                 moveVelocity = new Vector3(1f, 0, 0);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class M_Controller : MonoBehaviour
 {
     GameObject player;
-    public M_PhotonPlayer playerScript;
+    M_PhotonPlayer playerScript;
 
     public void Init()
     {
