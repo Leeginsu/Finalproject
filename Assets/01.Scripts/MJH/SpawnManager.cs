@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     public Camera color1;
     public Camera color2;
     public GameObject qrUI;
+    public GameObject picUI;
 
     bool isOK = false;
 
@@ -67,8 +68,12 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         }
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            qrUI.SetActive(false);
+            picUI.SetActive(true);
+        }
         //if(isOK == true)
         //{
         //    if(PhotonNetwork.InRoom == true)
@@ -81,6 +86,11 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         
 
 
+    }
+
+    public void BtnMainScene()
+    {
+        PhotonNetwork.LoadLevel("MainScene");
     }
 
     public void BtnSelect()
