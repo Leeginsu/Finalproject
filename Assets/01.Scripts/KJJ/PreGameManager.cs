@@ -145,7 +145,7 @@ public class PreGameManager : MonoBehaviourPun
         }
         if (clearCount == level && level == 16)
         {
-            scoreCount--;
+            scoreCount = 0;
             End();
             clearUI.SetActive(true);
             //ClearMove();
