@@ -33,7 +33,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
     {
         if(NetworkManager.instance.isMoblie)
         {
-            if(Input.GetKeyDown(KeyCode.F1))
+            if(Input.GetKeyDown(KeyCode.F3))
             {
                 //resultText.text = "QR Code Scanned: " + result.Text;
                 isScanning = false;
@@ -41,6 +41,7 @@ public class CameraAct : MonoBehaviourPunCallbacks
                 //selectGroup.SetActive(true);
                 controllerGroup.SetActive(false);
                 cameraGroup.SetActive(false);
+                qrUI.SetActive(false);
                 //PhotonNetwork.Instantiate("Player_Photon", LobbyManager.instance.readyPlayer[LobbyManager.instance.idx].position, Quaternion.identity);
                 //LobbyManager.instance.GameScene(titleText);
 
