@@ -87,6 +87,7 @@ public class PreGameManager : MonoBehaviourPun
     public float widthx;
     public float lengthy;
 
+    int idx = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -104,15 +105,15 @@ public class PreGameManager : MonoBehaviourPun
 
             conUI.SetActive(true);
             print("ÄÑÁ®¶ó");
-            //int idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+            idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
             //int idx = 1;
             //Invoke("PlayerInstance", 1f);
-            PhotonNetwork.Instantiate("Player_Photon", spotGroup[1].position, Quaternion.Euler(-90, 0, 0));
+            PhotonNetwork.Instantiate("Player_Photon", spotGroup[idx].position, Quaternion.Euler(-90, 0, 0));
         }
         else
         {
             conUI.SetActive(false);
-            PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
+            //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
             //Invoke("PlayerInstance", 1f);
         }
     }
