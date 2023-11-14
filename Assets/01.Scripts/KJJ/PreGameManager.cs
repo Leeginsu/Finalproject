@@ -92,7 +92,7 @@ public class PreGameManager : MonoBehaviourPun
     {
         currentTime = timeLimit;
         time.size = 1;
-        ImageLoad();
+        TImageLoad();
         PuzzleRandom();
 
         ImageIn();
@@ -301,6 +301,21 @@ public class PreGameManager : MonoBehaviourPun
     }
 
     // 퍼즐 이미지 로드
+    public void TImageLoad()
+    {
+        // 변수초기화
+        puzzleSprite.Clear();
+        for (int i = 0; i < level; i++)
+        {
+            // 이미지 불러오기
+            Texture2D tex = Resources.Load("Piecee_" + i) as Texture2D;
+            // 이미지 생성
+            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            // 생성된 이미지 삽입
+            puzzleSprite.Add(sprite);
+        }
+    }
+    
     public void ImageLoad()
     {
         // 변수초기화
