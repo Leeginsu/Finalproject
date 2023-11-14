@@ -53,7 +53,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         else
         {
             conUI.SetActive(false);
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
+            //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         }
 
         
@@ -102,10 +102,12 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         conUI.SetActive(false);
         qrUI.SetActive(false);
     }
+    int idx = 0;
     void SpawnPlayer()
     {
+        idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
         print("소환완료");
-        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[idx].position, Quaternion.identity);
         isOK = false;
     }
 
