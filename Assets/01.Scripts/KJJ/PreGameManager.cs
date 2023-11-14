@@ -132,7 +132,7 @@ public class PreGameManager : MonoBehaviourPun
             clearCount = 0;
             tutorial = false;
             easy = true;
-            Clear();
+            EClear();
         }
         if (clearCount == level && level == 9)
         {
@@ -142,11 +142,11 @@ public class PreGameManager : MonoBehaviourPun
             hard = true;
             Clear();
         }
-        if (clearCount == level && level == 16)
-        {
-            scoreCount--;
-            ClearMove();
-        }
+        //if (clearCount == level && level == 16)
+        //{
+        //    scoreCount--;
+        //    ClearMove();
+        //}
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -191,8 +191,8 @@ public class PreGameManager : MonoBehaviourPun
             difficultyAnswer.AddRange(difficultyEasy);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
 
-            posx = -0.3384099f;
-            posy = 2.483241f;
+            posx = 3.88159f;
+            posy = -2.266758f;
             widthx = 2.3f;
             lengthy = 2.3f;
         }
@@ -273,6 +273,16 @@ public class PreGameManager : MonoBehaviourPun
         PuzzleRandom();
         ImageIn();
     }
+    
+    public void EClear()
+    {
+        answerPos[puzzleDifficulty].SetActive(false);
+        difficultyAnswer[0].transform.parent.gameObject.SetActive(false);
+        Difficulty();
+        EImageLoad();
+        PuzzleRandom();
+        ImageIn();
+    }
 
     public void ClearMove()
     {
@@ -308,7 +318,22 @@ public class PreGameManager : MonoBehaviourPun
         for (int i = 0; i < level; i++)
         {
             // 이미지 불러오기
-            Texture2D tex = Resources.Load("Piecee_" + i) as Texture2D;
+            Texture2D tex = Resources.Load("PieceT_" + i) as Texture2D;
+            // 이미지 생성
+            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            // 생성된 이미지 삽입
+            puzzleSprite.Add(sprite);
+        }
+    }
+    
+    public void EImageLoad()
+    {
+        // 변수초기화
+        puzzleSprite.Clear();
+        for (int i = 0; i < level; i++)
+        {
+            // 이미지 불러오기
+            Texture2D tex = Resources.Load("PieceE_" + i) as Texture2D;
             // 이미지 생성
             Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
             // 생성된 이미지 삽입
