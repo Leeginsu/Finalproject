@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     public Camera color1;
     public Camera color2;
     public GameObject qrUI;
+    public GameObject picUI;
 
     bool isOK = false;
 
@@ -52,7 +53,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         else
         {
             conUI.SetActive(false);
-            PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
+            //PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[0].position, Quaternion.identity);
         }
 
         
@@ -67,8 +68,12 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             print("현재 숫자 : " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         }
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            qrUI.SetActive(false);
+            picUI.SetActive(true);
+        }
         //if(isOK == true)
         //{
         //    if(PhotonNetwork.InRoom == true)
@@ -83,6 +88,11 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 
     }
 
+    public void BtnMainScene()
+    {
+        PhotonNetwork.LoadLevel("MainScene");
+    }
+
     public void BtnSelect()
     {
         color1.gameObject.SetActive(false);
@@ -92,10 +102,12 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         conUI.SetActive(false);
         qrUI.SetActive(false);
     }
+    int idx = 0;
     void SpawnPlayer()
     {
+        idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
         print("소환완료");
-        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[1].position, Quaternion.identity);
+        PhotonNetwork.Instantiate("TemaPlayer_Photon", trSpawnPosGroup[idx].position, Quaternion.identity);
         isOK = false;
     }
 
