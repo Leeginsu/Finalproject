@@ -143,11 +143,13 @@ public class PreGameManager : MonoBehaviourPun
             hard = true;
             Clear();
         }
-        //if (clearCount == level && level == 16)
-        //{
-        //    scoreCount--;
-        //    ClearMove();
-        //}
+        if (clearCount == level && level == 16)
+        {
+            scoreCount--;
+            End();
+            clearUI.SetActive(true);
+            //ClearMove();
+        }
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -274,7 +276,14 @@ public class PreGameManager : MonoBehaviourPun
         PuzzleRandom();
         ImageIn();
     }
-    
+
+    public void End()
+    {
+        answerPos[puzzleDifficulty].SetActive(false);
+        difficultyAnswer[0].transform.parent.gameObject.SetActive(false);
+    }
+
+
     public void EClear()
     {
         answerPos[puzzleDifficulty].SetActive(false);
@@ -308,6 +317,7 @@ public class PreGameManager : MonoBehaviourPun
         else if (currentTime <= 0)
         {
             failUI.SetActive(true);
+            End();
         }
     }
 
