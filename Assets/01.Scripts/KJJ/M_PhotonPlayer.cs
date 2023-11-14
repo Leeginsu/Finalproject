@@ -31,6 +31,11 @@ public class M_PhotonPlayer : MonoBehaviourPun
 
         M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c.Init();
+
+        puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
+        puzzleDifEasy = PreGameManager.instance.difficultyEasy[0].transform.parent.gameObject;
+        puzzleDifNormal = PreGameManager.instance.difficultyNormal[0].transform.parent.gameObject;
+        puzzleDifHard = PreGameManager.instance.difficultyHard[0].transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -43,36 +48,72 @@ public class M_PhotonPlayer : MonoBehaviourPun
 
         //if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
 
-        RayCast();
-        if (photonView.IsMine)
+        if(photonView.IsMine)
         {
-            if (inputClick)
+            if(inputClick)
             {
-                if (puzzleCount.Count == 1 && check == true)
-                {
-
-                    puzzleCount[0].transform.parent = transform;
-                    puzzleCount.RemoveAt(0);
-                    transform.GetComponentInChildren<T_Drop>().space = false;
-                    grab = true;
-                }
-                else if (transform.childCount > 4)
-                {
-                    int n = TTT();
-                    transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
-                    transform.GetComponentInChildren<T_Drop>().space = true;
-                    transform.GetChild(4).transform.parent = puzzle.transform;
-                    check = false;
-                    grab = false;
-                }
+                photonView.RPC(nameof(RpcInputClick), RpcTarget.MasterClient);
                 inputClick = false;
             }
-            if (grab && transform.childCount == 5)
-            {
-                transform.GetChild(4).transform.localPosition = new Vector3(0, 0, 0);
-                transform.GetChild(4).transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
         }
+
+
+        if (puzzleCount != null)
+        {
+            puzzleCount.transform.localPosition = new Vector3(0, 0, 0);
+            puzzleCount.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        //RayCast();
+        //if (photonView.IsMine)
+        //{
+        //    if (inputClick)
+        //    {
+        //        if (puzzleCount.Count == 1 && check == true)
+        //        {
+
+        //            puzzleCount[0].transform.parent = transform;
+        //            puzzleCount.RemoveAt(0);
+        //            transform.GetComponentInChildren<T_Drop>().space = false;
+        //            grab = true;
+        //        }
+        //        else if (transform.childCount > 4)
+        //        {
+        //            int n = TTT();
+        //            transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
+        //            transform.GetComponentInChildren<T_Drop>().space = true;
+        //            transform.GetChild(4).transform.parent = puzzle.transform;
+        //            check = false;
+        //            grab = false;
+        //        }
+        //        inputClick = false;
+        //    }
+        //    if (grab && transform.childCount == 5)
+        //    {
+        //        transform.GetChild(4).transform.localPosition = new Vector3(0, 0, 0);
+        //        transform.GetChild(4).transform.rotation = Quaternion.Euler(0, 0, 0);
+        //    }
+        //}
+    }
+
+    [PunRPC]
+    void RpcInputClick()
+    {
+        if(puzzleCount == null)
+        {
+            RayCast();       
+        }
+        
+        else if (puzzleCount != null)
+        {
+            int n = TTT();
+            transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
+            transform.GetComponentInChildren<T_Drop>().space = true;
+            puzzleCount.transform.parent = puzzle.transform;            
+            puzzleCount = null;
+        }     
+
+              
     }
 
     public int TTT()
@@ -105,7 +146,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
         return answerIdx;
     }
 
-    public List<GameObject> puzzleCount = new List<GameObject>();
+    GameObject puzzleCount = null;
 
     public bool check = false;
 
@@ -159,17 +200,25 @@ public class M_PhotonPlayer : MonoBehaviourPun
         RaycastHit hit;
         LayerMask layerMask = 1 << LayerMask.NameToLayer("Puzzle");
 
-        if (puzzleCount.Count != 0) check = true;
-        else check = false;
-
-        if (Physics.Raycast(ray, out hit, layerMask))
+        if (Physics.Raycast(ray, out hit, 1000, layerMask))
         {
-            if (puzzleCount.Count == 0 && transform.childCount == 4 && check == false && hit.transform.gameObject.CompareTag("Puzzle"))
-            {
-                puzzleCount.Add(hit.transform.gameObject);
-            }
-            else if (!hit.transform.gameObject.CompareTag("Puzzle")) puzzleCount.Clear();
+            puzzleCount = hit.transform.gameObject;
+            puzzleCount.transform.parent = transform;
+            transform.GetComponentInChildren<T_Drop>().space = false;
         }
+
+
+        //if (puzzleCount.Count != 0) check = true;
+        //else check = false;
+
+        //if (Physics.Raycast(ray, out hit, layerMask))
+        //{
+        //    if (puzzleCount.Count == 0 && transform.childCount == 4 && check == false && hit.transform.gameObject.CompareTag("Puzzle"))
+        //    {
+        //        puzzleCount.Add(hit.transform.gameObject);
+        //    }
+        //    else if (!hit.transform.gameObject.CompareTag("Puzzle")) puzzleCount.Clear();
+        //}
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
