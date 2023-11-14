@@ -192,8 +192,8 @@ public class PreGameManager : MonoBehaviourPun
             difficultyAnswer.AddRange(difficultyEasy);
             difficultyAnswer[0].transform.parent.gameObject.SetActive(true);
 
-            posx = 3.88159f;
-            posy = -2.266758f;
+            posx = -0.3384099f;
+            posy = 2.483242f;
             widthx = 2.3f;
             lengthy = 2.3f;
         }
