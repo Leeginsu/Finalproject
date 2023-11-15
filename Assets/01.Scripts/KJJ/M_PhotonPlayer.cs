@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class M_PhotonPlayer : MonoBehaviourPun
 {
-    public float speed = 8f;
+    float speed = 6f;
 
     public Animator anim;
 
@@ -22,14 +22,17 @@ public class M_PhotonPlayer : MonoBehaviourPun
     public GameObject puzzleDifNormal;
     public GameObject puzzleDifHard;
     GameObject puzzle;
-    bool grab = false;
+
+    public M_Controller m_c;
+    public GameObject controll;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = gameObject.GetComponentInChildren<Animator>();
 
-        M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
+        //M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
+        m_c = GetComponent<M_Controller>();
         m_c.Init();
 
         puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
@@ -46,74 +49,42 @@ public class M_PhotonPlayer : MonoBehaviourPun
         else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
         else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
 
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) GameManager.instance.currentTime = 0;
-
-        if(photonView.IsMine)
+        if (photonView.IsMine)
         {
-            if(inputClick)
+            controll.SetActive(true);
+            if (inputClick)
             {
                 photonView.RPC(nameof(RpcInputClick), RpcTarget.MasterClient);
                 inputClick = false;
             }
         }
 
-
         if (puzzleCount != null)
         {
             puzzleCount.transform.localPosition = new Vector3(0, 0, 0);
             puzzleCount.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-
-        //RayCast();
-        //if (photonView.IsMine)
-        //{
-        //    if (inputClick)
-        //    {
-        //        if (puzzleCount.Count == 1 && check == true)
-        //        {
-
-        //            puzzleCount[0].transform.parent = transform;
-        //            puzzleCount.RemoveAt(0);
-        //            transform.GetComponentInChildren<T_Drop>().space = false;
-        //            grab = true;
-        //        }
-        //        else if (transform.childCount > 4)
-        //        {
-        //            int n = TTT();
-        //            transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
-        //            transform.GetComponentInChildren<T_Drop>().space = true;
-        //            transform.GetChild(4).transform.parent = puzzle.transform;
-        //            check = false;
-        //            grab = false;
-        //        }
-        //        inputClick = false;
-        //    }
-        //    if (grab && transform.childCount == 5)
-        //    {
-        //        transform.GetChild(4).transform.localPosition = new Vector3(0, 0, 0);
-        //        transform.GetChild(4).transform.rotation = Quaternion.Euler(0, 0, 0);
-        //    }
-        //}
     }
 
+    // RPG
     [PunRPC]
     void RpcInputClick()
     {
-        if(puzzleCount == null)
-        {
-            RayCast();       
-        }
+        // puzzleCount에 아무것도 없을때 RayCast를 실행
+        if(puzzleCount == null) RayCast();
         
+        // puzzleCount에 무언가 있다면
         else if (puzzleCount != null)
         {
             int n = TTT();
+            // 정답인지 체크
             transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
             transform.GetComponentInChildren<T_Drop>().space = true;
-            puzzleCount.transform.parent = puzzle.transform;            
+            // puzzleCount의 부모를 퍼즐판으로 바꾸고
+            puzzleCount.transform.parent = puzzle.transform;
+            // puzzleCount를 비운다.
             puzzleCount = null;
         }     
-
-              
     }
 
     public int TTT()
@@ -194,31 +165,24 @@ public class M_PhotonPlayer : MonoBehaviourPun
         anim.SetBool("IsMoving", true);
         transform.position += moveVelocity.normalized * speed * Time.deltaTime;
     }
+
+    // 잡기
     void RayCast()
     {
+        // 레이를 쏘고
         Ray ray = new Ray(transform.position, -transform.up);
         RaycastHit hit;
         LayerMask layerMask = 1 << LayerMask.NameToLayer("Puzzle");
 
+        // 퍼즐레이어가 달린 오브젝트가 걸리면
         if (Physics.Raycast(ray, out hit, 1000, layerMask))
         {
+            // puzzleCount에 hit게임오브젝트를 넣고
             puzzleCount = hit.transform.gameObject;
+            // puzzleCount의 부모를 플레이어로 바꾼다.
             puzzleCount.transform.parent = transform;
             transform.GetComponentInChildren<T_Drop>().space = false;
         }
-
-
-        //if (puzzleCount.Count != 0) check = true;
-        //else check = false;
-
-        //if (Physics.Raycast(ray, out hit, layerMask))
-        //{
-        //    if (puzzleCount.Count == 0 && transform.childCount == 4 && check == false && hit.transform.gameObject.CompareTag("Puzzle"))
-        //    {
-        //        puzzleCount.Add(hit.transform.gameObject);
-        //    }
-        //    else if (!hit.transform.gameObject.CompareTag("Puzzle")) puzzleCount.Clear();
-        //}
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

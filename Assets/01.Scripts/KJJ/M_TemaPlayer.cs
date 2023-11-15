@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class M_TemaPlayer : MonoBehaviourPun
 {
-    public float speed = 8f;
+    float speed = 6f;
 
     public Animator anim;
 
@@ -24,19 +24,18 @@ public class M_TemaPlayer : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        anim = gameObject.GetComponentInChildren<Animator>();
-
         m_c = GetComponent<M_TemaController>();
-        m_c.Init();
+        if (m_c == null) return;
+        else m_c.Init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (conUI.con) controll.SetActive(true);
         if (photonView.IsMine)
         {
             controll.SetActive(true);
+            anim = gameObject.GetComponentInChildren<Animator>();
         }
     }
 

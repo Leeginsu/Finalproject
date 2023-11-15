@@ -19,9 +19,10 @@ public class T_Drop : MonoBehaviourPun
         scale_awal = transform.localScale;
     }
 
-
+    // 퍼즐을 맞는 위치에 놓았는가
     public void CheckAnswer(int n)
     {
+        // detector의 이름에 n이 들어간다면
         if (detector.name.Contains(n.ToString()))
         {
             // 맞는 위치면 detecror의 위치에 고정
@@ -30,8 +31,10 @@ public class T_Drop : MonoBehaviourPun
                 transform.position = detector.transform.position + new Vector3(0, 0, -0.1f);
                 transform.localScale = detector.transform.parent.localScale;
                 transform.GetComponent<BoxCollider>().enabled = false;
+                // clearCount가 true면
                 if (clearCount)
                 {
+                    // 클리어카운트 증가, 이펙트 생성
                     PreGameManager.instance.clearCount++;
                     GameObject answer = Instantiate(answerFactory);
                     answer.transform.position = transform.position;

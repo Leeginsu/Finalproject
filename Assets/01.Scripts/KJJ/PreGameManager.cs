@@ -118,11 +118,6 @@ public class PreGameManager : MonoBehaviourPun
         }
     }
 
-    //void PlayerInstance()
-    //{
-    //    PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
-    //}
-
     // Update is called once per frame
     void Update()
     {
