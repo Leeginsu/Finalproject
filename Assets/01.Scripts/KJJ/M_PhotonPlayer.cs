@@ -31,23 +31,28 @@ public class M_PhotonPlayer : MonoBehaviourPun
     {
         anim = gameObject.GetComponentInChildren<Animator>();
 
-        //M_Controller m_c = GameObject.FindGameObjectWithTag("Managers").GetComponent<M_Controller>();
         m_c = GetComponent<M_Controller>();
-        m_c.Init();
-
-        puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
-        puzzleDifEasy = PreGameManager.instance.difficultyEasy[0].transform.parent.gameObject;
-        puzzleDifNormal = PreGameManager.instance.difficultyNormal[0].transform.parent.gameObject;
-        puzzleDifHard = PreGameManager.instance.difficultyHard[0].transform.parent.gameObject;
+        if (m_c == null) return;
+        else m_c.Init();
+        if (!DifficultyManager.instance.tema)
+        {
+            puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
+            puzzleDifEasy = PreGameManager.instance.difficultyEasy[0].transform.parent.gameObject;
+            puzzleDifNormal = PreGameManager.instance.difficultyNormal[0].transform.parent.gameObject;
+            puzzleDifHard = PreGameManager.instance.difficultyHard[0].transform.parent.gameObject;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
-        else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
-        else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
-        else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+        if (!DifficultyManager.instance.tema)
+        {
+            if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
+            else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
+            else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
+            else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
+        }
 
         if (photonView.IsMine)
         {
