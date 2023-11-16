@@ -121,6 +121,8 @@ public class PreGameManager : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+
+        DifficultyManager.instance.tema = false;
         // Å¬¸®¾î
         if (clearCount == level && level == 4)
         {

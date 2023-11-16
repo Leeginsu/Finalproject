@@ -71,8 +71,8 @@ public class M_PhotonPlayer : MonoBehaviourPun
     void RpcInputClick()
     {
         // puzzleCount에 아무것도 없을때 RayCast를 실행
-        if(puzzleCount == null) RayCast();
-        
+        if (puzzleCount == null) RayCast();
+
         // puzzleCount에 무언가 있다면
         else if (puzzleCount != null)
         {
@@ -84,7 +84,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
             puzzleCount.transform.parent = puzzle.transform;
             // puzzleCount를 비운다.
             puzzleCount = null;
-        }     
+        }
     }
 
     public int TTT()
@@ -125,39 +125,86 @@ public class M_PhotonPlayer : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            if (inputLeft)
+            if (DifficultyManager.instance.tema)
             {
-                moveVelocity = new Vector3(-1f, 0, 0);
-                if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 90);
-                Move();
+                if (inputLeft)
+                {
+                    moveVelocity = new Vector3(1f, 0, 0);
+                    if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, 0);
+                    Move();
+                    anim.SetBool("IsMoving", true);
+                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                }
+                if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(0, 135, 0);
+                if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(0, 45, 0);
+                if (inputRight)
+                {
+                    moveVelocity = new Vector3(-1f, 0, 0);
+                    if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 0);
+                    Move();
+                    anim.SetBool("IsMoving", true);
+                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                }
+                if (inputRight && inputUp) transform.rotation = Quaternion.Euler(0, -135, 0);
+                if (inputRight && inputDown) transform.rotation = Quaternion.Euler(0, -45, 0);
+                if (inputUp)
+                {
+                    moveVelocity = new Vector3(0, 0, -1f);
+                    if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Move();
+                    anim.SetBool("IsMoving", true);
+                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                }
+                if (inputDown)
+                {
+                    moveVelocity = new Vector3(0, 0, 1f);
+                    if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 0, 0);
+                    Move();
+                    anim.SetBool("IsMoving", true);
+                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                }
+                if (!inputLeft && !inputRight && !inputUp && !inputDown)
+                {
+                    anim.SetBool("IsMoving", false);
+                }
             }
-            if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(-45, -90, 90);
-            if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(-315, -90, 90);
-            if (inputRight)
+            else
             {
-                moveVelocity = new Vector3(1f, 0, 0);
-                if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, -90);
-                Move();
-            }
-            if (inputRight && inputUp) transform.rotation = Quaternion.Euler(-45, 90, -90);
-            if (inputRight && inputDown) transform.rotation = Quaternion.Euler(-225, -90, 90);
-            if (inputUp)
-            {
-                moveVelocity = new Vector3(0, 1f, 0);
-                if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-90, 0, 0);
-                Move();
-            }
-            if (inputDown)
-            {
-                moveVelocity = new Vector3(0, -1f, 0);
-                if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-270, -90, 90);
-                Move();
-            }
-            if (!inputLeft && !inputRight && !inputUp && !inputDown)
-            {
-                anim.SetBool("IsMoving", false);
+                if (inputLeft)
+                {
+                    moveVelocity = new Vector3(-1f, 0, 0);
+                    if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 90);
+                    Move();
+                }
+                if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(-45, -90, 90);
+                if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(-315, -90, 90);
+                if (inputRight)
+                {
+                    moveVelocity = new Vector3(1f, 0, 0);
+                    if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, -90);
+                    Move();
+                }
+                if (inputRight && inputUp) transform.rotation = Quaternion.Euler(-45, 90, -90);
+                if (inputRight && inputDown) transform.rotation = Quaternion.Euler(-225, -90, 90);
+                if (inputUp)
+                {
+                    moveVelocity = new Vector3(0, 1f, 0);
+                    if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-90, 0, 0);
+                    Move();
+                }
+                if (inputDown)
+                {
+                    moveVelocity = new Vector3(0, -1f, 0);
+                    if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-270, -90, 90);
+                    Move();
+                }
+                if (!inputLeft && !inputRight && !inputUp && !inputDown)
+                {
+                    anim.SetBool("IsMoving", false);
+                }
             }
         }
+
     }
 
     void Move()

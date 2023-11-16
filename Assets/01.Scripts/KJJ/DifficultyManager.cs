@@ -11,6 +11,7 @@ public class DifficultyManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public bool tema = true;
     public bool tutorial = false;
     public bool easy = false;
     public bool normal = false;

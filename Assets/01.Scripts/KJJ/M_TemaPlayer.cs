@@ -92,16 +92,16 @@ public class M_TemaPlayer : MonoBehaviourPun
         transform.position += moveVelocity.normalized * speed * Time.deltaTime;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        }
-        else
-        {
-            transform.position = (Vector3)stream.ReceiveNext();
-        }
-    }
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(transform.position);
+    //        stream.SendNext(transform.rotation);
+    //    }
+    //    else
+    //    {
+    //        transform.position = (Vector3)stream.ReceiveNext();
+    //    }
+    //}
 }
