@@ -31,6 +31,7 @@ public class PhotonPlayerColor : MonoBehaviourPun
         queue.Enqueue(normal);
         a = Instantiate(normal);
         a.transform.position = spawnPos.transform.position;
+        a.transform.localScale = new Vector3(3, 3, 3);
     }
 
     // Update is called once per frame
@@ -105,5 +106,6 @@ public class PhotonPlayerColor : MonoBehaviourPun
         queue.Enqueue(player);
         a = Instantiate(player);
         a.transform.position = spawnPos.transform.position;
+        a.transform.localScale = new Vector3(3, 3, 3);
     }
 }

@@ -34,7 +34,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
         m_c = GetComponent<M_Controller>();
         if (m_c == null) return;
         else m_c.Init();
-        if (!DifficultyManager.instance.tema)
+        if (!NetworkManager.instance.tema)
         {
             puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
             puzzleDifEasy = PreGameManager.instance.difficultyEasy[0].transform.parent.gameObject;
@@ -46,16 +46,17 @@ public class M_PhotonPlayer : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!DifficultyManager.instance.tema)
+        if (!NetworkManager.instance.tema)
         {
             if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
             else if (PreGameManager.instance.puzzleDifficulty == 1) puzzle = puzzleDifEasy;
             else if (PreGameManager.instance.puzzleDifficulty == 2) puzzle = puzzleDifNormal;
             else if (PreGameManager.instance.puzzleDifficulty == 3) puzzle = puzzleDifHard;
         }
-
+        if(PhotonNetwork.IsMasterClient) DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
         {
+            DontDestroyOnLoad(this.gameObject);
             controll.SetActive(true);
             if (inputClick)
             {
@@ -130,7 +131,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            if (DifficultyManager.instance.tema)
+            if (NetworkManager.instance.tema)
             {
                 if (inputLeft)
                 {

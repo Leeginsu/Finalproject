@@ -109,7 +109,7 @@ public class M_Player : MonoBehaviourPun
 
     private void FixedUpdate()
     {
-        if (DifficultyManager.instance.tema)
+        if (NetworkManager.instance.tema)
         {
             if (photonView.IsMine)
             {

@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public bool isMoblie;
+    public bool tema = true;
     public static NetworkManager instance;
     private void Awake()
     {

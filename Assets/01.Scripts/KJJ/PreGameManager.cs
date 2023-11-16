@@ -99,30 +99,28 @@ public class PreGameManager : MonoBehaviourPun
         ImageIn();
         initialxy = initial[puzzleDifficulty].transform.position;
         print(initialxy);
-
-        if (Application.isMobilePlatform || NetworkManager.instance.isMoblie)
-        {
-
-            conUI.SetActive(true);
-            print("켜져라");
-            idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
-            //int idx = 1;
-            //Invoke("PlayerInstance", 1f);
-            PhotonNetwork.Instantiate("Player_Photon", spotGroup[idx].position, Quaternion.Euler(-90, 0, 0));
-        }
-        else
-        {
-            conUI.SetActive(false);
-            //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
-            //Invoke("PlayerInstance", 1f);
-        }
+        //if (Application.isMobilePlatform || NetworkManager.instance.isMoblie)
+        //{
+        //    conUI.SetActive(true);
+        //    print("켜져라");
+        //    idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        //    //int idx = 1;
+        //    //Invoke("PlayerInstance", 1f);
+        //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[idx].position, Quaternion.Euler(-90, 0, 0));
+        //}
+        //else
+        //{
+        //    conUI.SetActive(false);
+        //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
+        //    //Invoke("PlayerInstance", 1f);
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        DifficultyManager.instance.tema = false;
+        NetworkManager.instance.tema = false;
         // 클리어
         if (clearCount == level && level == 4)
         {
