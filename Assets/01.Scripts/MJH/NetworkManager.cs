@@ -88,5 +88,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
 
-
+    public List<GameObject> playerInfo = new List<GameObject>();
 }

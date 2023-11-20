@@ -88,6 +88,8 @@ public class PreGameManager : MonoBehaviourPun
     public float lengthy;
 
     int idx = 0;
+
+    public GameObject aa;
     // Start is called before the first frame update
     void Start()
     {
@@ -114,12 +116,12 @@ public class PreGameManager : MonoBehaviourPun
         //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
         //    //Invoke("PlayerInstance", 1f);
         //}
+        NetworkManager.instance.playerInfo[0].transform.position = aa.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-
         NetworkManager.instance.tema = false;
         // Å¬¸®¾î
         if (clearCount == level && level == 4)
