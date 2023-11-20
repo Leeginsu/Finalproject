@@ -96,6 +96,8 @@ public class PhotonPlayerColor : MonoBehaviourPun
         a = queue.Peek();
         b = a.name;
         a = PhotonNetwork.Instantiate(b,selectCharPos[1].position, Quaternion.identity);
+        NetworkManager.instance.playerInfo.Add(a);
+        //photonView.RPC(nameof(RpcChoice), RpcTarget.MasterClient, a);
     }
 
     public void Queue(GameObject player)
@@ -108,4 +110,10 @@ public class PhotonPlayerColor : MonoBehaviourPun
         a.transform.position = spawnPos.transform.position;
         a.transform.localScale = new Vector3(3, 3, 3);
     }
+
+    //[PunRPC]
+    //void RpcChoice(GameObject a)
+    //{
+    //    NetworkManager.instance.playerInfo.Add(a);
+    //}
 }

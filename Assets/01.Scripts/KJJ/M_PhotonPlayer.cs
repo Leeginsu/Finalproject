@@ -26,6 +26,8 @@ public class M_PhotonPlayer : MonoBehaviourPun
     public M_Controller m_c;
     public GameObject controll;
 
+    bool temapuzzle = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,18 +36,20 @@ public class M_PhotonPlayer : MonoBehaviourPun
         m_c = GetComponent<M_Controller>();
         if (m_c == null) return;
         else m_c.Init();
-        if (!NetworkManager.instance.tema)
-        {
-            puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
-            puzzleDifEasy = PreGameManager.instance.difficultyEasy[0].transform.parent.gameObject;
-            puzzleDifNormal = PreGameManager.instance.difficultyNormal[0].transform.parent.gameObject;
-            puzzleDifHard = PreGameManager.instance.difficultyHard[0].transform.parent.gameObject;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!NetworkManager.instance.tema && temapuzzle)
+        {
+            puzzleDifTutorial = PreGameManager.instance.difficultyTutorial[0].transform.parent.gameObject;
+            puzzleDifEasy = PreGameManager.instance.difficultyEasy[0].transform.parent.gameObject;
+            puzzleDifNormal = PreGameManager.instance.difficultyNormal[0].transform.parent.gameObject;
+            puzzleDifHard = PreGameManager.instance.difficultyHard[0].transform.parent.gameObject;
+            temapuzzle = false; 
+        }
+
         if (!NetworkManager.instance.tema)
         {
             if (PreGameManager.instance.puzzleDifficulty == 0) puzzle = puzzleDifTutorial;
