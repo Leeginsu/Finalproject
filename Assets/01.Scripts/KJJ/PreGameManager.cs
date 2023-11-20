@@ -391,7 +391,7 @@ public class PreGameManager : MonoBehaviourPun
     }
 
     public Text score;
-    int scoreCount = 3;
+    public int scoreCount = 3;
 
     public void ImageCount()
     {
