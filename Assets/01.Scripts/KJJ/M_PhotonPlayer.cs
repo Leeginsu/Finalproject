@@ -150,7 +150,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, 0);
                     Move();
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                    transform.position += moveVelocity.normalized * (speed/2) * Time.deltaTime;
                 }
                 if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(0, 135, 0);
                 if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(0, 45, 0);
@@ -160,7 +160,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 0);
                     Move();
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                    transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
                 }
                 if (inputRight && inputUp) transform.rotation = Quaternion.Euler(0, -135, 0);
                 if (inputRight && inputDown) transform.rotation = Quaternion.Euler(0, -45, 0);
@@ -170,7 +170,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 180, 0);
                     Move();
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                    transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
                 }
                 if (inputDown)
                 {
@@ -178,7 +178,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 0, 0);
                     Move();
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * speed * Time.deltaTime;
+                    transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
                 }
                 if (!inputLeft && !inputRight && !inputUp && !inputDown)
                 {
