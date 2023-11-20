@@ -202,7 +202,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -490,7 +490,97 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: LilRobot(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: LilRobot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071067, y: 0.0000065317704, z: -0.000006531769, w: -0.7071068}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Center
+      parentName: Armature
+      position: {x: 1.4817548e-23, y: -9.215519e-10, z: 0.0044598687}
+      rotation: {x: 0.7071068, y: -0.000000099662515, z: -0.000000038254317, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.R
+      parentName: Center
+      position: {x: 0.0017803578, y: -0.0013134254, z: 0.000000045576343}
+      rotation: {x: -0.000000059604645, y: 0.000017863293, z: 0.07850722, w: -0.99691355}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Leg.R_end
+      parentName: Leg.R
+      position: {x: -0, y: 0.0021962856, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.L
+      parentName: Center
+      position: {x: -0.0017803999, y: -0.0013134246, z: -0.000000046653316}
+      rotation: {x: -0.00000017881393, y: -0.000015147556, z: 0.078507125, w: 0.99691355}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.L_end
+      parentName: Leg.L
+      position: {x: -0, y: 0.0021962856, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Center
+      position: {x: -1.8793134e-10, y: -0.0021640023, z: -2.586992e-10}
+      rotation: {x: 0.9832549, y: -0.000000011344903, z: 0.000018134733, w: 0.18223555}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Body
+      position: {x: 4.9640137e-15, y: 0.006785178, z: 9.437979e-11}
+      rotation: {x: -2.1709377e-12, y: -0.00000022017232, z: 0.00000067065724, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HeadTip
+      parentName: Head
+      position: {x: -1.155752e-15, y: 0.0014220023, z: 1.2934806e-16}
+      rotation: {x: -0.0000000745037, y: 0.00000014566658, z: -0.0000006706573, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HeadTip_end
+      parentName: HeadTip
+      position: {x: -0, y: 0.0015556467, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm.R
+      parentName: Body
+      position: {x: 0.0024241582, y: 0.0029594377, z: 0.00000006171388}
+      rotation: {x: -0.0000021308663, y: 0.0000059443446, z: 0.8077328, w: -0.5895488}
+      scale: {x: 0.9999998, y: 0.99999994, z: 1}
+    - name: Arm.R_end
+      parentName: Arm.R
+      position: {x: -0, y: 0.0048103873, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm.L
+      parentName: Body
+      position: {x: -0.0024205402, y: 0.0029557957, z: -0.00000006468297}
+      rotation: {x: -0.0000023469331, y: -0.0000057506304, z: 0.80773276, w: 0.5895488}
+      scale: {x: 1.0000002, y: 1, z: 1}
+    - name: Arm.L_end
+      parentName: Arm.L
+      position: {x: -0, y: 0.004810388, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes
+      parentName: LilRobot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: LilRobot
+      parentName: LilRobot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: QBlock
+      parentName: LilRobot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -505,9 +595,9 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0

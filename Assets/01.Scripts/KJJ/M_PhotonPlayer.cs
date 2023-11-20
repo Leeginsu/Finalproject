@@ -75,8 +75,8 @@ public class M_PhotonPlayer : MonoBehaviourPun
             puzzleCount.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-
-    // RPG
+     
+    // RPC 퍼즐상호작용
     [PunRPC]
     void RpcInputClick()
     {
@@ -95,6 +95,13 @@ public class M_PhotonPlayer : MonoBehaviourPun
             // puzzleCount를 비운다.
             puzzleCount = null;
         }
+    }
+
+    // RPG 애니메이션
+    [PunRPC]
+    void Animations(string parameter, bool b)
+    {
+        anim.SetBool(parameter, b);
     }
 
     public int TTT()
@@ -142,7 +149,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     moveVelocity = new Vector3(1f, 0, 0);
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, 0);
                     Move();
-                    anim.SetBool("IsMoving", true);
+                    //anim.SetBool("IsMoving", true);
                     transform.position += moveVelocity.normalized * speed * Time.deltaTime;
                 }
                 if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(0, 135, 0);
@@ -152,7 +159,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     moveVelocity = new Vector3(-1f, 0, 0);
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 0);
                     Move();
-                    anim.SetBool("IsMoving", true);
+                    //anim.SetBool("IsMoving", true);
                     transform.position += moveVelocity.normalized * speed * Time.deltaTime;
                 }
                 if (inputRight && inputUp) transform.rotation = Quaternion.Euler(0, -135, 0);
@@ -162,7 +169,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     moveVelocity = new Vector3(0, 0, -1f);
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 180, 0);
                     Move();
-                    anim.SetBool("IsMoving", true);
+                    //anim.SetBool("IsMoving", true);
                     transform.position += moveVelocity.normalized * speed * Time.deltaTime;
                 }
                 if (inputDown)
@@ -170,12 +177,12 @@ public class M_PhotonPlayer : MonoBehaviourPun
                     moveVelocity = new Vector3(0, 0, 1f);
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 0, 0);
                     Move();
-                    anim.SetBool("IsMoving", true);
+                    //anim.SetBool("IsMoving", true);
                     transform.position += moveVelocity.normalized * speed * Time.deltaTime;
                 }
                 if (!inputLeft && !inputRight && !inputUp && !inputDown)
                 {
-                    anim.SetBool("IsMoving", false);
+                    photonView.RPC(nameof(Animations), RpcTarget.MasterClient, "IsMoving", false);
                 }
             }
             else
@@ -210,7 +217,8 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 }
                 if (!inputLeft && !inputRight && !inputUp && !inputDown)
                 {
-                    anim.SetBool("IsMoving", false);
+                    photonView.RPC(nameof(Animations), RpcTarget.MasterClient, "IsMoving", false);
+                    //anim.SetBool("IsMoving", false);
                 }
             }
         }
@@ -219,7 +227,8 @@ public class M_PhotonPlayer : MonoBehaviourPun
 
     void Move()
     {
-        anim.SetBool("IsMoving", true);
+        photonView.RPC(nameof(Animations), RpcTarget.MasterClient, "IsMoving", true);
+        //anim.SetBool("IsMoving", true);
         transform.position += moveVelocity.normalized * speed * Time.deltaTime;
     }
 
