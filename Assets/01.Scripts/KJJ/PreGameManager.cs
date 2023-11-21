@@ -89,7 +89,10 @@ public class PreGameManager : MonoBehaviourPun
 
     int idx = 0;
 
+    // 플레이어 위치 초기화
     public GameObject aa;
+    bool clearOn = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -116,7 +119,7 @@ public class PreGameManager : MonoBehaviourPun
         //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
         //    //Invoke("PlayerInstance", 1f);
         //}
-        NetworkManager.instance.playerInfo[0].transform.position = aa.transform.position;
+        if(clearOn) ClearOn();
     }
 
     // Update is called once per frame
@@ -127,10 +130,12 @@ public class PreGameManager : MonoBehaviourPun
         if (clearCount == level && level == 4)
         {
             scoreCount--;
+            clearOn = true;
             clearCount = 0;
             tutorial = false;
             easy = true;
             EClear();
+            if (clearOn) ClearOn();
         }
         if (clearCount == level && level == 9)
         {
@@ -139,12 +144,14 @@ public class PreGameManager : MonoBehaviourPun
             easy = false;
             hard = true;
             Clear();
+            if (clearOn) ClearOn();
         }
         if (clearCount == level && level == 16)
         {
             scoreCount = 0;
             End();
             clearUI.SetActive(true);
+            if (clearOn) ClearOn();
             //ClearMove();
         }
 
@@ -333,7 +340,7 @@ public class PreGameManager : MonoBehaviourPun
             puzzleSprite.Add(sprite);
         }
     }
-    
+
     public void EImageLoad()
     {
         // 변수초기화
@@ -348,7 +355,7 @@ public class PreGameManager : MonoBehaviourPun
             puzzleSprite.Add(sprite);
         }
     }
-    
+
     public void ImageLoad()
     {
         // 변수초기화
@@ -395,6 +402,17 @@ public class PreGameManager : MonoBehaviourPun
 
     public void ImageCount()
     {
-        score.GetComponent<Text>().text =scoreCount.ToString();
+        score.GetComponent<Text>().text = scoreCount.ToString();
+    }
+
+    // 위치 초기화
+    void ClearOn()
+    {
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount - 1; i++)
+        {
+            NetworkManager.instance.playerInfo[i].transform.position = aa.transform.position;
+            NetworkManager.instance.playerInfo[i].transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
+        clearOn = false;
     }
 }

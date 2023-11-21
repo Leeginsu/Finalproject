@@ -148,9 +148,9 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 {
                     moveVelocity = new Vector3(1f, 0, 0);
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, 0);
-                    Move();
+                    Move(speed/2);
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * (speed/2) * Time.deltaTime;
+                    //transform.position += moveVelocity.normalized * (speed/2) * Time.deltaTime;
                 }
                 if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(0, 135, 0);
                 if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(0, 45, 0);
@@ -158,9 +158,9 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 {
                     moveVelocity = new Vector3(-1f, 0, 0);
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 0);
-                    Move();
+                    Move(speed/2);
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
+                    //transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
                 }
                 if (inputRight && inputUp) transform.rotation = Quaternion.Euler(0, -135, 0);
                 if (inputRight && inputDown) transform.rotation = Quaternion.Euler(0, -45, 0);
@@ -168,17 +168,17 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 {
                     moveVelocity = new Vector3(0, 0, -1f);
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 180, 0);
-                    Move();
+                    Move(speed/2);
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
+                    //transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
                 }
                 if (inputDown)
                 {
                     moveVelocity = new Vector3(0, 0, 1f);
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(0, 0, 0);
-                    Move();
+                    Move(speed/2);
                     //anim.SetBool("IsMoving", true);
-                    transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
+                    //transform.position += moveVelocity.normalized * (speed / 2) * Time.deltaTime;
                 }
                 if (!inputLeft && !inputRight && !inputUp && !inputDown)
                 {
@@ -191,7 +191,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 {
                     moveVelocity = new Vector3(-1f, 0, 0);
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, -90, 90);
-                    Move();
+                    Move(speed);
                 }
                 if (inputLeft && inputUp) transform.rotation = Quaternion.Euler(-45, -90, 90);
                 if (inputLeft && inputDown) transform.rotation = Quaternion.Euler(-315, -90, 90);
@@ -199,7 +199,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 {
                     moveVelocity = new Vector3(1f, 0, 0);
                     if (!inputUp && !inputDown) transform.rotation = Quaternion.Euler(0, 90, -90);
-                    Move();
+                    Move(speed);
                 }
                 if (inputRight && inputUp) transform.rotation = Quaternion.Euler(-45, 90, -90);
                 if (inputRight && inputDown) transform.rotation = Quaternion.Euler(-225, -90, 90);
@@ -207,13 +207,13 @@ public class M_PhotonPlayer : MonoBehaviourPun
                 {
                     moveVelocity = new Vector3(0, 1f, 0);
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-90, 0, 0);
-                    Move();
+                    Move(speed);
                 }
                 if (inputDown)
                 {
                     moveVelocity = new Vector3(0, -1f, 0);
                     if (!inputLeft && !inputRight) transform.rotation = Quaternion.Euler(-270, -90, 90);
-                    Move();
+                    Move(speed);
                 }
                 if (!inputLeft && !inputRight && !inputUp && !inputDown)
                 {
@@ -225,7 +225,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
 
     }
 
-    void Move()
+    void Move(float speed)
     {
         photonView.RPC(nameof(Animations), RpcTarget.MasterClient, "IsMoving", true);
         //anim.SetBool("IsMoving", true);
