@@ -16,6 +16,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject lobbyView;
     public GameObject scrollView;
     public GameObject selectView;
+    public GameObject themaView;
     //public GameObject roomImg;
     Sprite roomImg;
     public Sprite[] temaSprite;
@@ -369,6 +370,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobbyView.SetActive(true);
         scrollView.SetActive(false);
         selectView.SetActive(false);
+        themaView.SetActive(false);
     }
 
     public void BtnRoomList()
@@ -376,6 +378,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobbyView.SetActive(false);
         scrollView.SetActive(true);
         selectView.SetActive(false);
+        themaView.SetActive(false);
+    }
+
+    public void BtnThemaList()
+    {
+        lobbyView.SetActive(false);
+        scrollView.SetActive(false);
+        selectView.SetActive(false);
+        themaView.SetActive(true);
     }
 
 }
