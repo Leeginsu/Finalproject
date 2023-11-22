@@ -323,6 +323,7 @@ public class PreGameManager : MonoBehaviourPun
             failUI.SetActive(true);
             End();
         }
+        if (currentTime > timeLimit/5) Timer.instane.timerOn = true;
     }
 
     // 퍼즐 이미지 로드
