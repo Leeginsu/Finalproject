@@ -6,7 +6,9 @@ using UnityEngine.EventSystems;
 
 public class DOTButton : MonoBehaviour
 {
-    //public bool cursorOn = false;
+    public Ease ease;
+    public GameObject a;
+    public GameObject b;
     public void OnButtonClick()
     {
         var click = DOTween.Sequence();
@@ -29,5 +31,12 @@ public class DOTButton : MonoBehaviour
         var cursor = DOTween.Sequence();
 
         cursor.Append(transform.DOScale(1f, 0.5f));
+    }
+
+    public void BounceStart()
+    {
+        a.transform.DOMoveY(540, 3).SetEase(ease);
+        //               (위치, 진행시간)
+        //a.transform.DOMoveY(3, 1).SetEase(ease);
     }
 }
