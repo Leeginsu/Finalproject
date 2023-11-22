@@ -11,10 +11,11 @@ public class Timer : MonoBehaviour
         instane = this;
     }
     public bool timerOn = false;
+    bool timerStop = true;
     // Start is called before the first frame update
     private void Update()
     {
-        if (timerOn) TimerStart();
+        if (timerOn && timerStop) TimerStart();
     }
     public void TimerStart()
     {
@@ -23,5 +24,6 @@ public class Timer : MonoBehaviour
         cursor.Append(transform.DOScale(1.2f, 0.5f))
             .Append(transform.DOScale(1.0f, 0.5f).SetLoops(-1));
         timerOn = false;
+        timerStop = false;
     }
 }
