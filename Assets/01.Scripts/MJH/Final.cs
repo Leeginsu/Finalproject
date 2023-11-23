@@ -37,16 +37,16 @@ public class Final : MonoBehaviourPunCallbacks
         //correctCount = cCount.GetComponent<PreGameManager>().scoreCount;
     }
 
-    void BtnEnter()
+    public void BtnEnter()
     {
         correctCountUI.SetActive(false);
         placeMentUI.SetActive(true);
     }
 
-    void BtnPlacement()
+    public void BtnPlacement()
     {
         print("배치되었습니다.");
-
+        placeMentUI.SetActive(false);
         //PhotonNetwork.Instantiate("",placePos[0].position,Quaternion.identity);
         correctPic1.SetActive(true);
         correctPic2.SetActive(true);
