@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour
     }
     public bool timerOn = false;
     bool timerStop = true;
+
     // Start is called before the first frame update
     private void Update()
     {

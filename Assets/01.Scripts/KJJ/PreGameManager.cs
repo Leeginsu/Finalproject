@@ -87,8 +87,6 @@ public class PreGameManager : MonoBehaviourPun
     public float widthx;
     public float lengthy;
 
-    int idx = 0;
-
     // 플레이어 위치 초기화
     public GameObject aa;
     bool clearOn = true;
@@ -323,7 +321,7 @@ public class PreGameManager : MonoBehaviourPun
             failUI.SetActive(true);
             End();
         }
-        if (currentTime > timeLimit/5) Timer.instane.timerOn = true;
+        if (currentTime < timeLimit/5) Timer.instane.timerOn = true;
     }
 
     // 퍼즐 이미지 로드
@@ -409,7 +407,7 @@ public class PreGameManager : MonoBehaviourPun
     // 위치 초기화
     void ClearOn()
     {
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount - 1; i++)
+        for (int i = 0; i <= PhotonNetwork.CurrentRoom.PlayerCount - 1; i++)
         {
             NetworkManager.instance.playerInfo[i].transform.position = aa.transform.position;
             NetworkManager.instance.playerInfo[i].transform.rotation = Quaternion.Euler(-90, 0, 0);
