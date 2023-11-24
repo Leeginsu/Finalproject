@@ -117,7 +117,7 @@ public class PreGameManager : MonoBehaviourPun
         //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
         //    //Invoke("PlayerInstance", 1f);
         //}
-        if(clearOn) ClearOn();
+        if (clearOn) ClearOn();
     }
 
     // Update is called once per frame
@@ -321,7 +321,7 @@ public class PreGameManager : MonoBehaviourPun
             failUI.SetActive(true);
             End();
         }
-        if (currentTime < timeLimit/5) Timer.instane.timerOn = true;
+        if (currentTime < timeLimit / 5) Timer.instane.timerOn = true;
     }
 
     // 퍼즐 이미지 로드
@@ -407,11 +407,9 @@ public class PreGameManager : MonoBehaviourPun
     // 위치 초기화
     void ClearOn()
     {
-        for (int i = 0; i <= PhotonNetwork.CurrentRoom.PlayerCount - 1; i++)
-        {
-            NetworkManager.instance.playerInfo[i].transform.position = aa.transform.position;
-            NetworkManager.instance.playerInfo[i].transform.rotation = Quaternion.Euler(-90, 0, 0);
-        }
+        NetworkManager.instance.playerInfo[0].transform.position = aa.transform.position;
+        NetworkManager.instance.playerInfo[0].transform.rotation = Quaternion.Euler(-90, 0, 0);
         clearOn = false;
     }
+
 }
