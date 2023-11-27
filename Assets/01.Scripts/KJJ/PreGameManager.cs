@@ -150,6 +150,8 @@ public class PreGameManager : MonoBehaviourPun
             End();
             clearUI.SetActive(true);
             if (clearOn) ClearOn();
+
+            PhotonNetwork.LoadLevel("GalleryScene");
             //ClearMove();
         }
 
