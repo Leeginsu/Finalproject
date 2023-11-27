@@ -150,8 +150,8 @@ public class PreGameManager : MonoBehaviourPun
             End();
             clearUI.SetActive(true);
             if (clearOn) ClearOn();
-
-            PhotonNetwork.LoadLevel("GalleryScene");
+            if (PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel("GalleryScene");
+            clearCount = 0;
             //ClearMove();
         }
 
@@ -409,8 +409,11 @@ public class PreGameManager : MonoBehaviourPun
     // 위치 초기화
     void ClearOn()
     {
-        NetworkManager.instance.playerInfo[0].transform.position = aa.transform.position;
-        NetworkManager.instance.playerInfo[0].transform.rotation = Quaternion.Euler(-90, 0, 0);
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            NetworkManager.instance.playerInfo[0].transform.position = aa.transform.position;
+            NetworkManager.instance.playerInfo[0].transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
         clearOn = false;
     }
 
