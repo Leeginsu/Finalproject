@@ -11,6 +11,15 @@ public class PreGameManager : MonoBehaviourPun
     public Transform[] spotGroup;
     public GameObject conUI;
 
+    // 시작 카운트다운
+    public float startTime = 4f;
+
+    // 321시작 게임 오브젝트
+    public GameObject start3;
+    public GameObject start2;
+    public GameObject start1;
+    public GameObject startGo;
+
     private void Awake()
     {
         Difficulty();
@@ -94,29 +103,14 @@ public class PreGameManager : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(StartTimeCoroutine());
         currentTime = timeLimit;
         time.size = 1;
-        TImageLoad();
-        PuzzleRandom();
+        //TImageLoad();
+        //PuzzleRandom();
 
-        ImageIn();
-        initialxy = initial[puzzleDifficulty].transform.position;
-        print(initialxy);
-        //if (Application.isMobilePlatform || NetworkManager.instance.isMoblie)
-        //{
-        //    conUI.SetActive(true);
-        //    print("켜져라");
-        //    idx = PhotonNetwork.CurrentRoom.PlayerCount - 1;
-        //    //int idx = 1;
-        //    //Invoke("PlayerInstance", 1f);
-        //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[idx].position, Quaternion.Euler(-90, 0, 0));
-        //}
-        //else
-        //{
-        //    conUI.SetActive(false);
-        //    //PhotonNetwork.Instantiate("Player_Photon", spotGroup[0].position, Quaternion.Euler(-90, 0, 0));
-        //    //Invoke("PlayerInstance", 1f);
-        //}
+        //ImageIn();
+        //initialxy = initial[puzzleDifficulty].transform.position;
         if (clearOn) ClearOn();
     }
 
@@ -124,6 +118,9 @@ public class PreGameManager : MonoBehaviourPun
     void Update()
     {
         NetworkManager.instance.tema = false;
+
+        // 시작 카운트
+
         // 클리어
         if (clearCount == level && level == 4)
         {
@@ -163,6 +160,36 @@ public class PreGameManager : MonoBehaviourPun
         ImageCount();
     }
 
+    // 시작 시간초
+    IEnumerator StartTimeCoroutine()
+    {
+        start3.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.0f);
+        start3.SetActive(false);
+        start2.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.0f);
+        start2.SetActive(false);
+        start1.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.0f);
+        start1.SetActive(false);
+        startGo.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.0f);
+        startGo.SetActive(false);
+        TImageLoad();
+        PuzzleRandom();
+
+        ImageIn();
+        initialxy = initial[puzzleDifficulty].transform.position;
+        //currentTime = timeLimit;
+        //time.size = 1;
+        //TImageLoad();
+        //PuzzleRandom();
+
+        //ImageIn();
+        //initialxy = initial[puzzleDifficulty].transform.position;
+        //print(initialxy);
+        //if (clearOn) ClearOn();
+    }
     // 퍼즐 난이도 정보
     public void Difficulty()
     {
@@ -323,7 +350,6 @@ public class PreGameManager : MonoBehaviourPun
             failUI.SetActive(true);
             End();
         }
-        if (currentTime < timeLimit / 5) Timer.instane.timerOn = true;
     }
 
     // 퍼즐 이미지 로드
@@ -416,5 +442,4 @@ public class PreGameManager : MonoBehaviourPun
         }
         clearOn = false;
     }
-
 }
