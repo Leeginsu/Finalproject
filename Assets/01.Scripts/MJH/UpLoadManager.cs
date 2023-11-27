@@ -112,30 +112,38 @@ public class UpLoadManager : MonoBehaviour
     //    }
     //}
 
-    private string uploadURL = "http://192.168.0.44:5001/main/upload-image";
+    static public UpLoadManager instance;
+
+    private string uploadURL = "http://192.168.0.30:5001/main/upload-image";
     private string fbxPath; // ZIP 파일 저장 경로
     private int maxCount; // 최대 플레이어 수
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
         maxCount = LobbyManager.instance.maxPlayers; // 최대 플레이어 수 초기화
     }
 
-    public void UploadAndDownloadFBX(Texture2D userImage)
-    {
-        StartCoroutine(UploadDownloadCoroutine(userImage));
-    }
+    //public void UploadAndDownloadFBX(Texture2D userImage, int size)
+    //{
+    //    StartCoroutine(UploadDownloadCoroutine(userImage, size));
+    //}
 
-    private IEnumerator UploadDownloadCoroutine(Texture2D userImage)
-    {
-        yield return StartCoroutine(UploadImageCoroutine(userImage));
-    }
+    //private IEnumerator UploadDownloadCoroutine(Texture2D userImage, int size)
+    //{
+    //    yield return StartCoroutine(UploadImageCoroutine(userImage, size));
+    //}
 
-    private IEnumerator UploadImageCoroutine(Texture2D userImage)
+    private IEnumerator UploadImageCoroutine(Texture2D userImage, int size)
     {
         byte[] imageBytes = userImage.EncodeToPNG();
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", imageBytes);
+        form.AddField("size", 2); // size 매개변수
 
         using (UnityWebRequest www = UnityWebRequest.Post(uploadURL, form))
         {
@@ -205,6 +213,4 @@ public class UpLoadManager : MonoBehaviour
             Debug.LogError("Error extracting zip file: " + ex.Message);
         }
     }
-
-
 }

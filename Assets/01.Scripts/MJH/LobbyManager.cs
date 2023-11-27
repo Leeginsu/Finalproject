@@ -295,6 +295,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             DifficultyManager.instance.easy = true;
             DifficultyManager.instance.normal = false;
             DifficultyManager.instance.normal = false;
+
+            UpLoadManager.instance.UploadAndDownloadFBX(userImage, 2);
         }
         if (levelToggle[1].isOn == true)
         {
