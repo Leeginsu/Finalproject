@@ -35,6 +35,11 @@ public class Final : MonoBehaviourPunCallbacks
     void Update()
     {
         //correctCount = cCount.GetComponent<PreGameManager>().scoreCount;
+
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            PhotonNetwork.LoadLevel("Lobby");
+        }
     }
 
     public void BtnEnter()

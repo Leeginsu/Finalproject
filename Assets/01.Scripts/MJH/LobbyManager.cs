@@ -373,6 +373,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         scrollView.SetActive(false);
         selectView.SetActive(false);
         themaView.SetActive(false);
+        showUI.SetActive(false);
     }
 
     public void BtnRoomList()
@@ -389,6 +390,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         scrollView.SetActive(false);
         selectView.SetActive(false);
         themaView.SetActive(true);
+    }
+
+    public GameObject showUI;
+
+    public void BtnShow()
+    {
+        showUI.SetActive(true);
     }
 
 }
