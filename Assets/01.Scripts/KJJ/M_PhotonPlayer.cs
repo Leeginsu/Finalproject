@@ -86,7 +86,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
         // puzzleCount에 무언가 있다면
         else if (puzzleCount != null)
         {
-            int n = TTT();
+            int n = PuzzleCheck();
             // 정답인지 체크
             transform.GetComponentInChildren<T_Drop>().CheckAnswer(n);
             transform.GetComponentInChildren<T_Drop>().space = true;
@@ -104,7 +104,7 @@ public class M_PhotonPlayer : MonoBehaviourPun
         anim.SetBool(parameter, b);
     }
 
-    public int TTT()
+    public int PuzzleCheck()
     {
         // 가로
         int w = PreGameManager.instance.width;
